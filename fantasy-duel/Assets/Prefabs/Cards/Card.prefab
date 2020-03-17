@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 3713361340653570700}
   - component: {fileID: 2857361921519023547}
   - component: {fileID: 2392218639789832173}
+  - component: {fileID: 4112946924095695505}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -260,6 +261,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4112946924095695505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2892375796432738044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9734dc0ccda8124980c5e09dd047ad7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: {fileID: 7928562871769731364}
+  description: {fileID: 6987613707200781865}
+  art: {fileID: 2277127518173987712}
+  icon: {fileID: 9146921770966541977}
+  coins: {fileID: 3931820909662621933}
+  attackPoints: {fileID: 8188939127491746422}
+  lifePoints: {fileID: 9051241003691034741}
 --- !u!1 &2944102197417284486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1117,7 +1137,7 @@ GameObject:
   - component: {fileID: 9055816739154009450}
   - component: {fileID: 9146921770966541977}
   m_Layer: 0
-  m_Name: Card Type
+  m_Name: Card Type Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1168,7 +1188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fd6e4fc32c78509458fc45ea4a478ba8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db427fab3e94daf4caa704d9314a77a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
