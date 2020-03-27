@@ -10,7 +10,7 @@ public class PlayerSettings : MonoBehaviour
     {
         if (PlayerPrefs.GetString("Nickname") == "")
         {
-            uiManager.EnableNicknameCreationPanel();
+            uiManager.ShowNicknameCreationPanel();
         }
         else
         {

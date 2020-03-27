@@ -1,7 +1,7 @@
 ﻿using System;
 
 [Serializable]
-public class Cards
+public class Card
 {
     public int Id;
     public string Name;

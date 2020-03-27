@@ -14,7 +14,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public void Connect()
     {
-        uiManager.EnableMatchmakingPanel();
+        uiManager.ShowMatchmakingPanel();
         uiManager.ConnectionStatus.text = "Connecting to the server...";
         PhotonNetwork.ConnectUsingSettings();
     }
