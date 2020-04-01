@@ -17,11 +17,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text connectionStatus;
 
     [SerializeField] private GameObject[] cardPlaceholder;
+    [SerializeField] private GameObject[] cardPlaceholderDeck;
 
     [SerializeField] private CardPageManager cardPageManager;
+    [SerializeField] private CardPageManager cardPageManagerDeck;
+
+    [SerializeField] private Text coins;
 
     public InputField PlayerName { get { return playerName; } private set { playerName = value; } }
     public Text ConnectionStatus { get { return connectionStatus; } set { connectionStatus = value; } }
+    public Text Coins { get { return coins; } set { coins = value; } }
 
     private void Awake()
     {
@@ -42,6 +47,7 @@ public class UIManager : MonoBehaviour
     private void SetPlaceholdersAs(bool status)
     {
         cardPlaceholder.ToList().ForEach(card => card.SetActive(status));
+        cardPlaceholderDeck.ToList().ForEach(card => card.SetActive(status));
     }
 
     public void ShowNicknameCreationPanel()
@@ -61,14 +67,14 @@ public class UIManager : MonoBehaviour
     {
         deckBuildingPanel.SetActive(true);
         canvasCardCollection.SetActive(true);
-        //SetPlaceholdersAs(true);
-        ShowCards("Creatures");
         mainMenuPanel.SetActive(false);
+        ShowCards();
     }
 
-    public void ShowCards(string type)
+    public void ShowCards()
     {
-        cardPageManager.SetList(type);
+        cardPageManager.SetList("Creatures");
+        cardPageManagerDeck.SetList("Creatures");
     }
 
     public void SetNicknameText()

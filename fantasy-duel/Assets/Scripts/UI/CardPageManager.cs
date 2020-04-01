@@ -9,40 +9,25 @@ public class CardPageManager : MonoBehaviour
     private int pages;
     private int cardsPerPage;
 
+    [SerializeField] private CardConversion cardConversion;
     [SerializeField] private CardCollection cardCollection;
-    [SerializeField] private GameObject[] cardPlaceholders;
+    [SerializeField] private GameObject[] cardPrefabs;
+
+    public GameObject[] CardPrefabs { get { return cardPrefabs; }}
     public List<Card> Cards { get; set; }
 
     private void Awake()
     {
-        cardsPerPage = cardPlaceholders.Length;
+        cardConversion.Deserialize();
+        cardsPerPage = cardPrefabs.Length;
     }
 
     public void SetList(string type)
     {
-        switch (type)
-        {
-            case "Bases":
-                Cards = cardCollection.Bases;
-                SetPagesNumber();
-                SetInterval(0, cardsPerPage);
-                SetPage();
-                break;
-
-            case "Creatures":
-                Cards = cardCollection.Creatures;
-                SetPagesNumber();
-                SetInterval(0, cardsPerPage);
-                SetPage();
-                break;
-
-            case "Magics":
-                Cards = cardCollection.Magics;
-                SetPagesNumber();
-                SetInterval(0, cardsPerPage);
-                SetPage();
-                break;
-        }
+        Cards = cardCollection.Cards.FindAll(card => card.Type == type).OrderBy(card => card.Id).ToList();
+        SetPagesNumber();
+        SetInterval(0, cardsPerPage);
+        SetPage();
     }
 
     private void SetPagesNumber()
@@ -62,7 +47,7 @@ public class CardPageManager : MonoBehaviour
 
     private void SetPage()
     {
-        cardPlaceholders.ToList().ForEach(cardPlaceholder => cardPlaceholder.SetActive(false));
+        cardPrefabs.ToList().ForEach(cardPrefab => cardPrefab.SetActive(false));
 
         for (int index = start; index < end; index++)
         {
@@ -70,8 +55,9 @@ public class CardPageManager : MonoBehaviour
             {
                 Card card = Cards[index];
                 int position = index % cardsPerPage;
-                cardPlaceholders[position].SetActive(true);
-                cardPlaceholders[position].GetComponent<CardUI>().Set(card);
+                cardPrefabs[position].SetActive(true);
+                cardPrefabs[position].GetComponent<CardUI>().Set(card);
+                cardPrefabs[position].GetComponent<CardInfo>().Set(card);
             }
         }
     }
