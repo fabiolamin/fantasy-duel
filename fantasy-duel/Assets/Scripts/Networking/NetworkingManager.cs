@@ -9,6 +9,7 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -47,23 +48,41 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
-            foreach(Player player in PhotonNetwork.PlayerList)
+            Player player = GetMasterClient();
+
+            ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+            properties.Add("IsReadyToLoad", true);
+            player.SetCustomProperties(properties);
+        }
+    }
+
+    private Player GetMasterClient()
+    {
+        foreach (Player player in PhotonNetwork.PlayerList)
+        {
+            if (player.IsMasterClient)
             {
-                if(player.IsMasterClient)
-                {
-                    ExitGames.Client.Photon.Hashtable customProperties = new ExitGames.Client.Photon.Hashtable();
-                    customProperties.Add("IsReadyToLoad", true);
-                    player.SetCustomProperties(customProperties);
-                }
+                return player;
             }
         }
+
+        return null;
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
-        if(targetPlayer.IsMasterClient)
+        if (targetPlayer.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel(1);
+            if (changedProps["IsReadyToLoad"] != null)
+            {
+                bool isReadyToLoad = bool.Parse(changedProps["IsReadyToLoad"].ToString());
+
+                if (isReadyToLoad)
+                {
+                    PhotonNetwork.LoadLevel(1);
+                    changedProps.Remove("IsReadyToLoad");
+                }
+            }
         }
     }
 }

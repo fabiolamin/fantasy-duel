@@ -34,5 +34,17 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - SetAttributes
+  - SetCamera
+  - MoveCards
+  - SetButtons
+  - RotateHUD
+  - SetHUD
+  - RotatePlayerHUD
+  - SetPlayerHUD
+  - Rotate
+  - Set
+  - RotateHUDTo
+  - RotateHUDToOpponent
   DisableAutoOpenWizard: 1
   ShowSettings: 1
