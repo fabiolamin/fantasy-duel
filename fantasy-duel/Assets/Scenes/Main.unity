@@ -257,6 +257,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiManager: {fileID: 405042318}
   networkingManager: {fileID: 1881426510}
+  deckCardStorage: {fileID: 1880738395}
 --- !u!1 &45544286
 GameObject:
   m_ObjectHideFlags: 0
@@ -2703,7 +2704,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1780351708}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &744786137
 MonoBehaviour:
@@ -2717,8 +2718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093ed404a8f1c3848bd84afe79d8453c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardConversion: {fileID: 1880738395}
-  cardCollection: {fileID: 1786331291}
+  cardStorage: {fileID: 1880738395}
   cardPrefabs:
   - {fileID: 160961369}
   - {fileID: 171076576}
@@ -2936,49 +2936,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809075210}
   m_CullTransparentMesh: 0
---- !u!1 &817021482
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 817021484}
-  - component: {fileID: 817021483}
-  m_Layer: 0
-  m_Name: Card Collection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &817021483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817021482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc0222e5801da740905610075f0651e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &817021484
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 817021482}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1673129244}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &817054098
 GameObject:
   m_ObjectHideFlags: 0
@@ -4791,8 +4748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 093ed404a8f1c3848bd84afe79d8453c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardConversion: {fileID: 1996150567}
-  cardCollection: {fileID: 817021483}
+  cardStorage: {fileID: 1996150567}
   cardPrefabs:
   - {fileID: 1840912595}
   - {fileID: 1813297314}
@@ -4812,7 +4768,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1673129244}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1272756882
 GameObject:
@@ -5790,11 +5746,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumPlayerCoins: 80
   uiManager: {fileID: 405042318}
-  storeCardCollection: {fileID: 817021483}
-  storeCardConversion: {fileID: 1996150567}
+  storeCardStorage: {fileID: 1996150567}
   storeCardPageManager: {fileID: 1259741117}
-  deckCardCollection: {fileID: 1786331291}
-  deckCardConversion: {fileID: 1880738395}
+  deckCardStorage: {fileID: 1880738395}
   deckCardPageManager: {fileID: 744786137}
 --- !u!4 &1490596314
 Transform:
@@ -6327,7 +6281,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1996150568}
-  - {fileID: 817021484}
   - {fileID: 1259741118}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -6536,53 +6489,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1880738396}
-  - {fileID: 1786331292}
   - {fileID: 744786136}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1786331290
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1786331292}
-  - component: {fileID: 1786331291}
-  m_Layer: 0
-  m_Name: Card Collection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1786331291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786331290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bc0222e5801da740905610075f0651e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1786331292
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786331290}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1780351708}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1813297311
 PrefabInstance:
@@ -6999,7 +6908,7 @@ GameObject:
   - component: {fileID: 1880738396}
   - component: {fileID: 1880738395}
   m_Layer: 0
-  m_Name: Card Conversion
+  m_Name: Card Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7017,7 +6926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edf95d646e85634586e7ded49a43e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardCollection: {fileID: 1786331291}
   folderName: Deck
 --- !u!4 &1880738396
 Transform:
@@ -7063,6 +6971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiManager: {fileID: 405042318}
+  playerSettings: {fileID: 36751110}
 --- !u!4 &1881426511
 Transform:
   m_ObjectHideFlags: 0
@@ -7540,7 +7449,7 @@ GameObject:
   - component: {fileID: 1996150568}
   - component: {fileID: 1996150567}
   m_Layer: 0
-  m_Name: Card Conversion
+  m_Name: Card Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7558,7 +7467,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edf95d646e85634586e7ded49a43e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardCollection: {fileID: 817021483}
   folderName: Store
 --- !u!4 &1996150568
 Transform:

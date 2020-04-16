@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 4522096730875802130}
   - component: {fileID: 3501583578041678223}
   - component: {fileID: 3304020614577570078}
+  - component: {fileID: 6499475936070719740}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -71,6 +72,7 @@ Transform:
   - {fileID: 3403891542332778576}
   - {fileID: 3403891541567440114}
   - {fileID: 3403891541798312755}
+  - {fileID: 4884232793427229116}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -144,6 +146,26 @@ MonoBehaviour:
   rounds: {fileID: 3403891541906085622}
   nickname: {fileID: 3255647564593062265}
   buttons: {fileID: 935458493298275355}
+--- !u!114 &6499475936070719740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403891541363636337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f269d77c371b5cf4a94af78f9b33076f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 2892375796432738044, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+    type: 3}
+  handCards:
+  - {fileID: 3403891541673107285}
+  - {fileID: 3403891543029628437}
+  - {fileID: 3403891541752023648}
+  - {fileID: 3403891541655020320}
+  - {fileID: 3403891542386440564}
 --- !u!1 &3403891541368923826
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3403891541368923829
 Transform:
   m_ObjectHideFlags: 0
@@ -2624,6 +2646,50 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &3455668507998865637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4884232793427229116}
+  - component: {fileID: 3297080288771765842}
+  m_Layer: 0
+  m_Name: Card Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4884232793427229116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455668507998865637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3403891541363636336}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3297080288771765842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455668507998865637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9edf95d646e85634586e7ded49a43e40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  folderName: Deck
 --- !u!1 &3653028915905418139
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,18 +9,16 @@ public class DeckBuilding : MonoBehaviour
     [SerializeField] private UIManager uiManager;
 
     [Header("Store")]
-    [SerializeField] private CardCollection storeCardCollection;
-    [SerializeField] private CardConversion storeCardConversion;
+    [SerializeField] private CardStorage storeCardStorage;
     [SerializeField] private CardPageManager storeCardPageManager;
 
     [Header("Deck")]
-    [SerializeField] private CardCollection deckCardCollection;
-    [SerializeField] private CardConversion deckCardConversion;
+    [SerializeField] private CardStorage deckCardStorage;
     [SerializeField] private CardPageManager deckCardPageManager;
 
     private void Awake()
     {
-        playerCoins = maximumPlayerCoins - deckCardCollection.Cards.Sum(card => card.Coins);
+        playerCoins = maximumPlayerCoins - deckCardStorage.Collection.Sum(card => card.Coins);
         uiManager.Coins.text = "Coins: " + playerCoins;
     }
     public void StoreCard()
@@ -31,8 +29,8 @@ public class DeckBuilding : MonoBehaviour
         {
             if (playerCoins >= card.Coins)
             {
-                deckCardCollection.Cards.Add(card);
-                storeCardCollection.Cards.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = false;
+                deckCardStorage.Collection.Add(card);
+                storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = false;
                 RefreshCardPageManager(card.Type);
                 UpdateCoins(-card.Coins);
             }
@@ -42,9 +40,9 @@ public class DeckBuilding : MonoBehaviour
     public void DeleteCard()
     {
         Card card = GetSelectedCard(deckCardPageManager.CardPrefabs);
-        int index = deckCardCollection.Cards.FindIndex(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type);
-        deckCardCollection.Cards.RemoveAt(index);
-        storeCardCollection.Cards.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = true;
+        int index = deckCardStorage.Collection.FindIndex(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type);
+        deckCardStorage.Collection.RemoveAt(index);
+        storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = true;
         RefreshCardPageManager(card.Type);
         UpdateCoins(card.Coins);
     }
@@ -78,8 +76,8 @@ public class DeckBuilding : MonoBehaviour
 
     public void Save()
     {
-        deckCardConversion.Serialize();
-        storeCardConversion.Serialize();
+        deckCardStorage.SaveCardsAsFiles();
+        storeCardStorage.SaveCardsAsFiles();
         uiManager.ShowMainMenuPanel();
     }
 }

@@ -2,11 +2,12 @@
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using System.Collections.Generic;
 
 public class NetworkingManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private UIManager uiManager;
-
+    [SerializeField] private PlayerSettings playerSettings;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -46,10 +47,11 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        playerSettings.SetDeckAsProperty();
+
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {
             Player player = GetMasterClient();
-
             ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
             properties.Add("IsReadyToLoad", true);
             player.SetCustomProperties(properties);
@@ -73,15 +75,20 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     {
         if (targetPlayer.IsMasterClient)
         {
-            if (changedProps["IsReadyToLoad"] != null)
-            {
-                bool isReadyToLoad = bool.Parse(changedProps["IsReadyToLoad"].ToString());
+            LoadRoom(changedProps);
+        }
+    }
 
-                if (isReadyToLoad)
-                {
-                    PhotonNetwork.LoadLevel(1);
-                    changedProps.Remove("IsReadyToLoad");
-                }
+    private void LoadRoom(Hashtable changedProps)
+    {
+        if (changedProps["IsReadyToLoad"] != null)
+        {
+            bool isReadyToLoad = bool.Parse(changedProps["IsReadyToLoad"].ToString());
+
+            if (isReadyToLoad)
+            {
+                PhotonNetwork.LoadLevel(1);
+                changedProps.Remove("IsReadyToLoad");
             }
         }
     }

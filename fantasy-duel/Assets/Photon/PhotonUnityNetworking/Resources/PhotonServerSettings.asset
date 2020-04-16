@@ -46,5 +46,11 @@ MonoBehaviour:
   - Set
   - RotateHUDTo
   - RotateHUDToOpponent
+  - SetHandCards
+  - InstantiateCards
+  - RotateCardsToOpponent
+  - Build
+  - FlipCardsDown
+  - FlipCards
   DisableAutoOpenWizard: 1
   ShowSettings: 1

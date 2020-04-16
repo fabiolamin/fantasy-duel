@@ -1,14 +1,16 @@
 ﻿using System;
 using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
 
-public class CardConversion : MonoBehaviour
+public class CardStorage : MonoBehaviour
 {
     private string[] cardsDataFileNames = new string[] { "Bases", "Creatures", "Magics" };
-    [SerializeField] private CardCollection cardCollection;
     [SerializeField] private string folderName;
+    public List<Card> Collection { get; set; } = new List<Card>();
 
-    public void Deserialize()
+    public void SaveCardsAsList()
     {
         foreach (string fileName in cardsDataFileNames)
         {
@@ -21,28 +23,24 @@ public class CardConversion : MonoBehaviour
 
                 if (array != null)
                 {
-                    for (int index = 0; index < array.Card.Length; index++)
+                    foreach (Card card in array.Card)
                     {
-                        Card card = array.Card[index];
-                        cardCollection.Cards.Add(card);
+                        Collection.Add(card);
                     }
                 }
             }
         }
     }
 
-    public void Serialize()
+    public void SaveCardsAsFiles()
     {
         foreach (string fileName in cardsDataFileNames)
         {
             string path = Application.streamingAssetsPath + "/Data/" + folderName + "/" + fileName + ".json";
-
             File.WriteAllText(path, String.Empty);
             TextWriter tw = new StreamWriter(path, true);
-            CardArray array = new CardArray();
-            array.Card = cardCollection.Cards.FindAll(card => card.Type == fileName).ToArray();
-            string jsonFile = JsonUtility.ToJson(array);
-            tw.WriteLine(jsonFile);
+            Card[] cards = Collection.FindAll(card => card.Type == fileName).ToArray();
+            tw.WriteLine(CardConverter.GetJsonFrom(cards));
             tw.Close();
         }
     }

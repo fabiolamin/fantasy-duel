@@ -9,8 +9,7 @@ public class CardPageManager : MonoBehaviour
     private int pages;
     private int cardsPerPage;
 
-    [SerializeField] private CardConversion cardConversion;
-    [SerializeField] private CardCollection cardCollection;
+    [SerializeField] private CardStorage cardStorage;
     [SerializeField] private GameObject[] cardPrefabs;
 
     public GameObject[] CardPrefabs { get { return cardPrefabs; }}
@@ -18,13 +17,13 @@ public class CardPageManager : MonoBehaviour
 
     private void Awake()
     {
-        cardConversion.Deserialize();
+        cardStorage.SaveCardsAsList();
         cardsPerPage = cardPrefabs.Length;
     }
 
     public void SetList(string type)
     {
-        Cards = cardCollection.Cards.FindAll(card => card.Type == type).OrderBy(card => card.Id).ToList();
+        Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Id).ToList();
         SetPagesNumber();
         SetInterval(0, cardsPerPage);
         SetPage();
