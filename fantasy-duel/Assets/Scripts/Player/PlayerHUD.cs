@@ -6,7 +6,7 @@ using Photon.Realtime;
 public class PlayerHUD : MonoBehaviour
 {
     private PhotonView photonView;
-    private PlayerManager playerManager;
+    private PlayerInfo playerInfo;
 
     [SerializeField] private Text lifePoints;
     [SerializeField] private Text coins;
@@ -17,13 +17,14 @@ public class PlayerHUD : MonoBehaviour
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
-        playerManager = GetComponent<PlayerManager>();
+        playerInfo = GetComponent<PlayerInfo>();
+
+        SetHUD();
 
         if (photonView.IsMine)
         {
             SetButtons();
-            Set();
-            photonView.RPC("RotateHUDToOpponent", RpcTarget.OthersBuffered);
+            photonView.RPC("RotateHUDToOpponentRPC", RpcTarget.OthersBuffered);
         }
     }
 
@@ -32,22 +33,25 @@ public class PlayerHUD : MonoBehaviour
         buttons.SetActive(true);
     }
 
-    public void Set()
+    public void SetHUD()
     {
-        photonView.RPC("SetHUD", RpcTarget.AllBuffered);
+        if (photonView.IsMine)
+        {
+            photonView.RPC("SetHUDRPC", RpcTarget.AllBuffered);
+        }
     }
 
     [PunRPC]
-    private void SetHUD()
+    private void SetHUDRPC()
     {
         nickname.text = photonView.Owner.NickName;
-        lifePoints.text = playerManager.LifePoints.ToString();
-        coins.text = playerManager.Coins.ToString();
-        rounds.text = playerManager.WonRounds.ToString();
+        lifePoints.text = playerInfo.LifePoints.ToString();
+        coins.text = playerInfo.Coins.ToString();
+        rounds.text = playerInfo.WonRounds.ToString();
     }
 
     [PunRPC]
-    private void RotateHUDToOpponent()
+    private void RotateHUDToOpponentRPC()
     {
         nickname.transform.Rotate(0, 0, 180);
         lifePoints.transform.Rotate(0, 0, 180);

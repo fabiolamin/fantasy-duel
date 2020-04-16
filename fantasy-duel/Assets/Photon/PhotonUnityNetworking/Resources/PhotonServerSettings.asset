@@ -52,5 +52,12 @@ MonoBehaviour:
   - Build
   - FlipCardsDown
   - FlipCards
+  - UpdateCoins
+  - UpdateLifePoints
+  - SetHUDRpc
+  - RotateHUDToOpponentRPC
+  - SetHUDRPC
+  - UpdateCoinsRPC
+  - UpdateLifePointsRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
