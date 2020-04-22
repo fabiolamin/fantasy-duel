@@ -10,7 +10,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     [SerializeField] private PlayerSettings playerSettings;
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -88,7 +87,6 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             if (isReadyToLoad)
             {
                 PhotonNetwork.LoadLevel(1);
-                changedProps.Remove("IsReadyToLoad");
             }
         }
     }

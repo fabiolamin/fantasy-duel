@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using ExitGames.Client.Photon;
+using System.Linq;
 
-public class PlayerInfo : MonoBehaviour
+public class PlayerInfo : MonoBehaviourPunCallbacks
 {
     private PhotonView photonView;
     private PlayerHUD playerHUD;
