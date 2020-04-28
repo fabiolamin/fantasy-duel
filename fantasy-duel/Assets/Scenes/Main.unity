@@ -204,6 +204,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card Prefab 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
 --- !u!4 &22420933 stripped
@@ -554,6 +559,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Prefab 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
@@ -1141,6 +1151,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Prefab 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
@@ -2007,6 +2022,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Prefab 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
@@ -3802,6 +3822,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card Prefab 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
 --- !u!4 &979663579 stripped
@@ -3891,6 +3916,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Prefab 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
@@ -4409,6 +4439,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card Prefab 6
       objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
 --- !u!4 &1149147424 stripped
@@ -4704,6 +4739,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Prefab 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
@@ -5417,6 +5457,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Prefab 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
@@ -6367,6 +6412,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card Prefab 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
 --- !u!4 &1717098369 stripped
@@ -6575,6 +6625,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card Prefab 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}
 --- !u!4 &1813297312 stripped
@@ -6747,6 +6802,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Card Prefab 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5388628982598879725, guid: 4493e26b99fec6044ae8a6cb52b1e458,
+        type: 3}
+      propertyPath: viewIdField
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4493e26b99fec6044ae8a6cb52b1e458, type: 3}

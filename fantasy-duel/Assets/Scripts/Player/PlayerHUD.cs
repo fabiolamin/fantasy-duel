@@ -17,6 +17,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Text rounds;
     [SerializeField] private Text nickname;
     [SerializeField] private GameObject[] buttons;
+    [SerializeField] private GameObject[] playedCardImages;
     [SerializeField] private Text turnMessage;
     [SerializeField] private Text duration;
 
@@ -30,6 +31,7 @@ public class PlayerHUD : MonoBehaviour
         if (photonView.IsMine)
         {
             buttons.ToList().ForEach(button => button.SetActive(true));
+            playedCardImages.ToList().ForEach(image => image.SetActive(true));
             photonView.RPC("RotateHUDToOpponentRPC", RpcTarget.OthersBuffered);
         }
 

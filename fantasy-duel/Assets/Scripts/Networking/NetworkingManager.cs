@@ -90,4 +90,9 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        Debug.Log(cause);
+    }
 }

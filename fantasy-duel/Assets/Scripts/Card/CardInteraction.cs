@@ -1,56 +1,88 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class CardInteraction : MonoBehaviour
 {
+    private PlayerDeck playerDeck;
     private CardInfo cardInfo;
     private int sceneIndex;
+    private bool isMouseOver = false;
+    private Vector3 screenPosition;
+    private Vector3 offset;
     private Vector3 initialPosition;
     private Vector3 initialScale;
-    private bool isMouseOver = false;
-
-    [Header("When mouse is over")]
-    [SerializeField] private float scale = 1f;
-    [SerializeField] private float height = 1.4f;
-
     public bool IsSelected { get; set; }
+    public bool IsDragging { get; private set; }
+    public bool WasPlayed { get; set; }
 
     private void Awake()
     {
-        initialPosition = transform.position;
-        initialScale = transform.localScale;
         cardInfo = GetComponent<CardInfo>();
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        IsDragging = false;
+        WasPlayed = false;
+        initialPosition = transform.position;
+        initialScale = transform.localScale;
+
+        if (sceneIndex == 1)
+        {
+            playerDeck = transform.parent.gameObject.GetComponent<PlayerDeck>();
+        }
+    }
+
+    private void Update()
+    {
+        if (IsDragging)
+        {
+            DragAndDrop();
+        }
     }
 
     private void OnMouseDown()
     {
-        switch (sceneIndex)
+        if (sceneIndex == 0)
         {
-            case 0:
-                SelectCardInDeckBuilding();
-                break;
-
-            case 1:
-                SelectCardInMatch();
-                break;
+            SelectCardInDeckBuilding();
         }
     }
 
     private void OnMouseOver()
     {
-        if(!isMouseOver)
+        if (sceneIndex == 1 && !isMouseOver && !WasPlayed)
         {
-            RaiseCard();
-            IncreaseCardScale();
+            playerDeck.RaiseCard(cardInfo.GetCard());
+            playerDeck.IncreaseCardScale(cardInfo.GetCard());
             isMouseOver = true;
+        }
+    }
+
+    private void OnMouseDrag()
+    {
+        if (sceneIndex == 1 && !IsDragging && !WasPlayed)
+        {
+            SetDragAndDrop();
         }
     }
 
     private void OnMouseExit()
     {
-        SetInitialTransform();
+        if (sceneIndex == 1 && !WasPlayed)
+        {
+            playerDeck.SetInitialTransform(cardInfo.GetCard(), initialPosition, initialScale);
+        }
+
         isMouseOver = false;
+    }
+
+    private void OnMouseUp()
+    {
+        if(sceneIndex == 1 && !WasPlayed)
+        {
+            IsDragging = false;
+            playerDeck.SetInitialTransform(cardInfo.GetCard(), initialPosition, initialScale);
+        }
     }
 
     private void SelectCardInDeckBuilding()
@@ -61,33 +93,17 @@ public class CardInteraction : MonoBehaviour
         }
     }
 
-    private void SelectCardInMatch()
+    private void SetDragAndDrop()
     {
-        //ToDo
+        IsDragging = true;
+        screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z));
     }
 
-    private void RaiseCard()
+    private void DragAndDrop()
     {
-        if (sceneIndex == 1)
-        {
-            transform.position += Vector3.up * height;
-        }
-    }
-
-    private void IncreaseCardScale()
-    {
-        if (sceneIndex == 1)
-        {
-            transform.localScale += new Vector3(scale, scale, 0);
-        }
-    }
-
-    private void SetInitialTransform()
-    {
-        if (sceneIndex == 1)
-        {
-            transform.position = initialPosition;
-            transform.localScale = initialScale;
-        }
+        Vector3 currentScreenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z);
+        Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPosition) + offset;
+        transform.position = currentPosition;
     }
 }
