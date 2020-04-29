@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class CardBoardArea : MonoBehaviour
 {
     private PlayerDeck playerDeck;
+    private PlayerInfo playerInfo;
     private bool HasACard = false;
     private Ray ray;
     private RaycastHit raycastHit;
@@ -13,6 +14,7 @@ public class CardBoardArea : MonoBehaviour
     private void Awake()
     {
         playerDeck = transform.root.gameObject.GetComponent<PlayerDeck>();
+        playerInfo = transform.root.gameObject.GetComponent<PlayerInfo>();
         ray = new Ray(transform.position, Vector3.up);
     }
 
@@ -43,6 +45,7 @@ public class CardBoardArea : MonoBehaviour
             card.GetComponent<CardInteraction>().WasPlayed = true;
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
             playerDeck.SetCardInBoardArea(card.GetComponent<CardInfo>().GetCard(), position);
+            playerInfo.UpdateCoins(-card.GetComponent<CardInfo>().Coins);
             HasACard = true;
         }
     }

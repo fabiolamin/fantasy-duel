@@ -69,5 +69,6 @@ MonoBehaviour:
   - SetCardInBoardRPC
   - SetInitialTransformRPC
   - SetCardInBoardAreaRPC
+  - SpawCardsRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

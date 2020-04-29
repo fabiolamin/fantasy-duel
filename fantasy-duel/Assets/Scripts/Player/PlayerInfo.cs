@@ -49,15 +49,32 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
     public void TransferSomeLifePointsToCoins()
     {
-        photonView.RPC("UpdateLifePointsRPC", RpcTarget.AllBuffered, -3);
-        photonView.RPC("UpdateCoinsRPC", RpcTarget.AllBuffered, 5);
-        playerHUD.SetHUD();
+        UpdateLifePoints(-3);
+        UpdateCoins(5);
+    }
+
+    public void UpdateLifePoints(int amount)
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("UpdateLifePointsRPC", RpcTarget.AllBuffered, amount);
+            playerHUD.SetHUD();
+        }
     }
 
     [PunRPC]
     private void UpdateLifePointsRPC(int amount)
     {
         LifePoints = Mathf.Clamp(LifePoints + amount, 0, maxLifePoints);
+    }
+
+    public void UpdateCoins(int amount)
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("UpdateCoinsRPC", RpcTarget.AllBuffered, amount);
+            playerHUD.SetHUD();
+        }
     }
 
     [PunRPC]

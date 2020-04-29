@@ -7,8 +7,8 @@ using System.Linq;
 public class PlayerDeck : MonoBehaviour
 {
     private PhotonView photonView;
-    private List<Card> cards = new List<Card>();
-    private List<GameObject> instantiatedCards = new List<GameObject>();
+    private List<Card> allCards = new List<Card>();
+    private List<GameObject> deck = new List<GameObject>();
 
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject[] handCards;
@@ -25,7 +25,7 @@ public class PlayerDeck : MonoBehaviour
 
         if (photonView.IsMine)
         {
-            photonView.RPC("InstantiateCards", RpcTarget.AllBuffered);
+            photonView.RPC("SpawCardsRPC", RpcTarget.AllBuffered);
             TurnCardsUp();
         }
 
@@ -34,25 +34,25 @@ public class PlayerDeck : MonoBehaviour
     private void GetCards()
     {
         string json = photonView.Owner.CustomProperties[photonView.Owner.NickName].ToString();
-        cards = CardConverter.GetCardsFrom(json);
+        allCards = CardConverter.GetCardsFrom(json);
     }
 
     [PunRPC]
-    private void InstantiateCards()
+    private void SpawCardsRPC()
     {
         for (int index = 0; index < handCards.Length; index++)
         {
-            Card card = cards[index];
+            Card card = allCards[index];
             GameObject instantiatedCard = Instantiate(cardPrefab, handCards[index].transform.position, Quaternion.Euler(-90, GetYRotation(), 0), transform);
             instantiatedCard.GetComponent<CardUI>().Set(card);
             instantiatedCard.GetComponent<CardInfo>().Set(card);
-            instantiatedCards.Add(instantiatedCard);
+            deck.Add(instantiatedCard);
         }
     }
 
     private void TurnCardsUp()
     {
-        foreach (GameObject card in instantiatedCards)
+        foreach (GameObject card in deck)
         {
             card.transform.rotation = Quaternion.Euler(90, GetYRotation(), 0);
         }
@@ -71,7 +71,7 @@ public class PlayerDeck : MonoBehaviour
 
     private int GetIndex(Card card)
     {
-        int index = instantiatedCards.FindIndex(c => c.GetComponent<CardInfo>().Id == card.Id && c.GetComponent<CardInfo>().Type == card.Type);
+        int index = deck.FindIndex(c => c.GetComponent<CardInfo>().Id == card.Id && c.GetComponent<CardInfo>().Type == card.Type);
         return index;
     }
 
@@ -86,7 +86,7 @@ public class PlayerDeck : MonoBehaviour
     [PunRPC]
     private void RaiseCardRPC(int index)
     {
-        instantiatedCards[index].transform.position += Vector3.up * height;
+        deck[index].transform.position += Vector3.up * height;
     }
 
     public void IncreaseCardScale(Card card)
@@ -100,7 +100,7 @@ public class PlayerDeck : MonoBehaviour
     [PunRPC]
     private void IncreaseCardScaleRPC(int index)
     {
-        instantiatedCards[index].transform.localScale += new Vector3(scale, scale, 0);
+        deck[index].transform.localScale += new Vector3(scale, scale, 0);
     }
 
     public void SetInitialTransform(Card card, Vector3 position, Vector3 scale)
@@ -116,8 +116,8 @@ public class PlayerDeck : MonoBehaviour
     [PunRPC]
     private void SetInitialTransformRPC(int index, float[] position, float[] scale)
     {
-        instantiatedCards[index].transform.position = new Vector3(position[0], position[1], position[2]);
-        instantiatedCards[index].transform.localScale = new Vector3(scale[0], scale[1], scale[2]);
+        deck[index].transform.position = new Vector3(position[0], position[1], position[2]);
+        deck[index].transform.localScale = new Vector3(scale[0], scale[1], scale[2]);
     }
 
     public void SetCardInBoardArea(Card card, Vector3 position)
@@ -132,7 +132,7 @@ public class PlayerDeck : MonoBehaviour
     [PunRPC]
     private void SetCardInBoardAreaRPC(int index, float[] position)
     {
-        instantiatedCards[index].transform.position = new Vector3(position[0], position[1], position[2]);
-        instantiatedCards[index].transform.rotation = Quaternion.Euler(90, GetYRotation(), 0);
+        deck[index].transform.position = new Vector3(position[0], position[1], position[2]);
+        deck[index].transform.rotation = Quaternion.Euler(90, GetYRotation(), 0);
     }
 }
