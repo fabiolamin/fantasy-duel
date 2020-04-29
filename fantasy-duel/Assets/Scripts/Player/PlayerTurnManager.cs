@@ -8,6 +8,7 @@ using ExitGames.Client.Photon;
 public class PlayerTurnManager : MonoBehaviourPunCallbacks
 {
     private PhotonView photonView;
+    private PlayerDeck playerDeck;
     private PlayerHUD playerHUD;
     private float durationAux;
     private bool IsReadyToCountdown = false;
@@ -19,6 +20,7 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
+        playerDeck = GetComponent<PlayerDeck>();
         playerHUD = GetComponent<PlayerHUD>();
 
         durationAux = duration;
@@ -64,6 +66,7 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
             duration = durationAux;
             IsReadyToCountdown = false;
             playerHUD.UpdateButtons(false);
+            playerDeck.UpdateDeckLock(true);
             UpdateTurnProperty();
             PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
         }
@@ -84,6 +87,7 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
         {
             playerHUD.UpdateTurnMessage(true);
             playerHUD.UpdateButtons(true);
+            playerDeck.UpdateDeckLock(false);
             IsReadyToCountdown = true;
         }
     }

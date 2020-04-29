@@ -135,4 +135,9 @@ public class PlayerDeck : MonoBehaviour
         deck[index].transform.position = new Vector3(position[0], position[1], position[2]);
         deck[index].transform.rotation = Quaternion.Euler(90, GetYRotation(), 0);
     }
+
+    public void UpdateDeckLock(bool isLocked)
+    {
+        deck.ForEach(card => card.GetComponent<CardInteraction>().IsLocked = isLocked);
+    }
 }

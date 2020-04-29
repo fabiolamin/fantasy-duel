@@ -16,6 +16,7 @@ public class CardInteraction : MonoBehaviour
     public bool IsSelected { get; set; }
     public bool IsDragging { get; private set; }
     public bool WasPlayed { get; set; }
+    public bool IsLocked { get; set; }
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class CardInteraction : MonoBehaviour
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
         IsDragging = false;
         WasPlayed = false;
+        IsLocked = false;
         initialPosition = transform.position;
         initialScale = transform.localScale;
 
@@ -34,7 +36,7 @@ public class CardInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (IsDragging)
+        if (IsDragging && !IsLocked)
         {
             DragAndDrop();
         }
@@ -60,7 +62,7 @@ public class CardInteraction : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (sceneIndex == 1 && !IsDragging && !WasPlayed)
+        if (sceneIndex == 1 && !IsDragging && !WasPlayed && !IsLocked)
         {
             SetDragAndDrop();
         }
@@ -78,7 +80,7 @@ public class CardInteraction : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if(sceneIndex == 1 && !WasPlayed)
+        if(sceneIndex == 1 && !WasPlayed && !IsLocked)
         {
             IsDragging = false;
             playerDeck.SetInitialTransform(cardInfo.GetCard(), initialPosition, initialScale);
