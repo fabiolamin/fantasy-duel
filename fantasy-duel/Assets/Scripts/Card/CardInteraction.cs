@@ -36,21 +36,45 @@ public class CardInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (IsDragging && !IsLocked)
-        {
-            DragAndDrop();
-        }
+        DragAndDrop();
     }
 
     private void OnMouseDown()
     {
-        if (sceneIndex == 0)
-        {
-            SelectCardInDeckBuilding();
-        }
+        SelectCardInDeckBuilding();
     }
 
     private void OnMouseOver()
+    {
+        EnhanceCard();
+    }
+
+    private void OnMouseDrag()
+    {
+        SetDragAndDrop();
+    }
+
+    private void OnMouseExit()
+    {
+        ReturnToInitialTransform();
+        isMouseOver = false;
+    }
+
+    private void OnMouseUp()
+    {
+        ReturnToInitialTransform();
+        IsDragging = false;
+    }
+
+    private void SelectCardInDeckBuilding()
+    {
+        if (sceneIndex == 0 && cardInfo.IsAvailable)
+        {
+            IsSelected = true;
+        }
+    }
+
+    private void EnhanceCard()
     {
         if (sceneIndex == 1 && !isMouseOver && !WasPlayed)
         {
@@ -60,52 +84,31 @@ public class CardInteraction : MonoBehaviour
         }
     }
 
-    private void OnMouseDrag()
+    private void SetDragAndDrop()
     {
         if (sceneIndex == 1 && !IsDragging && !WasPlayed && !IsLocked)
         {
-            SetDragAndDrop();
+            IsDragging = true;
+            screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+            offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z));
         }
     }
 
-    private void OnMouseExit()
+    private void DragAndDrop()
+    {
+        if (IsDragging && !IsLocked)
+        {
+            Vector3 currentScreenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z);
+            Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPosition) + offset;
+            transform.position = currentPosition;
+        }
+    }
+
+    private void ReturnToInitialTransform()
     {
         if (sceneIndex == 1 && !WasPlayed)
         {
             playerDeck.SetInitialTransform(cardInfo.GetCard(), initialPosition, initialScale);
         }
-
-        isMouseOver = false;
-    }
-
-    private void OnMouseUp()
-    {
-        if(sceneIndex == 1 && !WasPlayed && !IsLocked)
-        {
-            IsDragging = false;
-            playerDeck.SetInitialTransform(cardInfo.GetCard(), initialPosition, initialScale);
-        }
-    }
-
-    private void SelectCardInDeckBuilding()
-    {
-        if (cardInfo.IsAvailable)
-        {
-            IsSelected = true;
-        }
-    }
-
-    private void SetDragAndDrop()
-    {
-        IsDragging = true;
-        screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z));
-    }
-
-    private void DragAndDrop()
-    {
-        Vector3 currentScreenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z);
-        Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPosition) + offset;
-        transform.position = currentPosition;
     }
 }
