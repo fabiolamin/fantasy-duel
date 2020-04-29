@@ -40,7 +40,7 @@ public class CardBoardArea : MonoBehaviour
 
     private void SetCardInBoardArea()
     {
-        if (!card.GetComponent<CardInteraction>().IsDragging && !card.GetComponent<CardInteraction>().WasPlayed)
+        if (CanCardBePlayed())
         {
             card.GetComponent<CardInteraction>().WasPlayed = true;
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
@@ -48,5 +48,10 @@ public class CardBoardArea : MonoBehaviour
             playerInfo.UpdateCoins(-card.GetComponent<CardInfo>().Coins);
             HasACard = true;
         }
+    }
+
+    private bool CanCardBePlayed()
+    {
+        return !card.GetComponent<CardInteraction>().IsDragging && !card.GetComponent<CardInteraction>().WasPlayed && playerInfo.Coins >= card.GetComponent<CardInfo>().Coins;
     }
 }
