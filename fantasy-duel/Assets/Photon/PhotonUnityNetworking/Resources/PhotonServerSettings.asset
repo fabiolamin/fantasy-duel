@@ -70,5 +70,12 @@ MonoBehaviour:
   - SetInitialTransformRPC
   - SetCardInBoardAreaRPC
   - SpawCardsRPC
+  - BuildDeck
+  - SetHand
+  - BuildDeckRPC
+  - SetHandRPC
+  - OrganizeHandCardsRPC
+  - AddCardToHandCardsRPC
+  - RemoveCardFromHandCardsRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

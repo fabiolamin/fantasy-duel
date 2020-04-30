@@ -9,55 +9,95 @@ public class PlayerDeck : MonoBehaviour
     private PhotonView photonView;
     private List<Card> allCards = new List<Card>();
     private List<GameObject> deck = new List<GameObject>();
+    private List<GameObject> handCards = new List<GameObject>();
 
+    [SerializeField] private Transform deckPosition;
     [SerializeField] private GameObject cardPrefab;
-    [SerializeField] private GameObject[] handCards;
+    [SerializeField] private GameObject[] handCardsPositions;
 
     [Header("When mouse is over a card")]
     [SerializeField] private float scale = 1f;
     [SerializeField] private float height = 1.4f;
-
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
 
-        GetCards();
+        GetAllCards();
 
-        if (photonView.IsMine)
+        if(photonView.IsMine)
         {
-            photonView.RPC("SpawCardsRPC", RpcTarget.AllBuffered);
-            TurnCardsUp();
-        }
+            photonView.RPC("BuildDeckRPC", RpcTarget.AllBuffered);
 
+            while (handCards.Count < 5)
+            {
+                photonView.RPC("AddCardToHandCardsRPC", RpcTarget.AllBuffered);
+            }
+
+            photonView.RPC("OrganizeHandCardsRPC", RpcTarget.AllBuffered);
+            TurnHandCardsUp();
+        }
     }
 
-    private void GetCards()
+    private void GetAllCards()
     {
         string json = photonView.Owner.CustomProperties[photonView.Owner.NickName].ToString();
         allCards = CardConverter.GetCardsFrom(json);
     }
 
     [PunRPC]
-    private void SpawCardsRPC()
+    private void BuildDeckRPC()
     {
-        for (int index = 0; index < handCards.Length; index++)
+        for (int index = 0; index < allCards.Count; index++)
         {
             Card card = allCards[index];
-            GameObject instantiatedCard = Instantiate(cardPrefab, handCards[index].transform.position, Quaternion.Euler(-90, GetYRotation(), 0), transform);
+            GameObject instantiatedCard = Instantiate(cardPrefab, deckPosition.position, Quaternion.Euler(-90, GetYRotation(), 0), transform);
             instantiatedCard.GetComponent<CardUI>().Set(card);
             instantiatedCard.GetComponent<CardInfo>().Set(card);
+            instantiatedCard.SetActive(false);
             deck.Add(instantiatedCard);
         }
     }
-
-    private void TurnCardsUp()
+    public void UpdateHandCards()
     {
-        foreach (GameObject card in deck)
+        if(photonView.IsMine)
+        {
+            photonView.RPC("AddCardToHandCardsRPC", RpcTarget.AllBuffered);
+            photonView.RPC("OrganizeHandCardsRPC", RpcTarget.AllBuffered);
+            TurnHandCardsUp();
+        }
+    }
+
+    [PunRPC]
+    private void AddCardToHandCardsRPC()
+    {
+        GameObject card = new GameObject();
+
+        if (deck.Count != 0)
+        {
+            card = deck.First();
+        }
+     
+        deck.Remove(card);
+        handCards.Add(card);
+        card.SetActive(true);
+    }
+
+    [PunRPC]
+    public void OrganizeHandCardsRPC()
+    {
+        for (int index = 0; index < handCardsPositions.Length; index++)
+        {
+            handCards[index].transform.position = handCardsPositions[index].transform.position;
+        }
+    }
+    private void TurnHandCardsUp()
+    {
+        foreach (GameObject card in handCards)
         {
             card.transform.rotation = Quaternion.Euler(90, GetYRotation(), 0);
         }
     }
-
+    
     private int GetYRotation()
     {
         int y = 180;
@@ -71,7 +111,7 @@ public class PlayerDeck : MonoBehaviour
 
     private int GetIndex(Card card)
     {
-        int index = deck.FindIndex(c => c.GetComponent<CardInfo>().Id == card.Id && c.GetComponent<CardInfo>().Type == card.Type);
+        int index = handCards.FindIndex(c => c.GetComponent<CardInfo>().Id == card.Id && c.GetComponent<CardInfo>().Type == card.Type);
         return index;
     }
 
@@ -86,7 +126,7 @@ public class PlayerDeck : MonoBehaviour
     [PunRPC]
     private void RaiseCardRPC(int index)
     {
-        deck[index].transform.position += Vector3.up * height;
+        handCards[index].transform.position += Vector3.up * height;
     }
 
     public void IncreaseCardScale(Card card)
@@ -100,24 +140,23 @@ public class PlayerDeck : MonoBehaviour
     [PunRPC]
     private void IncreaseCardScaleRPC(int index)
     {
-        deck[index].transform.localScale += new Vector3(scale, scale, 0);
+        handCards[index].transform.localScale += new Vector3(scale, scale, 0);
     }
 
-    public void SetInitialTransform(Card card, Vector3 position, Vector3 scale)
+    public void SetInitialTransform(Card card)
     {
         if (photonView.IsMine)
         {
-            float[] cardPosition = new float[] { position.x, position.y, position.z };
-            float[] cardScale = new float[] { scale.x, scale.y, scale.z };
-            photonView.RPC("SetInitialTransformRPC", RpcTarget.AllBuffered, GetIndex(card), cardPosition, cardScale);
+            photonView.RPC("SetInitialTransformRPC", RpcTarget.AllBuffered, GetIndex(card));
         }
     }
 
     [PunRPC]
-    private void SetInitialTransformRPC(int index, float[] position, float[] scale)
+    private void SetInitialTransformRPC(int index)
     {
-        deck[index].transform.position = new Vector3(position[0], position[1], position[2]);
-        deck[index].transform.localScale = new Vector3(scale[0], scale[1], scale[2]);
+        Vector3 scale = handCardsPositions[index].transform.localScale;
+        handCards[index].transform.position = handCardsPositions[index].transform.position;
+        handCards[index].transform.localScale = new Vector3(scale.x, scale.z, 0.00001f);
     }
 
     public void SetCardInBoardArea(Card card, Vector3 position)
@@ -132,12 +171,27 @@ public class PlayerDeck : MonoBehaviour
     [PunRPC]
     private void SetCardInBoardAreaRPC(int index, float[] position)
     {
-        deck[index].transform.position = new Vector3(position[0], position[1], position[2]);
-        deck[index].transform.rotation = Quaternion.Euler(90, GetYRotation(), 0);
+        handCards[index].transform.position = new Vector3(position[0], position[1], position[2]);
+        handCards[index].transform.rotation = Quaternion.Euler(90, GetYRotation(), 0);
     }
 
     public void UpdateDeckLock(bool isLocked)
     {
-        deck.ForEach(card => card.GetComponent<CardInteraction>().IsLocked = isLocked);
+        handCards.ForEach(card => card.GetComponent<CardInteraction>().IsLocked = isLocked);
+    }
+
+    public void RemoveCardFromHandCards(GameObject handCard)
+    {
+        Card card = handCard.GetComponent<CardInfo>().GetCard();
+        if(photonView.IsMine)
+        {
+            photonView.RPC("RemoveCardFromHandCardsRPC", RpcTarget.AllBuffered, GetIndex(card));
+        }
+    }
+
+    [PunRPC]
+    private void RemoveCardFromHandCardsRPC(int index)
+    {
+        handCards.RemoveAt(index);
     }
 }

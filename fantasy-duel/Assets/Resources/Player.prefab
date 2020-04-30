@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689328254296181014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1544181182917521502}
@@ -508,9 +508,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f269d77c371b5cf4a94af78f9b33076f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deckPosition: {fileID: 3403891542916702638}
   cardPrefab: {fileID: 2892375796432738044, guid: 4493e26b99fec6044ae8a6cb52b1e458,
     type: 3}
-  handCards:
+  handCardsPositions:
   - {fileID: 3403891541673107285}
   - {fileID: 3403891543029628437}
   - {fileID: 3403891541752023648}
@@ -3511,42 +3512,42 @@ PrefabInstance:
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.013522156
+      value: -0.2908287
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.2699168
+      value: 0.22735596
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -0.0035097152
+      value: -8.311383
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: -0.12472423
+      value: -2.3531454
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.263
+      value: 0.20479529
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.31074974
+      value: 0.12013054
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.73660475
+      value: 0.8037348
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.524428
+      value: 0.3855697
       objectReference: {fileID: 0}
     - target: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
         type: 3}

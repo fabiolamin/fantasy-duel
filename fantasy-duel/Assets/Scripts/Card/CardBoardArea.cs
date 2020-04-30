@@ -46,6 +46,9 @@ public class CardBoardArea : MonoBehaviour
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
             playerDeck.SetCardInBoardArea(card.GetComponent<CardInfo>().GetCard(), position);
             playerInfo.UpdateCoins(-card.GetComponent<CardInfo>().Coins);
+            playerDeck.RemoveCardFromHandCards(card);
+            playerDeck.UpdateHandCards();
+            playerDeck.UpdateDeckLock(true);
             HasACard = true;
         }
     }

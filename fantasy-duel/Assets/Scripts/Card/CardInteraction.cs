@@ -108,7 +108,7 @@ public class CardInteraction : MonoBehaviour
     {
         if (sceneIndex == 1 && !WasPlayed)
         {
-            playerDeck.SetInitialTransform(cardInfo.GetCard(), initialPosition, initialScale);
+            playerDeck.SetInitialTransform(cardInfo.GetCard());
         }
     }
 }
