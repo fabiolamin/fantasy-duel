@@ -1,39 +1,24 @@
 ﻿using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class CardInfo : MonoBehaviour
 {
-    public int Id { get; set;}
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string Type { get; set; }
-    public int Coins { get; set; }
-    public int AttackPoints { get; set; }
-    public int LifePoints { get; set; }
-    public bool IsAvailable { get; set; }
+    private PhotonView photonView;
+    public Card Card { get; set; }
 
-    public void Set(Card card)
-    {
-        Id = card.Id;
-        Name = card.Name;
-        Description = card.Description;
-        Type = card.Type;
-        Coins = card.Coins;
-        AttackPoints = card.AttackPoints;
-        LifePoints = card.LifePoints;
-        IsAvailable = card.IsAvailable;
-    }
-
-    public Card GetCard()
+    public Card GetAvailableCard()
     {
         Card card = new Card();
-        card.Id = Id;
-        card.Name = Name;
-        card.Description = Description;
-        card.Type = Type;
-        card.Coins = Coins;
-        card.AttackPoints = AttackPoints;
-        card.LifePoints = LifePoints;
-        card.IsAvailable = IsAvailable;
+        card.Id = Card.Id;
+        card.Name = Card.Name;
+        card.Description = Card.Description;
+        card.Type = Card.Type;
+        card.Coins = Card.Coins;
+        card.AttackPoints = Card.AttackPoints;
+        card.LifePoints = Card.LifePoints;
+        card.IsAvailable = true;
 
         return card;
     }

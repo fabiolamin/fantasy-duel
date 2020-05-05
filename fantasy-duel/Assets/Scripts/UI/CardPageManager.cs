@@ -56,7 +56,7 @@ public class CardPageManager : MonoBehaviour
                 int position = index % cardsPerPage;
                 cardPrefabs[position].SetActive(true);
                 cardPrefabs[position].GetComponent<CardUI>().Set(card);
-                cardPrefabs[position].GetComponent<CardInfo>().Set(card);
+                cardPrefabs[position].GetComponent<CardInfo>().Card = card;
             }
         }
     }

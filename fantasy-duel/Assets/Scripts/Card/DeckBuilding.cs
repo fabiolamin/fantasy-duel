@@ -53,7 +53,7 @@ public class DeckBuilding : MonoBehaviour
         {
             if (cardPrefab.GetComponent<CardInteraction>().IsSelected)
             {
-                Card card = cardPrefab.GetComponent<CardInfo>().GetCard();
+                Card card = cardPrefab.GetComponent<CardInfo>().GetAvailableCard();
                 cardPrefab.GetComponent<CardInteraction>().IsSelected = false;
                 return card;
             }
@@ -79,5 +79,20 @@ public class DeckBuilding : MonoBehaviour
         deckCardStorage.SaveCardsAsFiles();
         storeCardStorage.SaveCardsAsFiles();
         uiManager.ShowMainMenuPanel();
+    }
+
+    private Card SetCardAsAvailable(Card card)
+    {
+        Card availableCard = new Card();
+
+        availableCard.Id = card.Id;
+        availableCard.Name = card.Name;
+        availableCard.Coins = card.Coins;
+        availableCard.Description = card.Description;
+        availableCard.AttackPoints = card.AttackPoints;
+        availableCard.LifePoints = card.LifePoints;
+        availableCard.IsAvailable = true;
+
+        return availableCard;
     }
 }

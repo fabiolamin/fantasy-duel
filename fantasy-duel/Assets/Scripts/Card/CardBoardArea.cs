@@ -44,8 +44,8 @@ public class CardBoardArea : MonoBehaviour
         {
             card.GetComponent<CardInteraction>().WasPlayed = true;
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-            playerDeck.SetCardInBoardArea(card.GetComponent<CardInfo>().GetCard(), position);
-            playerInfo.UpdateCoins(-card.GetComponent<CardInfo>().Coins);
+            playerDeck.SetCardInBoardArea(card.GetComponent<CardInfo>().Card, position);
+            playerInfo.UpdateCoins(-card.GetComponent<CardInfo>().Card.Coins);
             playerDeck.RemoveCardFromHandCards(card);
             playerDeck.UpdateHandCards();
             playerDeck.UpdateDeckLock(true);
@@ -55,6 +55,6 @@ public class CardBoardArea : MonoBehaviour
 
     private bool CanCardBePlayed()
     {
-        return !card.GetComponent<CardInteraction>().IsDragging && !card.GetComponent<CardInteraction>().WasPlayed && playerInfo.Coins >= card.GetComponent<CardInfo>().Coins;
+        return !card.GetComponent<CardInteraction>().IsDragging && !card.GetComponent<CardInteraction>().WasPlayed && playerInfo.Coins >= card.GetComponent<CardInfo>().Card.Coins;
     }
 }

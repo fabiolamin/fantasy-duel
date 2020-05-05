@@ -111,6 +111,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2416076666151369278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8417173360173017401}
+  - component: {fileID: 2891633266667025478}
+  m_Layer: 0
+  m_Name: Card Action Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8417173360173017401
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416076666151369278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3403891541363636336}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2891633266667025478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416076666151369278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08e112e725baba448a4634bf22c29958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2779409769805425064
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +454,8 @@ Transform:
   - {fileID: 3403891541567440114}
   - {fileID: 3403891541798312755}
   - {fileID: 4884232793427229116}
+  - {fileID: 8085809571225621798}
+  - {fileID: 8417173360173017401}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -508,6 +553,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f269d77c371b5cf4a94af78f9b33076f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardsParent: {fileID: 8085809571225621798}
   deckPosition: {fileID: 3403891542916702638}
   cardPrefab: {fileID: 2892375796432738044, guid: 4493e26b99fec6044ae8a6cb52b1e458,
     type: 3}
@@ -533,6 +579,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 30
   timeToShowDuration: 15
+  cardActionManager: {fileID: 2891633266667025478}
 --- !u!1 &3403891541368923826
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3403891541567440114}
   m_Layer: 0
-  m_Name: Cards
+  m_Name: Cards Zones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2952,7 +2999,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3403891543432417041}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2891633266667025478}
+        m_MethodName: StartAction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3455668507998865637
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,6 +3480,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6303080290028793239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8085809571225621798}
+  m_Layer: 0
+  m_Name: Cards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8085809571225621798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6303080290028793239}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3403891541363636336}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &443118178074726456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3572,12 +3660,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5359194438774329175, guid: c15fc29421a83b4418280a3fe434348a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c15fc29421a83b4418280a3fe434348a, type: 3}
---- !u!224 &6745780607878644305 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
-    type: 3}
-  m_PrefabInstance: {fileID: 443118178074726456}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5571752276049544477 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5437131789460165925, guid: c15fc29421a83b4418280a3fe434348a,
@@ -3590,6 +3672,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6745780607878644305 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
+    type: 3}
+  m_PrefabInstance: {fileID: 443118178074726456}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5983406869530235512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3750,6 +3838,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5359194438774329175, guid: c15fc29421a83b4418280a3fe434348a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c15fc29421a83b4418280a3fe434348a, type: 3}
+--- !u!224 &626777440127123473 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983406869530235512}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1764784703937349469 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5437131789460165925, guid: c15fc29421a83b4418280a3fe434348a,
@@ -3762,9 +3856,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &626777440127123473 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
-    type: 3}
-  m_PrefabInstance: {fileID: 5983406869530235512}
-  m_PrefabAsset: {fileID: 0}

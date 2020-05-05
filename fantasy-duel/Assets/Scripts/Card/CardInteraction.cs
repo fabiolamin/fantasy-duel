@@ -30,7 +30,7 @@ public class CardInteraction : MonoBehaviour
 
         if (sceneIndex == 1)
         {
-            playerDeck = transform.parent.gameObject.GetComponent<PlayerDeck>();
+            playerDeck = transform.root.gameObject.GetComponent<PlayerDeck>();
         }
     }
 
@@ -41,7 +41,8 @@ public class CardInteraction : MonoBehaviour
 
     private void OnMouseDown()
     {
-        SelectCardInDeckBuilding();
+        DeselectCards();
+        SelectCard();
     }
 
     private void OnMouseOver()
@@ -66,9 +67,24 @@ public class CardInteraction : MonoBehaviour
         IsDragging = false;
     }
 
-    private void SelectCardInDeckBuilding()
+    private void DeselectCards()
     {
-        if (sceneIndex == 0 && cardInfo.IsAvailable)
+        foreach (Transform card in transform.parent)
+        {
+            card.gameObject.GetComponent<CardInteraction>().IsSelected = false;
+        }
+    }
+
+    private void SelectCard()
+    {
+        if (sceneIndex == 0)
+        {
+            if (cardInfo.Card.IsAvailable)
+            {
+                IsSelected = true;
+            }
+        }
+        else
         {
             IsSelected = true;
         }
@@ -78,8 +94,8 @@ public class CardInteraction : MonoBehaviour
     {
         if (sceneIndex == 1 && !isMouseOver && !WasPlayed)
         {
-            playerDeck.RaiseCard(cardInfo.GetCard());
-            playerDeck.IncreaseCardScale(cardInfo.GetCard());
+            playerDeck.RaiseCard(cardInfo.Card);
+            playerDeck.IncreaseCardScale(cardInfo.Card);
             isMouseOver = true;
         }
     }
@@ -108,7 +124,7 @@ public class CardInteraction : MonoBehaviour
     {
         if (sceneIndex == 1 && !WasPlayed)
         {
-            playerDeck.SetInitialTransform(cardInfo.GetCard());
+            playerDeck.SetInitialTransform(cardInfo.Card);
         }
     }
 }

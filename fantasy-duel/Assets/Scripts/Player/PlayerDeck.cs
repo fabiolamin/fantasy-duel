@@ -3,14 +3,19 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Linq;
+using ExitGames.Client.Photon;
 
-public class PlayerDeck : MonoBehaviour
+public class PlayerDeck : MonoBehaviourPunCallbacks
 {
     private PhotonView photonView;
     private List<Card> allCards = new List<Card>();
     private List<GameObject> deck = new List<GameObject>();
     private List<GameObject> handCards = new List<GameObject>();
+    private GameObject playedCard;
+    private Card selectedPlayedCard;
+    private int selectedPlayedCardIndex;
 
+    [SerializeField] private Transform cardsParent;
     [SerializeField] private Transform deckPosition;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject[] handCardsPositions;
@@ -18,6 +23,9 @@ public class PlayerDeck : MonoBehaviour
     [Header("When mouse is over a card")]
     [SerializeField] private float scale = 1f;
     [SerializeField] private float height = 1.4f;
+
+    public List<GameObject> PlayedCards { get; set; }
+    public Transform CardsParent { get { return cardsParent; } }
     private void Awake()
     {
         photonView = GetComponent<PhotonView>();
@@ -36,6 +44,8 @@ public class PlayerDeck : MonoBehaviour
             photonView.RPC("OrganizeHandCardsRPC", RpcTarget.AllBuffered);
             TurnHandCardsUp();
         }
+
+        PlayedCards = new List<GameObject>();
     }
 
     private void GetAllCards()
@@ -50,9 +60,9 @@ public class PlayerDeck : MonoBehaviour
         for (int index = 0; index < allCards.Count; index++)
         {
             Card card = allCards[index];
-            GameObject instantiatedCard = Instantiate(cardPrefab, deckPosition.position, Quaternion.Euler(-90, GetYRotation(), 0), transform);
+            GameObject instantiatedCard = Instantiate(cardPrefab, deckPosition.position, Quaternion.Euler(-90, GetYRotation(), 0), cardsParent);
             instantiatedCard.GetComponent<CardUI>().Set(card);
-            instantiatedCard.GetComponent<CardInfo>().Set(card);
+            instantiatedCard.GetComponent<CardInfo>().Card = card;
             instantiatedCard.SetActive(false);
             deck.Add(instantiatedCard);
         }
@@ -109,9 +119,15 @@ public class PlayerDeck : MonoBehaviour
         return y;
     }
 
-    private int GetIndex(Card card)
+    private int GetIndexFromHandCards(Card card)
     {
-        int index = handCards.FindIndex(c => c.GetComponent<CardInfo>().Id == card.Id && c.GetComponent<CardInfo>().Type == card.Type);
+        int index = handCards.FindIndex(c => c.GetComponent<CardInfo>().Card.Id == card.Id && c.GetComponent<CardInfo>().Card.Type == card.Type);
+        return index;
+    }
+
+    private int GetIndexFromPlayedCards(Card card)
+    {
+        int index = PlayedCards.FindIndex(c => c.GetComponent<CardInfo>().Card.Id == card.Id && c.GetComponent<CardInfo>().Card.Type == card.Type);
         return index;
     }
 
@@ -119,7 +135,7 @@ public class PlayerDeck : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            photonView.RPC("RaiseCardRPC", RpcTarget.AllBuffered, GetIndex(card));
+            photonView.RPC("RaiseCardRPC", RpcTarget.AllBuffered, GetIndexFromHandCards(card));
         }
     }
 
@@ -133,7 +149,7 @@ public class PlayerDeck : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            photonView.RPC("IncreaseCardScaleRPC", RpcTarget.AllBuffered, GetIndex(card));
+            photonView.RPC("IncreaseCardScaleRPC", RpcTarget.AllBuffered, GetIndexFromHandCards(card));
         }
     }
 
@@ -147,7 +163,7 @@ public class PlayerDeck : MonoBehaviour
     {
         if (photonView.IsMine)
         {
-            photonView.RPC("SetInitialTransformRPC", RpcTarget.AllBuffered, GetIndex(card));
+            photonView.RPC("SetInitialTransformRPC", RpcTarget.AllBuffered, GetIndexFromHandCards(card));
         }
     }
 
@@ -164,7 +180,7 @@ public class PlayerDeck : MonoBehaviour
         if (photonView.IsMine)
         {
             float[] cardPosition = new float[] { position.x, position.y, position.z };
-            photonView.RPC("SetCardInBoardAreaRPC", RpcTarget.AllBuffered, GetIndex(card), cardPosition);
+            photonView.RPC("SetCardInBoardAreaRPC", RpcTarget.AllBuffered, GetIndexFromHandCards(card), cardPosition);
         }
     }
 
@@ -182,10 +198,10 @@ public class PlayerDeck : MonoBehaviour
 
     public void RemoveCardFromHandCards(GameObject handCard)
     {
-        Card card = handCard.GetComponent<CardInfo>().GetCard();
+        Card card = handCard.GetComponent<CardInfo>().Card;
         if(photonView.IsMine)
         {
-            photonView.RPC("RemoveCardFromHandCardsRPC", RpcTarget.AllBuffered, GetIndex(card));
+            photonView.RPC("RemoveCardFromHandCardsRPC", RpcTarget.AllBuffered, GetIndexFromHandCards(card));
         }
     }
 
@@ -193,5 +209,38 @@ public class PlayerDeck : MonoBehaviour
     private void RemoveCardFromHandCardsRPC(int index)
     {
         handCards.RemoveAt(index);
+    }
+
+    public void UpdateLifePoints(int id, string type, int amountToDecrease)
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("UpdateLifePointsRPC", RpcTarget.AllBuffered, id, type, amountToDecrease);
+        }
+    }
+
+    [PunRPC]
+    private void UpdateLifePointsRPC(int id, string type, int amount)
+    {
+        foreach(Transform card in CardsParent)
+        {
+            if(card.GetComponent<CardInfo>().Card.Id == id && card.GetComponent<CardInfo>().Card.Type == type)
+            {
+                card.GetComponent<CardInfo>().Card.LifePoints -= amount;
+                card.GetComponent<CardUI>().Set(card.GetComponent<CardInfo>().Card);
+            }
+        }
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        if (targetPlayer == photonView.Owner && photonView.IsMine && changedProps.ContainsKey("EnemyCardID"))
+        {
+            int id = (int)changedProps["EnemyCardID"];
+            string type = changedProps["EnemyCardType"].ToString();
+            int damage = (int)changedProps["EnemyCardDamage"];
+
+            UpdateLifePoints(id, type, damage);
+        }
     }
 }

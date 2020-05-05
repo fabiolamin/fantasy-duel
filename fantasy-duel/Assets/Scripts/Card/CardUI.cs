@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class CardUI : MonoBehaviour
 {
+    private PhotonView photonView;
     [SerializeField] private Text name;
     [SerializeField] private Text description;
     [SerializeField] private Image art;
