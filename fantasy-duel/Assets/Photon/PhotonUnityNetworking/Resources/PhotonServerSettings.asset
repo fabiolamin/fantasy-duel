@@ -29,53 +29,22 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - AddCardToHandCardsRPC
+  - BuildDeckRPC
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
   - Fire
+  - IncreaseCardScaleRPC
+  - OrganizeHandCardsRPC
+  - RaiseCardRPC
+  - RemoveCardFromHandCardsRPC
   - RespawnSpaceship
-  - SetAttributes
-  - SetCamera
-  - MoveCards
-  - SetButtons
-  - RotateHUD
-  - SetHUD
-  - RotatePlayerHUD
-  - SetPlayerHUD
-  - Rotate
-  - Set
-  - RotateHUDTo
-  - RotateHUDToOpponent
-  - SetHandCards
-  - InstantiateCards
-  - RotateCardsToOpponent
-  - Build
-  - FlipCardsDown
-  - FlipCards
-  - UpdateCoins
-  - UpdateLifePoints
-  - SetHUDRpc
   - RotateHUDToOpponentRPC
+  - SetCardInBoardAreaRPC
   - SetHUDRPC
+  - SetInitialTransformRPC
   - UpdateCoinsRPC
   - UpdateLifePointsRPC
-  - DragAndDrop
-  - SetDragAndDrop
-  - IncreaseCardScale
-  - RaiseCard
-  - SetInitialTransform
-  - IncreaseCardScaleRPC
-  - RaiseCardRPC
-  - SetCardInBoardRPC
-  - SetInitialTransformRPC
-  - SetCardInBoardAreaRPC
-  - SpawCardsRPC
-  - BuildDeck
-  - SetHand
-  - BuildDeckRPC
-  - SetHandRPC
-  - OrganizeHandCardsRPC
-  - AddCardToHandCardsRPC
-  - RemoveCardFromHandCardsRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
