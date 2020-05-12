@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -10,7 +8,7 @@ public class CardActionManager : MonoBehaviour
     private GameObject player;
     private GameObject opponent;
     private GameObject playerCard;
-    private GameObject opponentCard;
+    private GameObject opponentObject;
 
     private int playerCardIndex;
     private int opponentCardIndex;
@@ -26,7 +24,7 @@ public class CardActionManager : MonoBehaviour
 
     public void StartAction()
     {
-        if(CanPlayerDoAnAction)
+        if (CanPlayerDoAnAction)
         {
             GetPlayers();
             GetPlayersCard();
@@ -50,30 +48,86 @@ public class CardActionManager : MonoBehaviour
 
     private void GetPlayersCard()
     {
-        playerCard = GetSelectedCard(player);
-        opponentCard = GetSelectedCard(opponent);
+        playerCard = GetPlayerSelectedCard();
+        opponentObject = GetOpponentSelectedObject();
     }
 
-    private GameObject GetSelectedCard(GameObject player)
+    private GameObject GetPlayerSelectedCard()
     {
-        foreach (Transform card in player.GetComponent<PlayerDeck>().CardsParent)
+        foreach (GameObject card in player.GetComponent<PlayerDeck>().PlayedCards)
         {
-            if (card.gameObject.GetComponent<CardInteraction>().IsSelected)
+            if (card.GetComponent<CardInteraction>().IsSelected)
             {
-                return card.gameObject;
+                if (card.GetComponent<CardInfo>().Card.Type == "Creatures")
+                {
+                    if (card.GetComponent<CardInteraction>().CanDoAnAction())
+                    {
+                        return card.gameObject;
+                    }
+                }
             }
         }
 
         return null;
     }
 
+    private GameObject GetOpponentSelectedObject()
+    {
+        foreach (GameObject playerObject in opponent.GetComponent<PlayerDeck>().SelectableObjects)
+        {
+            if (playerObject.GetComponent<ISelectable>().IsSelected)
+            {
+                if (playerObject.GetComponent<IProtectable>().IsProteged)
+                {
+                    if (!HasOpponentPlayedABaseCard())
+                    {
+                        return playerObject.gameObject;
+                    }
+                }
+                else
+                {
+                    return playerObject.gameObject;
+                }
+
+            }
+        }
+        return null;
+    }
+
+    private bool HasOpponentPlayedABaseCard()
+    {
+        foreach (GameObject card in opponent.GetComponent<PlayerDeck>().PlayedCards)
+        {
+            if (card.GetComponent<CardInfo>().Card.Type == "Bases")
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private void UpdatePlayersCard()
     {
-        player.GetComponent<PlayerDeck>().UpdateLifePoints(playerCard.GetComponent<CardInfo>().Card.Id, playerCard.GetComponent<CardInfo>().Card.Type, opponentCard.GetComponent<CardInfo>().Card.AttackPoints);
-        property.Add("EnemyCardID", opponentCard.GetComponent<CardInfo>().Card.Id);
-        property.Add("EnemyCardType", opponentCard.GetComponent<CardInfo>().Card.Type);
-        property.Add("EnemyCardDamage", playerCard.GetComponent<CardInfo>().Card.AttackPoints);
-        PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
+        if (playerCard != null &&  opponentObject != null)
+        {
+            if(opponentObject.CompareTag("Card"))
+            {
+                player.GetComponent<PlayerDeck>().UpdateLifePoints(playerCard.tag, playerCard.GetComponent<CardInfo>().Card.Id, playerCard.GetComponent<CardInfo>().Card.Type, opponentObject.GetComponent<CardInfo>().Card.AttackPoints);
+                property.Add("CardID", opponentObject.GetComponent<CardInfo>().Card.Id);
+                property.Add("CardType", opponentObject.GetComponent<CardInfo>().Card.Type);
+            }
+            else
+            {
+                player.GetComponent<PlayerDeck>().UpdateLifePoints(playerCard.tag, playerCard.GetComponent<CardInfo>().Card.Id, playerCard.GetComponent<CardInfo>().Card.Type, 0);
+                property.Add("CardID", 0);
+                property.Add("CardType", "");
+            }
+            
+            property.Add("Tag", opponentObject.tag);
+            property.Add("EnemyCardDamage", playerCard.GetComponent<CardInfo>().Card.AttackPoints);
+            PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
+            property.Clear();
+        }
     }
 }
-

@@ -4,7 +4,7 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System.Linq;
 
-public class PlayerInfo : MonoBehaviourPunCallbacks
+public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
 {
     private PhotonView photonView;
     private PlayerHUD playerHUD;
@@ -49,23 +49,18 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
     public void TransferSomeLifePointsToCoins()
     {
-        UpdateLifePoints(-3);
+        Damage(3);
         UpdateCoins(5);
     }
 
-    public void UpdateLifePoints(int amount)
-    {
-        if (photonView.IsMine)
-        {
-            photonView.RPC("UpdateLifePointsRPC", RpcTarget.AllBuffered, amount);
-            playerHUD.SetHUD();
-        }
-    }
-
     [PunRPC]
-    private void UpdateLifePointsRPC(int amount)
+    private void DamageRPC(int amount)
     {
-        LifePoints = Mathf.Clamp(LifePoints + amount, 0, maxLifePoints);
+        LifePoints = Mathf.Clamp(LifePoints - amount, 0, maxLifePoints);
+        if(LifePoints <= 0)
+        {
+            Debug.Log("Round lost!");
+        }
     }
 
     public void UpdateCoins(int amount)
@@ -81,5 +76,14 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     private void UpdateCoinsRPC(int amount)
     {
         Coins = Mathf.Clamp(Coins + amount, 0, maxCoins);
+    }
+
+    public void Damage(int amount)
+    {
+        if (photonView.IsMine)
+        {
+            photonView.RPC("DamageRPC", RpcTarget.AllBuffered, amount);
+            playerHUD.SetHUD();
+        }
     }
 }

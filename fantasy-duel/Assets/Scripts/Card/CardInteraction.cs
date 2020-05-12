@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class CardInteraction : MonoBehaviour
+public class CardInteraction : MonoBehaviour, ISelectable
 {
     private PlayerDeck playerDeck;
     private CardInfo cardInfo;
@@ -13,10 +13,11 @@ public class CardInteraction : MonoBehaviour
     private Vector3 offset;
     private Vector3 initialPosition;
     private Vector3 initialScale;
-    public bool IsSelected { get; set; }
     public bool IsDragging { get; private set; }
     public bool WasPlayed { get; set; }
     public bool IsLocked { get; set; }
+    public int TurnWhenWasPlayed { get; set; }
+    public bool IsSelected { get; set; }
 
     private void Awake()
     {
@@ -41,8 +42,8 @@ public class CardInteraction : MonoBehaviour
 
     private void OnMouseDown()
     {
-        DeselectCards();
-        SelectCard();
+        Deselect();
+        Select();
     }
 
     private void OnMouseOver()
@@ -67,15 +68,15 @@ public class CardInteraction : MonoBehaviour
         IsDragging = false;
     }
 
-    private void DeselectCards()
+    public void Deselect()
     {
-        foreach (Transform card in transform.parent)
+        foreach (GameObject obj in playerDeck.SelectableObjects)
         {
-            card.gameObject.GetComponent<CardInteraction>().IsSelected = false;
+            obj.GetComponent<ISelectable>().IsSelected = false;
         }
     }
 
-    private void SelectCard()
+    public void Select()
     {
         if (sceneIndex == 0)
         {
@@ -126,5 +127,11 @@ public class CardInteraction : MonoBehaviour
         {
             playerDeck.SetInitialTransform(cardInfo.Card);
         }
+    }
+
+    public bool CanDoAnAction()
+    {
+        int currentTurn = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
+        return (TurnWhenWasPlayed + 2) <= currentTurn;
     }
 }

@@ -70,7 +70,7 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
             duration = durationAux;
             IsReadyToCountdown = false;
             playerHUD.UpdateButtons(false);
-            playerDeck.UpdateDeckLock(true);
+            playerDeck.UpdateCardsLock(true);
             UpdateTurnProperty();
             PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
         }
@@ -95,8 +95,6 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
         round++;
         roomProperty.Add("TurnNumber", round);
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperty);
-
-        Debug.Log((int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"]);
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -105,7 +103,7 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
         {
             playerHUD.UpdateTurnMessage(true);
             playerHUD.UpdateButtons(true);
-            playerDeck.UpdateDeckLock(false);
+            playerDeck.UpdateCardsLock(false);
             IsReadyToCountdown = true;
             cardActionManager.CanPlayerDoAnAction = true;
             UpdateRoomTurnProperty();

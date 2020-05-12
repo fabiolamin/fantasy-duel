@@ -46,5 +46,7 @@ MonoBehaviour:
   - SetInitialTransformRPC
   - UpdateCoinsRPC
   - UpdateLifePointsRPC
+  - AddCardToPlayedCardsRPC
+  - DamageRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

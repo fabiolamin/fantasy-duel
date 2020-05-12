@@ -452,9 +452,9 @@ Transform:
   m_Children:
   - {fileID: 3403891542332778576}
   - {fileID: 3403891541567440114}
-  - {fileID: 3403891541798312755}
   - {fileID: 4884232793427229116}
   - {fileID: 8085809571225621798}
+  - {fileID: 3403891541798312755}
   - {fileID: 8417173360173017401}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -563,6 +563,7 @@ MonoBehaviour:
   - {fileID: 3403891541752023648}
   - {fileID: 3403891541655020320}
   - {fileID: 3403891542386440564}
+  playerLifeObject: {fileID: 3403891543204797059}
   scale: 1
   height: 1.4
 --- !u!114 &5942220043448342746
@@ -1081,7 +1082,7 @@ Transform:
   - {fileID: 3403891542196097313}
   - {fileID: 3403891543021852924}
   m_Father: {fileID: 3403891541363636336}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3403891541906085620
 GameObject:
@@ -2709,9 +2710,10 @@ GameObject:
   - component: {fileID: 3403891543204797060}
   - component: {fileID: 3403891543204797061}
   - component: {fileID: 3403891543204797058}
+  - component: {fileID: 2486939167445594283}
   m_Layer: 0
   m_Name: Potion
-  m_TagString: Untagged
+  m_TagString: PlayerLife
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2790,6 +2792,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2486939167445594283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3403891543204797059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 675a639f6f14417438673dd68d06d6ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDeck: {fileID: 6499475936070719740}
 --- !u!1 &3403891543289042772
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,7 +3055,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3403891541363636336}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3297080288771765842
 MonoBehaviour:
@@ -3508,7 +3523,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3403891541363636336}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &443118178074726456
 PrefabInstance:
@@ -3838,12 +3853,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5359194438774329175, guid: c15fc29421a83b4418280a3fe434348a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c15fc29421a83b4418280a3fe434348a, type: 3}
---- !u!224 &626777440127123473 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
-    type: 3}
-  m_PrefabInstance: {fileID: 5983406869530235512}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1764784703937349469 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5437131789460165925, guid: c15fc29421a83b4418280a3fe434348a,
@@ -3856,3 +3865,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &626777440127123473 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6610041918606463593, guid: c15fc29421a83b4418280a3fe434348a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5983406869530235512}
+  m_PrefabAsset: {fileID: 0}

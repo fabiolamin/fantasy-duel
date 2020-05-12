@@ -12,6 +12,7 @@ TagManager:
   - MagicsCards
   - DeckStorage
   - Card
+  - PlayerLife
   layers:
   - Default
   - TransparentFX

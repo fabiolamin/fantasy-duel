@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using Photon.Pun;
 
 public class CardBoardArea : MonoBehaviour
 {
     private PlayerDeck playerDeck;
     private PlayerInfo playerInfo;
-    private bool HasACard = false;
     private Ray ray;
     private RaycastHit raycastHit;
-    private GameObject card;
+    private GameObject playedCard;
 
     private void Awake()
     {
@@ -20,10 +20,7 @@ public class CardBoardArea : MonoBehaviour
 
     private void Update()
     {
-        if(!HasACard)
-        {
-            VerifyRaycast();
-        }
+        VerifyRaycast();
     }
 
     private void VerifyRaycast()
@@ -32,7 +29,7 @@ public class CardBoardArea : MonoBehaviour
         {
             if (raycastHit.collider.gameObject.CompareTag("Card"))
             {
-                card = raycastHit.collider.gameObject;
+                playedCard = raycastHit.collider.gameObject;
                 SetCardInBoardArea();
             }
         }
@@ -42,19 +39,20 @@ public class CardBoardArea : MonoBehaviour
     {
         if (CanCardBePlayed())
         {
-            card.GetComponent<CardInteraction>().WasPlayed = true;
+            playedCard.GetComponent<CardInteraction>().WasPlayed = true;
+            playedCard.GetComponent<CardInteraction>().TurnWhenWasPlayed = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-            playerDeck.SetCardInBoardArea(card.GetComponent<CardInfo>().Card, position);
-            playerInfo.UpdateCoins(-card.GetComponent<CardInfo>().Card.Coins);
-            playerDeck.RemoveCardFromHandCards(card);
+            playerDeck.SetCardInBoardArea(playedCard.GetComponent<CardInfo>().Card, position);
+            playerInfo.UpdateCoins(-playedCard.GetComponent<CardInfo>().Card.Coins);
+            playerDeck.AddCardToPlayedCards(playedCard);
+            playerDeck.RemoveCardFromHandCards(playedCard);
             playerDeck.UpdateHandCards();
-            playerDeck.UpdateDeckLock(true);
-            HasACard = true;
+            playerDeck.UpdateCardsLock(true);
         }
     }
 
     private bool CanCardBePlayed()
     {
-        return !card.GetComponent<CardInteraction>().IsDragging && !card.GetComponent<CardInteraction>().WasPlayed && playerInfo.Coins >= card.GetComponent<CardInfo>().Card.Coins;
+        return !playedCard.GetComponent<CardInteraction>().IsDragging && !playedCard.GetComponent<CardInteraction>().WasPlayed && playerInfo.Coins >= playedCard.GetComponent<CardInfo>().Card.Coins;
     }
 }
