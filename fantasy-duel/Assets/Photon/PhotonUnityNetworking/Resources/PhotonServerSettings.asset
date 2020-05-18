@@ -48,5 +48,16 @@ MonoBehaviour:
   - UpdateLifePointsRPC
   - AddCardToPlayedCardsRPC
   - DamageRPC
+  - AddCardRPC
+  - AddRPC
+  - DamageCardRPC
+  - OrganizeCardsRPC
+  - RemoveCardRPC
+  - SetCardRPC
+  - BuildDeck
+  - AddCard
+  - OrganizeCards
+  - RemoveCard
+  - DamageObjectRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

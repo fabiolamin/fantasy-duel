@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
 using System.Linq;
 
 public class PlayerHUD : MonoBehaviour
 {
-    private PhotonView photonView;
-    private PlayerInfo playerInfo;
+    private PlayerManager playerManager;
     private float turnMessageDurationAux;
     private bool isReadyToHideTurnMessage = false;
 
@@ -23,16 +21,15 @@ public class PlayerHUD : MonoBehaviour
 
     private void Awake()
     {
-        photonView = GetComponent<PhotonView>();
-        playerInfo = GetComponent<PlayerInfo>();
+        playerManager = GetComponent<PlayerManager>();
 
         SetHUD();
 
-        if (photonView.IsMine)
+        if (playerManager.PhotonView.IsMine)
         {
             buttons.ToList().ForEach(button => button.SetActive(true));
             playedCardImages.ToList().ForEach(image => image.SetActive(true));
-            photonView.RPC("RotateHUDToOpponentRPC", RpcTarget.OthersBuffered);
+            playerManager.PhotonView.RPC("RotateHUDToOpponentRPC", RpcTarget.OthersBuffered);
         }
 
         turnMessageDurationAux = turnMessageDuration;
@@ -62,25 +59,25 @@ public class PlayerHUD : MonoBehaviour
 
     private void HideTurnMessage()
     {
-        UpdateTurnMessage(false);
+        ActiveTurnMessage(false);
         turnMessageDuration = turnMessageDurationAux;
     }
 
     public void SetHUD()
     {
-        if (photonView.IsMine)
+        if (playerManager.PhotonView.IsMine)
         {
-            photonView.RPC("SetHUDRPC", RpcTarget.AllBuffered);
+            playerManager.PhotonView.RPC("SetHUDRPC", RpcTarget.AllBuffered);
         }
     }
 
     [PunRPC]
     private void SetHUDRPC()
     {
-        nickname.text = photonView.Owner.NickName;
-        lifePoints.text = playerInfo.LifePoints.ToString();
-        coins.text = playerInfo.Coins.ToString();
-        rounds.text = playerInfo.WonRounds.ToString();
+        nickname.text = playerManager.PhotonView.Owner.NickName;
+        lifePoints.text = playerManager.PlayerInfo.LifePoints.ToString();
+        coins.text = playerManager.PlayerInfo.Coins.ToString();
+        rounds.text = playerManager.PlayerInfo.WonRounds.ToString();
     }
 
     [PunRPC]
@@ -92,25 +89,25 @@ public class PlayerHUD : MonoBehaviour
         rounds.transform.Rotate(0, 0, 180);
     }
 
-    public void UpdateTurnMessage(bool status)
+    public void ActiveTurnMessage(bool isActivated)
     {
-        turnMessage.gameObject.SetActive(status);
-        isReadyToHideTurnMessage = status;
+        turnMessage.gameObject.SetActive(isActivated);
+        isReadyToHideTurnMessage = isActivated;
     }
 
-    public void UpdateButtons(bool status)
+    public void ActiveButtons(bool isActivated)
     {
-        buttons.ToList().ForEach(button => button.GetComponent<Button>().enabled = status);
+        buttons.ToList().ForEach(button => button.GetComponent<Button>().enabled = isActivated);
     }
 
     public void SetTurnDurationText(int time)
     {
-        UpdateTurnDurationText(true);
+        ActiveTurnDurationText(true);
         duration.text = "00 : " + time.ToString("00");
     }
 
-    public void UpdateTurnDurationText(bool status)
+    public void ActiveTurnDurationText(bool isActivated)
     {
-        duration.gameObject.SetActive(status);
+        duration.gameObject.SetActive(isActivated);
     }
 }

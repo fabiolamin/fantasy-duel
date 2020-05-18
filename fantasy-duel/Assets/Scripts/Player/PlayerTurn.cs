@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
 
-public class PlayerTurnManager : MonoBehaviourPunCallbacks
+public class PlayerTurn : MonoBehaviourPunCallbacks
 {
-    private PhotonView photonView;
-    private PlayerDeck playerDeck;
-    private PlayerHUD playerHUD;
+    private PlayerManager playerManager;
     private float durationAux;
     private int round;
     private bool IsReadyToCountdown = false;
@@ -18,13 +13,10 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
 
     [SerializeField] private float duration = 30f;
     [SerializeField] private float timeToShowDuration = 15f;
-    [SerializeField] CardActionManager cardActionManager;
 
     private void Awake()
     {
-        photonView = GetComponent<PhotonView>();
-        playerDeck = GetComponent<PlayerDeck>();
-        playerHUD = GetComponent<PlayerHUD>();
+        playerManager = GetComponent<PlayerManager>();
 
         durationAux = duration;
         round = 0;
@@ -53,7 +45,7 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
     {
         if (duration <= timeToShowDuration)
         {
-            playerHUD.SetTurnDurationText((int)duration);
+            playerManager.PlayerHUD.SetTurnDurationText((int)duration);
 
             if (duration <= 0)
             {
@@ -64,13 +56,13 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
 
     public void EndTurn()
     {
-        if (photonView.IsMine)
+        if (playerManager.PhotonView.IsMine)
         {
-            playerHUD.UpdateTurnDurationText(false);
+            playerManager.PlayerHUD.ActiveTurnDurationText(false);
             duration = durationAux;
             IsReadyToCountdown = false;
-            playerHUD.UpdateButtons(false);
-            playerDeck.UpdateCardsLock(true);
+            playerManager.PlayerHUD.ActiveButtons(false);
+            playerManager.PlayerHand.Lock(true);
             UpdateTurnProperty();
             PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
         }
@@ -101,11 +93,11 @@ public class PlayerTurnManager : MonoBehaviourPunCallbacks
     {
         if (targetPlayer == photonView.Owner && photonView.IsMine && changedProps.ContainsKey("IsReadyToPlayTurn"))
         {
-            playerHUD.UpdateTurnMessage(true);
-            playerHUD.UpdateButtons(true);
-            playerDeck.UpdateCardsLock(false);
+            playerManager.PlayerHUD.ActiveTurnMessage(true);
+            playerManager.PlayerHUD.ActiveButtons(true);
+            playerManager.PlayerHand.Lock(false);
+            playerManager.PlayerAction.CanPlayerDoAnAction = true;
             IsReadyToCountdown = true;
-            cardActionManager.CanPlayerDoAnAction = true;
             UpdateRoomTurnProperty();
         }
     }

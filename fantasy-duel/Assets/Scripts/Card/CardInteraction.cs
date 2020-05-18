@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
-using Photon.Realtime;
 
 public class CardInteraction : MonoBehaviour, ISelectable
 {
-    private PlayerDeck playerDeck;
+    private PlayerManager playerManager;
     private CardInfo cardInfo;
     private int sceneIndex;
     private bool isMouseOver = false;
@@ -31,7 +30,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
         if (sceneIndex == 1)
         {
-            playerDeck = transform.root.gameObject.GetComponent<PlayerDeck>();
+            playerManager = transform.root.GetComponent<PlayerManager>();
         }
     }
 
@@ -70,9 +69,9 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     public void Deselect()
     {
-        foreach (GameObject obj in playerDeck.SelectableObjects)
+        foreach (Transform card in transform.parent)
         {
-            obj.GetComponent<ISelectable>().IsSelected = false;
+            card.GetComponent<ISelectable>().IsSelected = false;
         }
     }
 
@@ -95,8 +94,8 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         if (sceneIndex == 1 && !isMouseOver && !WasPlayed)
         {
-            playerDeck.RaiseCard(cardInfo.Card);
-            playerDeck.IncreaseCardScale(cardInfo.Card);
+            playerManager.PlayerCardMovement.RaiseCard(cardInfo.Card);
+            playerManager.PlayerCardMovement.IncreaseCardScale(cardInfo.Card);
             isMouseOver = true;
         }
     }
@@ -125,7 +124,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         if (sceneIndex == 1 && !WasPlayed)
         {
-            playerDeck.SetInitialTransform(cardInfo.Card);
+            playerManager.PlayerCardMovement.SetInitialTransform(cardInfo.Card);
         }
     }
 

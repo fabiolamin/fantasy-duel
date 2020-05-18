@@ -1,13 +1,8 @@
 ﻿using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
-using ExitGames.Client.Photon;
-using System.Linq;
-
 public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
 {
-    private PhotonView photonView;
-    private PlayerHUD playerHUD;
+    private PlayerManager playerManager;
 
     [SerializeField] private int maxLifePoints;
     [SerializeField] private int maxCoins;
@@ -19,8 +14,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
 
     private void Awake()
     {
-        photonView = GetComponent<PhotonView>();
-        playerHUD = GetComponent<PlayerHUD>();
+        playerManager = GetComponent<PlayerManager>();
 
         SetAttributes();
 
@@ -39,12 +33,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
 
     private void SetCamera()
     {
-        int y = 180;
-        if (PhotonNetwork.IsMasterClient)
-        {
-            y = 0;
-        }
-        Instantiate(cameraPrefab, new Vector3(0.2f, 32, 0.3f), Quaternion.Euler(90, y, 0), transform);
+        Instantiate(cameraPrefab, new Vector3(0.2f, 32, 0.3f), Quaternion.Euler(90, Utility.GetYRotation(), 0), transform);
     }
 
     public void TransferSomeLifePointsToCoins()
@@ -57,7 +46,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     private void DamageRPC(int amount)
     {
         LifePoints = Mathf.Clamp(LifePoints - amount, 0, maxLifePoints);
-        if(LifePoints <= 0)
+        if (LifePoints <= 0)
         {
             Debug.Log("Round lost!");
         }
@@ -67,8 +56,8 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     {
         if (photonView.IsMine)
         {
-            photonView.RPC("UpdateCoinsRPC", RpcTarget.AllBuffered, amount);
-            playerHUD.SetHUD();
+            playerManager.PhotonView.RPC("UpdateCoinsRPC", RpcTarget.AllBuffered, amount);
+            playerManager.PlayerHUD.SetHUD();
         }
     }
 
@@ -80,10 +69,10 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
 
     public void Damage(int amount)
     {
-        if (photonView.IsMine)
+        if (playerManager.PhotonView.IsMine)
         {
-            photonView.RPC("DamageRPC", RpcTarget.AllBuffered, amount);
-            playerHUD.SetHUD();
+            playerManager.PhotonView.RPC("DamageRPC", RpcTarget.AllBuffered, amount);
+            playerManager.PlayerHUD.SetHUD();
         }
     }
 }

@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerLifeInteraction : MonoBehaviour, ISelectable, IProtectable
 {
+    private PlayerManager playerManager;
     public bool IsSelected { get; set; }
     public bool IsProteged { get; set; }
-
-    [SerializeField] private PlayerDeck playerDeck;
-
     private void Awake()
     {
+        playerManager = transform.root.GetComponent<PlayerManager>();
         IsProteged = true;
     }
 
@@ -27,7 +24,7 @@ public class PlayerLifeInteraction : MonoBehaviour, ISelectable, IProtectable
 
     public void Deselect()
     {
-        foreach (GameObject obj in playerDeck.SelectableObjects)
+        foreach (GameObject obj in playerManager.PlayerBoardArea.Objects)
         {
             obj.GetComponent<ISelectable>().IsSelected = false;
         }

@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
-using System.Linq;
-using System.Collections.Generic;
 using Photon.Pun;
 
 public class CardBoardArea : MonoBehaviour
 {
-    private PlayerDeck playerDeck;
-    private PlayerInfo playerInfo;
+    private PlayerManager playerManager;
     private Ray ray;
     private RaycastHit raycastHit;
     private GameObject playedCard;
 
     private void Awake()
     {
-        playerDeck = transform.root.gameObject.GetComponent<PlayerDeck>();
-        playerInfo = transform.root.gameObject.GetComponent<PlayerInfo>();
+        playerManager = transform.root.GetComponent<PlayerManager>();
         ray = new Ray(transform.position, Vector3.up);
     }
 
@@ -42,17 +38,17 @@ public class CardBoardArea : MonoBehaviour
             playedCard.GetComponent<CardInteraction>().WasPlayed = true;
             playedCard.GetComponent<CardInteraction>().TurnWhenWasPlayed = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-            playerDeck.SetCardInBoardArea(playedCard.GetComponent<CardInfo>().Card, position);
-            playerInfo.UpdateCoins(-playedCard.GetComponent<CardInfo>().Card.Coins);
-            playerDeck.AddCardToPlayedCards(playedCard);
-            playerDeck.RemoveCardFromHandCards(playedCard);
-            playerDeck.UpdateHandCards();
-            playerDeck.UpdateCardsLock(true);
+            playerManager.PlayerBoardArea.SetCard(playedCard.GetComponent<CardInfo>().Card, position);
+            playerManager.PlayerInfo.UpdateCoins(-playedCard.GetComponent<CardInfo>().Card.Coins);
+            playerManager.PlayerBoardArea.Add(playedCard);
+            playerManager.PlayerHand.RemoveCard(playedCard);
+            playerManager.PlayerHand.UpdateHand();
+            playerManager.PlayerHand.Lock(true);
         }
     }
 
     private bool CanCardBePlayed()
     {
-        return !playedCard.GetComponent<CardInteraction>().IsDragging && !playedCard.GetComponent<CardInteraction>().WasPlayed && playerInfo.Coins >= playedCard.GetComponent<CardInfo>().Card.Coins;
+        return !playedCard.GetComponent<CardInteraction>().IsDragging && !playedCard.GetComponent<CardInteraction>().WasPlayed && playerManager.PlayerInfo.Coins >= playedCard.GetComponent<CardInfo>().Card.Coins;
     }
 }
