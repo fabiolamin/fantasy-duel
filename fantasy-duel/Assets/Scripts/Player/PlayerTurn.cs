@@ -36,6 +36,20 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         }
     }
 
+    public void EndTurn()
+    {
+        if (playerManager.PhotonView.IsMine)
+        {
+            playerManager.PlayerHUD.ActiveTurnDurationText(false);
+            duration = durationAux;
+            IsReadyToCountdown = false;
+            playerManager.PlayerHUD.ActiveButtons(false);
+            playerManager.PlayerHand.Lock(true);
+            UpdateTurnProperty();
+            PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
+        }
+    }
+
     private void StartCountdown()
     {
         duration -= Time.deltaTime;
@@ -51,20 +65,6 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
             {
                 EndTurn();
             }
-        }
-    }
-
-    public void EndTurn()
-    {
-        if (playerManager.PhotonView.IsMine)
-        {
-            playerManager.PlayerHUD.ActiveTurnDurationText(false);
-            duration = durationAux;
-            IsReadyToCountdown = false;
-            playerManager.PlayerHUD.ActiveButtons(false);
-            playerManager.PlayerHand.Lock(true);
-            UpdateTurnProperty();
-            PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
         }
     }
 
