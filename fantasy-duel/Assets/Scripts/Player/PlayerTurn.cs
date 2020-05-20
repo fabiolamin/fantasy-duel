@@ -8,8 +8,6 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
     private float durationAux;
     private int round;
     private bool IsReadyToCountdown = false;
-    private ExitGames.Client.Photon.Hashtable property = new ExitGames.Client.Photon.Hashtable();
-    private ExitGames.Client.Photon.Hashtable roomProperty = new ExitGames.Client.Photon.Hashtable();
 
     [SerializeField] private float duration = 30f;
     [SerializeField] private float timeToShowDuration = 15f;
@@ -46,7 +44,7 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
             playerManager.PlayerHUD.ActiveButtons(false);
             playerManager.PlayerHand.Lock(true);
             UpdateTurnProperty();
-            PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
+            UpdateOpponentTurnProperty();
         }
     }
 
@@ -70,15 +68,33 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
 
     private void UpdateTurnProperty()
     {
+        ExitGames.Client.Photon.Hashtable property = playerManager.PhotonView.Owner.CustomProperties;
+
+        if (property.ContainsKey("IsReadyToPlayTurn"))
+        {
+            property.Remove("IsReadyToPlayTurn");
+        }
+
+        playerManager.PhotonView.Owner.SetCustomProperties(property);
+    }
+
+    private void UpdateOpponentTurnProperty()
+    {
+        ExitGames.Client.Photon.Hashtable property = PhotonNetwork.PlayerListOthers[0].CustomProperties;
+
         if (property.ContainsKey("IsReadyToPlayTurn"))
         {
             property.Remove("IsReadyToPlayTurn");
         }
         property.Add("IsReadyToPlayTurn", true);
+
+        PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
     }
 
     private void UpdateRoomTurnProperty()
     {
+        ExitGames.Client.Photon.Hashtable roomProperty = PhotonNetwork.CurrentRoom.CustomProperties;
+
         if (roomProperty.ContainsKey("TurnNumber"))
         {
             round = (int)roomProperty["TurnNumber"];
@@ -100,10 +116,5 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
             IsReadyToCountdown = true;
             UpdateRoomTurnProperty();
         }
-    }
-
-    public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
-    {
-        roomProperty = propertiesThatChanged;
     }
 }

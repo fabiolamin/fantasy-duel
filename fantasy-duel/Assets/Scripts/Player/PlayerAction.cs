@@ -8,7 +8,6 @@ public class PlayerAction : MonoBehaviour
     private GameObject opponent;
     private GameObject playerObject;
     private GameObject opponentObject;
-    private ExitGames.Client.Photon.Hashtable property = new ExitGames.Client.Photon.Hashtable();
 
     public bool CanPlayerDoAnAction { get; set; }
 
@@ -110,6 +109,8 @@ public class PlayerAction : MonoBehaviour
     {
         if (playerObject != null && opponentObject != null)
         {
+            ExitGames.Client.Photon.Hashtable property = PhotonNetwork.PlayerListOthers[0].CustomProperties;
+
             PlayerBoardArea playerBoardArea = player.GetComponent<PlayerManager>().PlayerBoardArea;
             Card playerCard = playerObject.GetComponent<CardInfo>().Card;
 
@@ -123,8 +124,8 @@ public class PlayerAction : MonoBehaviour
 
             property.Add("TargetTag", opponentObject.tag);
             property.Add("CardAttack", playerCard.AttackPoints);
+            property.Add("IsReadyToUpdateObject", true);
             PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
-            property.Clear();
         }
     }
 }
