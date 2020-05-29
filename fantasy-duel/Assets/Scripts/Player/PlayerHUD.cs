@@ -6,18 +6,21 @@ using System.Linq;
 public class PlayerHUD : MonoBehaviour
 {
     private PlayerManager playerManager;
-    private float turnMessageDurationAux;
-    private bool isReadyToHideTurnMessage = false;
+    private float matchMessageDurationAux;
+    private bool isReadyToHideMatchMessage = false;
 
-    [SerializeField] private float turnMessageDuration = 2f;
+    [SerializeField] private float matchMessageDuration = 2f;
     [SerializeField] private Text lifePoints;
     [SerializeField] private Text coins;
     [SerializeField] private Text rounds;
     [SerializeField] private Text nickname;
     [SerializeField] private GameObject[] buttons;
     [SerializeField] private GameObject[] playedCardImages;
-    [SerializeField] private Text turnMessage;
+    [SerializeField] private Text matchMessage;
     [SerializeField] private Text duration;
+    [SerializeField] private GameObject endMatchPanel;
+    [SerializeField] private Transform playersRoundsPanel;
+    [SerializeField] private GameObject playerRoundsText;
 
     private void Awake()
     {
@@ -32,35 +35,30 @@ public class PlayerHUD : MonoBehaviour
             playerManager.PhotonView.RPC("RotateHUDToOpponentRPC", RpcTarget.OthersBuffered);
         }
 
-        turnMessageDurationAux = turnMessageDuration;
+        matchMessageDurationAux = matchMessageDuration;
     }
 
     private void Update()
     {
-        if (isReadyToHideTurnMessage)
+        if (isReadyToHideMatchMessage)
         {
-            StartTurnMessageCountdown();
-            VerifyTurnMessageCountdown();
+            CheckMatchMessageCountdown();
         }
     }
 
-    private void StartTurnMessageCountdown()
+    private void CheckMatchMessageCountdown()
     {
-        turnMessageDuration -= Time.deltaTime;
-    }
-
-    private void VerifyTurnMessageCountdown()
-    {
-        if (turnMessageDuration <= 0)
+        matchMessageDuration -= Time.deltaTime;
+        if (matchMessageDuration <= 0)
         {
-            HideTurnMessage();
+            HideMatchMessage();
         }
     }
 
-    private void HideTurnMessage()
+    private void HideMatchMessage()
     {
-        ActiveTurnMessage(false);
-        turnMessageDuration = turnMessageDurationAux;
+        ActiveMatchMessage(false);
+        matchMessageDuration = matchMessageDurationAux;
     }
 
     public void SetHUD()
@@ -89,10 +87,18 @@ public class PlayerHUD : MonoBehaviour
         rounds.transform.Rotate(0, 0, 180);
     }
 
-    public void ActiveTurnMessage(bool isActivated)
+    public void SetMatchMessage(string message)
     {
-        turnMessage.gameObject.SetActive(isActivated);
-        isReadyToHideTurnMessage = isActivated;
+        matchMessage.text = message;
+    }
+
+    public void ActiveMatchMessage(bool isActivated)
+    {
+        if (playerManager.PhotonView.IsMine)
+        {
+            matchMessage.gameObject.SetActive(isActivated);
+            isReadyToHideMatchMessage = isActivated;
+        }
     }
 
     public void ActiveButtons(bool isActivated)
@@ -109,5 +115,18 @@ public class PlayerHUD : MonoBehaviour
     public void ActiveTurnDurationText(bool isActivated)
     {
         duration.gameObject.SetActive(isActivated);
+    }
+
+    public void ShowEndMatchPanel()
+    {
+        endMatchPanel.SetActive(true);
+
+        foreach(var player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            PlayerManager playerManager = player.GetComponent<PlayerManager>();
+            GameObject playerRounds = Instantiate(playerRoundsText, playersRoundsPanel);
+            int wonRounds = playerManager.PlayerInfo.WonRounds;
+            playerRounds.GetComponent<Text>().text = playerManager.PhotonView.Owner.NickName + "  " + wonRounds;
+        }
     }
 }

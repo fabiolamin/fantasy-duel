@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
 public class PlayerBoardArea : MonoBehaviourPunCallbacks
 {
@@ -88,26 +87,20 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         return null;
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    public void SetDamageToObject(ExitGames.Client.Photon.Hashtable changedProps)
     {
-        if (targetPlayer == photonView.Owner && changedProps.ContainsKey("IsReadyToUpdateObject"))
+        string targetTag = changedProps["TargetTag"].ToString();
+        int targetCardId = 0;
+        string targetCardType = "";
+
+        if (targetTag == "Card")
         {
-            string targetTag = changedProps["TargetTag"].ToString();
-            int targetCardId = 0;
-            string targetCardType = "";
-
-            if (targetTag == "Card")
-            {
-                targetCardId = (int)changedProps["TargetCardID"];
-                targetCardType = changedProps["TargetCardType"].ToString();
-            }
-            
-            int cardAttack = (int)changedProps["CardAttack"];
-
-            DamageObject(targetTag, targetCardId, targetCardType, cardAttack);
-
-            changedProps.Remove("IsReadyToUpdateObject");
-            targetPlayer.SetCustomProperties(changedProps);
+            targetCardId = (int)changedProps["TargetCardID"];
+            targetCardType = changedProps["TargetCardType"].ToString();
         }
+
+        int cardAttack = (int)changedProps["CardAttack"];
+
+        DamageObject(targetTag, targetCardId, targetCardType, cardAttack);
     }
 }

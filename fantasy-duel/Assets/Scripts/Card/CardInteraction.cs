@@ -69,9 +69,19 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     public void Deselect()
     {
-        foreach (Transform card in transform.parent)
+        if(sceneIndex == 0)
         {
-            card.GetComponent<ISelectable>().IsSelected = false;
+            foreach (Transform card in transform.parent)
+            {
+                card.GetComponent<ISelectable>().IsSelected = false;
+            }
+        }
+        else
+        {
+            foreach (GameObject obj in playerManager.PlayerBoardArea.Objects)
+            {
+                obj.GetComponent<ISelectable>().IsSelected = false;
+            }
         }
     }
 

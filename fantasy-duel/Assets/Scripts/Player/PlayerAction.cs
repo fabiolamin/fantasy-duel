@@ -49,7 +49,7 @@ public class PlayerAction : MonoBehaviour
 
     private GameObject GetPlayerSelectedObject()
     {
-        foreach (GameObject card in player.GetComponent<PlayerManager>().PlayerBoardArea.Objects)
+        foreach (GameObject card in player.GetComponent<PlayerManager>().PlayerBoardArea.Cards)
         {
             if (card.GetComponent<ISelectable>().IsSelected)
             {
@@ -109,7 +109,7 @@ public class PlayerAction : MonoBehaviour
     {
         if (playerObject != null && opponentObject != null)
         {
-            ExitGames.Client.Photon.Hashtable property = PhotonNetwork.PlayerListOthers[0].CustomProperties;
+            ExitGames.Client.Photon.Hashtable property = new ExitGames.Client.Photon.Hashtable();
 
             PlayerBoardArea playerBoardArea = player.GetComponent<PlayerManager>().PlayerBoardArea;
             Card playerCard = playerObject.GetComponent<CardInfo>().Card;

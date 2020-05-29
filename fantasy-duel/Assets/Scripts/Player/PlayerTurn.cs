@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
 public class PlayerTurn : MonoBehaviourPunCallbacks
 {
@@ -29,8 +28,7 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
     {
         if (IsReadyToCountdown)
         {
-            StartCountdown();
-            VerifyCountdown();
+            CheckCountdown();
         }
     }
 
@@ -43,18 +41,14 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
             IsReadyToCountdown = false;
             playerManager.PlayerHUD.ActiveButtons(false);
             playerManager.PlayerHand.Lock(true);
-            UpdateTurnProperty();
             UpdateOpponentTurnProperty();
         }
     }
 
-    private void StartCountdown()
+    private void CheckCountdown()
     {
         duration -= Time.deltaTime;
-    }
 
-    private void VerifyCountdown()
-    {
         if (duration <= timeToShowDuration)
         {
             playerManager.PlayerHUD.SetTurnDurationText((int)duration);
@@ -66,28 +60,10 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdateTurnProperty()
-    {
-        ExitGames.Client.Photon.Hashtable property = playerManager.PhotonView.Owner.CustomProperties;
-
-        if (property.ContainsKey("IsReadyToPlayTurn"))
-        {
-            property.Remove("IsReadyToPlayTurn");
-        }
-
-        playerManager.PhotonView.Owner.SetCustomProperties(property);
-    }
-
     private void UpdateOpponentTurnProperty()
     {
-        ExitGames.Client.Photon.Hashtable property = PhotonNetwork.PlayerListOthers[0].CustomProperties;
-
-        if (property.ContainsKey("IsReadyToPlayTurn"))
-        {
-            property.Remove("IsReadyToPlayTurn");
-        }
+        ExitGames.Client.Photon.Hashtable property = new ExitGames.Client.Photon.Hashtable();
         property.Add("IsReadyToPlayTurn", true);
-
         PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
     }
 
@@ -105,16 +81,14 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperty);
     }
 
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    public void StartTurn()
     {
-        if (targetPlayer == photonView.Owner && photonView.IsMine && changedProps.ContainsKey("IsReadyToPlayTurn"))
-        {
-            playerManager.PlayerHUD.ActiveTurnMessage(true);
-            playerManager.PlayerHUD.ActiveButtons(true);
-            playerManager.PlayerHand.Lock(false);
-            playerManager.PlayerAction.CanPlayerDoAnAction = true;
-            IsReadyToCountdown = true;
-            UpdateRoomTurnProperty();
-        }
+        playerManager.PlayerHUD.ActiveMatchMessage(true);
+        playerManager.PlayerHUD.SetMatchMessage("Your turn!");
+        playerManager.PlayerHUD.ActiveButtons(true);
+        playerManager.PlayerHand.Lock(false);
+        playerManager.PlayerAction.CanPlayerDoAnAction = true;
+        IsReadyToCountdown = true;
+        UpdateRoomTurnProperty();
     }
 }

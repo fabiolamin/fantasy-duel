@@ -2,7 +2,6 @@
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
-using System.Collections.Generic;
 
 public class NetworkingManager : MonoBehaviourPunCallbacks
 {
@@ -10,6 +9,10 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
     [SerializeField] private PlayerSettings playerSettings;
     private void Awake()
     {
+        if(PhotonNetwork.IsConnected)
+        {
+            PhotonNetwork.Disconnect();
+        }
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
