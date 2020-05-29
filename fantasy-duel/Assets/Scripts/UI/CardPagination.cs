@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class CardPageManager : MonoBehaviour
+public class CardPagination : MonoBehaviour
 {
     private int start = 0;
     private int end = 6;
@@ -21,7 +21,7 @@ public class CardPageManager : MonoBehaviour
         cardsPerPage = cardPrefabs.Length;
     }
 
-    public void SetList(string type)
+    public void Load(string type)
     {
         Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Id).ToList();
         SetPagesNumber();

@@ -4,6 +4,7 @@ using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
+    private static UIManager instance;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject nicknameCreationPanel;
     [SerializeField] private GameObject matchmakingPanel;
@@ -19,17 +20,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] cardPlaceholder;
     [SerializeField] private GameObject[] cardPlaceholderDeck;
 
-    [SerializeField] private CardPageManager cardPageManager;
-    [SerializeField] private CardPageManager cardPageManagerDeck;
+    [SerializeField] private CardPagination cardPagination;
+    [SerializeField] private CardPagination cardPaginationDeck;
 
     [SerializeField] private Text coins;
 
+    public static UIManager Instance
+    {
+        get
+        {
+            if(instance == null)
+            {
+                Debug.LogError("UI Manager is NULL.");
+            }
+
+            return instance;
+        }
+    }
     public InputField PlayerName { get { return playerName; } private set { playerName = value; } }
     public Text ConnectionStatus { get { return connectionStatus; } set { connectionStatus = value; } }
     public Text Coins { get { return coins; } set { coins = value; } }
 
     private void Awake()
     {
+        instance = this;
         ShowMainMenuPanel();
     }
 
@@ -73,8 +87,8 @@ public class UIManager : MonoBehaviour
 
     public void ShowCards()
     {
-        cardPageManager.SetList("Creatures");
-        cardPageManagerDeck.SetList("Creatures");
+        cardPagination.Load("Creatures");
+        cardPaginationDeck.Load("Creatures");
     }
 
     public void SetNicknameText()

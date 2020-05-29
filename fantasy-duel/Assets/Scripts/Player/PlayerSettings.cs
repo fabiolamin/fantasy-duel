@@ -7,28 +7,27 @@ public class PlayerSettings : MonoBehaviour
 {
     private string nickname;
 
-    [SerializeField] private UIManager uiManager;
-    [SerializeField] private NetworkingManager networkingManager;
+    [SerializeField] private Networking networking;
     [SerializeField] private CardStorage deckCardStorage;
 
     public void VerifyNickname()
     {
         if (PlayerPrefs.GetString("Nickname") == "")
         {
-            uiManager.ShowNicknameCreationPanel();
+            UIManager.Instance.ShowNicknameCreationPanel();
         }
         else
         {
-            networkingManager.Connect();
+            networking.Connect();
         }
     }
 
     public void CreateNickname()
     {
         int random = Random.Range(100, 999);
-        nickname = uiManager.PlayerName.text + random.ToString();
+        nickname = UIManager.Instance.PlayerName.text + random.ToString();
         PlayerPrefs.SetString("Nickname", nickname);
-        uiManager.SetNicknameText();
+        UIManager.Instance.SetNicknameText();
     }
 
     public void SetDeckAsProperty()

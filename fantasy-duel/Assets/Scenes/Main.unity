@@ -260,8 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 870912d9381f8e44e97eafa7c1786d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 405042318}
-  networkingManager: {fileID: 1881426510}
+  networking: {fileID: 0}
   deckCardStorage: {fileID: 1880738395}
 --- !u!1 &45544286
 GameObject:
@@ -656,7 +655,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 744786137}
-        m_MethodName: SetList
+        m_MethodName: Load
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1531,8 +1530,8 @@ MonoBehaviour:
   - {fileID: 1767256647}
   - {fileID: 667533384}
   - {fileID: 1236483586}
-  cardPageManager: {fileID: 1259741117}
-  cardPageManagerDeck: {fileID: 744786137}
+  cardPagination: {fileID: 1259741117}
+  cardPaginationDeck: {fileID: 744786137}
   coins: {fileID: 402958206}
 --- !u!4 &405042319
 Transform:
@@ -2706,7 +2705,7 @@ GameObject:
   - component: {fileID: 744786136}
   - component: {fileID: 744786137}
   m_Layer: 0
-  m_Name: Card Page Manager Deck
+  m_Name: 'Deck Card Pagination '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2910,7 +2909,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 744786137}
-        m_MethodName: SetList
+        m_MethodName: Load
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4770,7 +4769,7 @@ GameObject:
   - component: {fileID: 1259741118}
   - component: {fileID: 1259741117}
   m_Layer: 0
-  m_Name: Card Page Manager
+  m_Name: Store Card Pagination
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5047,7 +5046,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1259741117}
-        m_MethodName: SetList
+        m_MethodName: Load
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5560,7 +5559,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1259741117}
-        m_MethodName: SetList
+        m_MethodName: Load
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5790,11 +5789,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maximumPlayerCoins: 80
-  uiManager: {fileID: 405042318}
   storeCardStorage: {fileID: 1996150567}
-  storeCardPageManager: {fileID: 1259741117}
+  storeCardPagination: {fileID: 1259741117}
   deckCardStorage: {fileID: 1880738395}
-  deckCardPageManager: {fileID: 744786137}
+  deckCardPagination: {fileID: 744786137}
 --- !u!4 &1490596314
 Transform:
   m_ObjectHideFlags: 0
@@ -6175,7 +6173,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1259741117}
-        m_MethodName: SetList
+        m_MethodName: Load
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7030,7 +7028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bac547a5183a5c4d86e735da2441629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 405042318}
   playerSettings: {fileID: 36751110}
 --- !u!4 &1881426511
 Transform:
@@ -7129,7 +7126,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 744786137}
-        m_MethodName: SetList
+        m_MethodName: Load
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

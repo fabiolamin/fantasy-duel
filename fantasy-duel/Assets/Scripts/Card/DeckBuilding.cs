@@ -6,24 +6,22 @@ public class DeckBuilding : MonoBehaviour
     private int playerCoins;
     [SerializeField] private int maximumPlayerCoins = 80;
 
-    [SerializeField] private UIManager uiManager;
-
     [Header("Store")]
     [SerializeField] private CardStorage storeCardStorage;
-    [SerializeField] private CardPageManager storeCardPageManager;
+    [SerializeField] private CardPagination storeCardPagination;
 
     [Header("Deck")]
     [SerializeField] private CardStorage deckCardStorage;
-    [SerializeField] private CardPageManager deckCardPageManager;
+    [SerializeField] private CardPagination deckCardPagination;
 
     private void Awake()
     {
         playerCoins = maximumPlayerCoins - deckCardStorage.Collection.Sum(card => card.Coins);
-        uiManager.Coins.text = "Coins: " + playerCoins;
+        UIManager.Instance.Coins.text = "Coins: " + playerCoins;
     }
     public void StoreCard()
     {
-        Card card = GetSelectedCard(storeCardPageManager.CardPrefabs);
+        Card card = GetSelectedCard(storeCardPagination.CardPrefabs);
 
         if (card != null)
         {
@@ -39,7 +37,7 @@ public class DeckBuilding : MonoBehaviour
 
     public void DeleteCard()
     {
-        Card card = GetSelectedCard(deckCardPageManager.CardPrefabs);
+        Card card = GetSelectedCard(deckCardPagination.CardPrefabs);
         int index = deckCardStorage.Collection.FindIndex(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type);
         deckCardStorage.Collection.RemoveAt(index);
         storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = true;
@@ -64,21 +62,21 @@ public class DeckBuilding : MonoBehaviour
 
     private void RefreshCardPageManager(string type)
     {
-        storeCardPageManager.SetList(type);
-        deckCardPageManager.SetList(type);
+        storeCardPagination.Load(type);
+        deckCardPagination.Load(type);
     }
 
     private void UpdateCoins(int value)
     {
         playerCoins = Mathf.Clamp(playerCoins + value, 0, maximumPlayerCoins);
-        uiManager.Coins.text = "Coins: " + playerCoins;
+        UIManager.Instance.Coins.text = "Coins: " + playerCoins;
     }
 
     public void Save()
     {
         deckCardStorage.SaveCardsAsFiles();
         storeCardStorage.SaveCardsAsFiles();
-        uiManager.ShowMainMenuPanel();
+        UIManager.Instance.ShowMainMenuPanel();
     }
 
     private Card SetCardAsAvailable(Card card)

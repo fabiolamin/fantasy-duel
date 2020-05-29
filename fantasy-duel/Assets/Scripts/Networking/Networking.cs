@@ -3,9 +3,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 
-public class NetworkingManager : MonoBehaviourPunCallbacks
+public class Networking : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private UIManager uiManager;
     [SerializeField] private PlayerSettings playerSettings;
     private void Awake()
     {
@@ -18,15 +17,15 @@ public class NetworkingManager : MonoBehaviourPunCallbacks
 
     public void Connect()
     {
-        uiManager.ShowMatchmakingPanel();
-        uiManager.ConnectionStatus.text = "Connecting to the server...";
+        UIManager.Instance.ShowMatchmakingPanel();
+        UIManager.Instance.ConnectionStatus.text = "Connecting to the server...";
         PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
-        uiManager.ConnectionStatus.text = "Finding an oponnent...";
+        UIManager.Instance.ConnectionStatus.text = "Finding an oponnent...";
         PhotonNetwork.JoinLobby();
     }
 
