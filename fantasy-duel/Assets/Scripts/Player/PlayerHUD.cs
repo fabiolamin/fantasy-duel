@@ -119,6 +119,7 @@ public class PlayerHUD : MonoBehaviour
 
     public void ShowEndMatchPanel()
     {
+        playerManager.PlaySoundEffect(Clip.EndMatch);
         endMatchPanel.SetActive(true);
 
         foreach(var player in GameObject.FindGameObjectsWithTag("Player"))

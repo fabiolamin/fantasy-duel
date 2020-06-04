@@ -35,6 +35,7 @@ public class CardBoardArea : MonoBehaviour
     {
         if (CanCardBePlayed())
         {
+            playerManager.PlaySoundEffect(Clip.CardPlayed);
             playedCard.GetComponent<CardInteraction>().WasPlayed = true;
             playedCard.GetComponent<CardInteraction>().TurnWhenWasPlayed = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);

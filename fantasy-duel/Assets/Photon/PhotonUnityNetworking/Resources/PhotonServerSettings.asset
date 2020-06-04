@@ -62,5 +62,6 @@ MonoBehaviour:
   - SetAttributesRPC
   - AddRound
   - AddRoundRPC
+  - PlaySoundEffectRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

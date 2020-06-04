@@ -5,14 +5,27 @@ using ExitGames.Client.Photon;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
+    private bool isReadyToLoad = false;
     [SerializeField] private PlayerSettings playerSettings;
+    [SerializeField] private float timeToLoad = 4f;
     private void Awake()
     {
-        if(PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnected)
         {
             PhotonNetwork.Disconnect();
         }
         PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
+    private void CheckLoadCountdown()
+    {
+        timeToLoad -= Time.deltaTime;
+        AudioManager.Instance.UpdateVolume(Audio.Soundtrack, -Time.deltaTime);
+
+        if (timeToLoad <= 0)
+        {
+            PhotonNetwork.LoadLevel(1);
+        }
     }
 
     public void Connect()
@@ -82,14 +95,9 @@ public class Networking : MonoBehaviourPunCallbacks
 
     private void LoadRoom(Hashtable changedProps)
     {
-        if (changedProps["IsReadyToLoad"] != null)
+        if (changedProps.ContainsKey("IsReadyToLoad"))
         {
-            bool isReadyToLoad = bool.Parse(changedProps["IsReadyToLoad"].ToString());
-
-            if (isReadyToLoad)
-            {
-                PhotonNetwork.LoadLevel(1);
-            }
+            PhotonNetwork.LoadLevel(1);
         }
     }
 

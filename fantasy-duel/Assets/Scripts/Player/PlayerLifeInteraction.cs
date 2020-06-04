@@ -19,6 +19,7 @@ public class PlayerLifeInteraction : MonoBehaviour, ISelectable, IProtectable
 
     public void Select()
     {
+        playerManager.PlaySoundEffect(Clip.ObjectHit);
         IsSelected = true;
     }
 

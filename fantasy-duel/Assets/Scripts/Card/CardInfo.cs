@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
 public class CardInfo : MonoBehaviour, IDamageable, IProtectable
 {
+    private PlayerManager playerManager;
     private PhotonView photonView;
     private CardUI cardUI;
 
@@ -14,10 +14,16 @@ public class CardInfo : MonoBehaviour, IDamageable, IProtectable
     private void Awake()
     {
         cardUI = GetComponent<CardUI>();
+
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            playerManager = transform.root.GetComponent<PlayerManager>();
+        }
     }
 
     public void Damage(int amount)
     {
+        playerManager.PlaySoundEffect(Clip.CardDamage);
         Card.LifePoints -= amount;
         CheckLife();
         cardUI.Set(Card);
@@ -27,6 +33,7 @@ public class CardInfo : MonoBehaviour, IDamageable, IProtectable
     {
         if(Card.LifePoints <= 0)
         {
+            playerManager.PlaySoundEffect(Clip.CardDestruction);
             gameObject.SetActive(false);
         }
     }

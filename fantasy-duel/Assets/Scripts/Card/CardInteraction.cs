@@ -69,7 +69,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     public void Deselect()
     {
-        if(sceneIndex == 0)
+        if (sceneIndex == 0)
         {
             foreach (Transform card in transform.parent)
             {
@@ -92,10 +92,12 @@ public class CardInteraction : MonoBehaviour, ISelectable
             if (cardInfo.Card.IsAvailable)
             {
                 IsSelected = true;
+                AudioManager.Instance.Play(Audio.SoundEffects, Clip.CardSelect, false);
             }
         }
         else
         {
+            playerManager.PlaySoundEffect(Clip.ObjectHit);
             IsSelected = true;
         }
     }
@@ -104,6 +106,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         if (sceneIndex == 1 && !isMouseOver && !WasPlayed)
         {
+            playerManager.PlaySoundEffect(Clip.CardSelect);
             playerManager.PlayerCardMovement.RaiseCard(cardInfo.Card);
             playerManager.PlayerCardMovement.IncreaseCardScale(cardInfo.Card);
             isMouseOver = true;
@@ -114,6 +117,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         if (sceneIndex == 1 && !IsDragging && !WasPlayed && !IsLocked)
         {
+            playerManager.PlaySoundEffect(Clip.CardDrag);
             IsDragging = true;
             screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z));

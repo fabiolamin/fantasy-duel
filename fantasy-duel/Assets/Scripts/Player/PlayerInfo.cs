@@ -48,6 +48,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
 
     public void TransferSomeLifePointsToCoins()
     {
+        playerManager.PlaySoundEffect(Clip.Sacrifice);
         Damage(3);
         UpdateCoins(5);
     }
@@ -58,6 +59,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
         LifePoints = Mathf.Clamp(LifePoints - amount, 0, maxLifePoints);
         if (LifePoints <= 0)
         {
+            AudioManager.Instance.Play(Audio.SoundEffects, Clip.Round, false);
             RoundManager.Instance.SetRound();
             RoundManager.Instance.CheckRounds();
         }

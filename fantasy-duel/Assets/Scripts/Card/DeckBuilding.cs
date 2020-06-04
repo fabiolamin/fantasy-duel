@@ -21,6 +21,7 @@ public class DeckBuilding : MonoBehaviour
     }
     public void StoreCard()
     {
+        AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
         Card card = GetSelectedCard(storeCardPagination.CardPrefabs);
 
         if (card != null)
@@ -37,6 +38,7 @@ public class DeckBuilding : MonoBehaviour
 
     public void DeleteCard()
     {
+        AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
         Card card = GetSelectedCard(deckCardPagination.CardPrefabs);
         int index = deckCardStorage.Collection.FindIndex(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type);
         deckCardStorage.Collection.RemoveAt(index);

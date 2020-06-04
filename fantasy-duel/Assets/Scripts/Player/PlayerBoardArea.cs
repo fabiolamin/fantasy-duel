@@ -62,6 +62,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         switch (targetTag)
         {
             case "PlayerLife":
+                playerManager.PlaySoundEffect(Clip.DiamondHit);
                 GetComponent<IDamageable>().Damage(amount);
                 break;
 

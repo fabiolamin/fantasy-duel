@@ -3,7 +3,7 @@ using Photon.Pun;
 
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] private float timeToDisconnect = 3f; 
+    [SerializeField] private float timeToDisconnect = 3f;
     public PhotonView PhotonView { get; private set; }
     public PlayerInfo PlayerInfo { get; private set; }
     public PlayerHUD PlayerHUD { get; private set; }
@@ -28,7 +28,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(IsReadyToDisconnect)
+        if (IsReadyToDisconnect)
         {
             CheckDisconnectCountdown();
         }
@@ -38,13 +38,24 @@ public class PlayerManager : MonoBehaviour
     {
         timeToDisconnect -= Time.deltaTime;
 
-        if(timeToDisconnect <= 0)
+        if (timeToDisconnect <= 0)
         {
             PhotonNetwork.Destroy(gameObject);
-            if(PhotonView.Owner.IsMasterClient)
+            if (PhotonView.Owner.IsMasterClient)
             {
                 PhotonNetwork.LoadLevel(0);
             }
         }
+    }
+
+    public void PlaySoundEffect(Clip clip)
+    {
+        PhotonView.RPC("PlaySoundEffectRPC", RpcTarget.AllBuffered, (int)clip);
+    }
+
+    [PunRPC]
+    private void PlaySoundEffectRPC(int index)
+    {
+        AudioManager.Instance.Play(Audio.SoundEffects, (Clip)index, false);
     }
 }
