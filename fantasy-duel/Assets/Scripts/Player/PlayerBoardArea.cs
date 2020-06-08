@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
 
 public class PlayerBoardArea : MonoBehaviourPunCallbacks
 {
     private PlayerManager playerManager;
     [SerializeField] private GameObject playerLifeObject;
+    [SerializeField] private GameObject[] playedCards;
     public List<GameObject> Objects { get; private set; } = new List<GameObject>();
     public List<GameObject> Cards { get; private set; } = new List<GameObject>();
 
@@ -13,6 +15,11 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     {
         playerManager = GetComponent<PlayerManager>();
         Objects.Add(playerLifeObject);
+
+        if (playerManager.PhotonView.IsMine)
+        {
+            playedCards.ToList().ForEach(card => card.SetActive(true));
+        }
     }
 
     public void SetCard(Card card, Vector3 position)
@@ -61,7 +68,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     {
         switch (targetTag)
         {
-            case "PlayerLife":
+            case "Character":
                 playerManager.PlaySoundEffect(Clip.DiamondHit);
                 GetComponent<IDamageable>().Damage(amount);
                 break;

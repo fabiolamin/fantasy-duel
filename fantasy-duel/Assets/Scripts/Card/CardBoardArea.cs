@@ -7,11 +7,14 @@ public class CardBoardArea : MonoBehaviour
     private Ray ray;
     private RaycastHit raycastHit;
     private GameObject playedCard;
+    private MeshRenderer meshRenderer;
 
     private void Awake()
     {
         playerManager = transform.root.GetComponent<PlayerManager>();
         ray = new Ray(transform.position, Vector3.up);
+        meshRenderer = GetComponent<MeshRenderer>();
+        meshRenderer.enabled = true;
     }
 
     private void Update()
