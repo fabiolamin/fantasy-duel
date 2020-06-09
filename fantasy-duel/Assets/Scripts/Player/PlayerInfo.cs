@@ -57,8 +57,11 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     private void DamageRPC(int amount)
     {
         LifePoints = Mathf.Clamp(LifePoints - amount, 0, maxLifePoints);
+        playerManager.PlayCharacterAnimation(CharacterAnimations.Damage);
+
         if (LifePoints <= 0)
         {
+            playerManager.PlayCharacterAnimation(CharacterAnimations.Die);
             AudioManager.Instance.Play(Audio.SoundEffects, Clip.Round, false);
             RoundManager.Instance.SetRound();
             RoundManager.Instance.CheckRounds();

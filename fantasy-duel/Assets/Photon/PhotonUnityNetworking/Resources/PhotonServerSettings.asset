@@ -63,5 +63,6 @@ MonoBehaviour:
   - AddRound
   - AddRoundRPC
   - PlaySoundEffectRPC
+  - PlayCharacterAnimationRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

@@ -4,6 +4,7 @@ using Photon.Pun;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private float timeToDisconnect = 3f;
+    [SerializeField] private Character character;
     public PhotonView PhotonView { get; private set; }
     public PlayerInfo PlayerInfo { get; private set; }
     public PlayerHUD PlayerHUD { get; private set; }
@@ -57,5 +58,16 @@ public class PlayerManager : MonoBehaviour
     private void PlaySoundEffectRPC(int index)
     {
         AudioManager.Instance.Play(Audio.SoundEffects, (Clip)index, false);
+    }
+
+    public void PlayCharacterAnimation(CharacterAnimations animations)
+    {
+        PhotonView.RPC("PlayCharacterAnimationRPC", RpcTarget.AllBuffered, (int)animations);
+    }
+
+    [PunRPC]
+    private void PlayCharacterAnimationRPC(int index)
+    {
+        character.PlayAnimation((CharacterAnimations)index);
     }
 }

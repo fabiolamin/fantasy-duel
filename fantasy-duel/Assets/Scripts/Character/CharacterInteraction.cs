@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerLifeInteraction : MonoBehaviour, ISelectable, IProtectable
+public class CharacterInteraction : MonoBehaviour, ISelectable, IProtectable
 {
     private PlayerManager playerManager;
     public bool IsSelected { get; set; }

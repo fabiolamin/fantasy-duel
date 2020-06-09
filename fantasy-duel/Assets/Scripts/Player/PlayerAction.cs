@@ -24,6 +24,7 @@ public class PlayerAction : MonoBehaviour
             GetPlayers();
             GetSelections();
             UpdatePlayersObject();
+            playerManager.PlayCharacterAnimation(CharacterAnimations.Attack);
             CanPlayerDoAnAction = false;
         }
     }

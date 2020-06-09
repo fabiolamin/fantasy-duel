@@ -6,7 +6,7 @@ using System.Linq;
 public class PlayerBoardArea : MonoBehaviourPunCallbacks
 {
     private PlayerManager playerManager;
-    [SerializeField] private GameObject playerLifeObject;
+    [SerializeField] private GameObject character;
     [SerializeField] private GameObject[] playedCards;
     public List<GameObject> Objects { get; private set; } = new List<GameObject>();
     public List<GameObject> Cards { get; private set; } = new List<GameObject>();
@@ -14,7 +14,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
-        Objects.Add(playerLifeObject);
+        Objects.Add(character);
 
         if (playerManager.PhotonView.IsMine)
         {
@@ -69,7 +69,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         switch (targetTag)
         {
             case "Character":
-                playerManager.PlaySoundEffect(Clip.DiamondHit);
+                playerManager.PlaySoundEffect(Clip.CharacterDamage);
                 GetComponent<IDamageable>().Damage(amount);
                 break;
 
