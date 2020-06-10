@@ -126,7 +126,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     private void DragAndDrop()
     {
-        if (IsDragging && !IsLocked)
+        if (IsDragging && !IsLocked && playerManager.PhotonView.IsMine)
         {
             Vector3 currentScreenPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z);
             Vector3 currentPosition = Camera.main.ScreenToWorldPoint(currentScreenPosition) + offset;
