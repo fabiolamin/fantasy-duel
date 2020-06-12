@@ -38,9 +38,11 @@ public class CardBoardArea : MonoBehaviour
     {
         if (CanCardBePlayed())
         {
+            
             playerManager.PlaySoundEffect(Clip.CardPlayed);
             playedCard.GetComponent<CardInteraction>().WasPlayed = true;
             playedCard.GetComponent<CardInteraction>().TurnWhenWasPlayed = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
+            playedCard.GetComponent<CardInteraction>().IsSelected = false;
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
             playerManager.PlayerBoardArea.SetCard(playedCard.GetComponent<CardInfo>().Card, position);
             playerManager.PlayerInfo.UpdateCoins(-playedCard.GetComponent<CardInfo>().Card.Coins);

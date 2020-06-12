@@ -17,16 +17,30 @@ public class PlayerAction : MonoBehaviour
         playerManager = GetComponent<PlayerManager>();
     }
 
-    public void StartAction()
+    public void PrepareForAction()
     {
-        if (CanPlayerDoAnAction)
+        GetPlayers();
+        GetSelections();
+
+        if (CanPlayerDoAnAction && playerObject != null)
         {
-            GetPlayers();
-            GetSelections();
-            UpdatePlayersObject();
-            playerManager.PlayCharacterAnimation(CharacterAnimations.Attack);
-            CanPlayerDoAnAction = false;
+            StartAction();
+            ResetVariables();
         }
+    }
+
+    private void StartAction()
+    {
+        UpdatePlayersObject();
+        playerManager.PlayCharacterAnimation(CharacterAnimations.Attack);
+    }
+
+    private void ResetVariables()
+    {
+        CanPlayerDoAnAction = false;
+        playerObject.GetComponent<ISelectable>().IsSelected = false;
+        opponentObject.GetComponent<ISelectable>().IsSelected = false;
+        playerObject = null;
     }
 
     private void GetPlayers()
