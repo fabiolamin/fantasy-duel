@@ -27,7 +27,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         if (playerManager.PhotonView.IsMine)
         {
             float[] cardPosition = new float[] { position.x, position.y, position.z };
-            playerManager.PhotonView.RPC("SetCardRPC", RpcTarget.AllBuffered, playerManager.PlayerHand.GetIndex(card), cardPosition);
+            playerManager.PhotonView.RPC("SetCardRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(card, playerManager.PlayerHand.Cards), cardPosition);
         }
     }
 
@@ -44,7 +44,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
 
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("AddRPC", RpcTarget.AllBuffered, playerManager.PlayerHand.GetIndex(playedCard));
+            playerManager.PhotonView.RPC("AddRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, playerManager.PlayerHand.Cards));
         }
     }
 
@@ -53,6 +53,22 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     {
         Objects.Add(playerManager.PlayerHand.Cards[index]);
         Cards.Add(playerManager.PlayerHand.Cards[index]);
+    }
+
+    public void Remove(GameObject card)
+    {
+        Card playedCard = card.GetComponent<CardInfo>().Card;
+
+        if (playerManager.PhotonView.IsMine)
+        {
+            playerManager.PhotonView.RPC("RemoveRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards));
+        }
+    }
+
+    [PunRPC]
+    private void RemoveRPC(int index)
+    {
+        Cards.RemoveAt(index);
     }
 
     public void DamageObject(string targetTag, int targetId, string targetType, int amount)
@@ -93,6 +109,51 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         }
 
         return null;
+    }
+
+    public void PlayCardParticles(GameObject card, CardParticles cardParticles)
+    {
+        Card playedCard = card.GetComponent<CardInfo>().Card;
+
+        if (playerManager.PhotonView.IsMine)
+        {
+            playerManager.PhotonView.RPC("PlayCardParticlesRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards), (int)cardParticles);
+        }
+    }
+
+    [PunRPC]
+    private void PlayCardParticlesRPC(int cardIndex, int particlesIndex)
+    {
+        Cards[cardIndex].GetComponent<CardParticlesManager>().Play((CardParticles)particlesIndex);
+    }
+
+    public void StopAllCardsParticles()
+    {
+        Cards.ForEach(card => { StopCardParticles(card, CardParticles.SelectMatch);
+            StopCardParticles(card, CardParticles.Available);
+        });
+    }
+
+    public void StopCardParticles(GameObject card, CardParticles cardParticles)
+    {
+        Card playedCard = card.GetComponent<CardInfo>().Card;
+
+        if (playerManager.PhotonView.IsMine)
+        {
+            playerManager.PhotonView.RPC("StopCardParticlesRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards), (int)cardParticles);
+        }
+    }
+
+    [PunRPC]
+    private void StopCardParticlesRPC(int cardIndex, int particlesIndex)
+    {
+        if(cardIndex >= 0)
+        Cards[cardIndex].GetComponent<CardParticlesManager>().Stop((CardParticles)particlesIndex);
+    }
+
+    public void ShowAvailableCards()
+    {
+        Cards.ForEach(card => card.GetComponent<CardInteraction>().CheckCardAvailability());
     }
 
     public void SetDamageToObject(ExitGames.Client.Photon.Hashtable changedProps)

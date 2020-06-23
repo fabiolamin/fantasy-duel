@@ -7,6 +7,7 @@ public class CardInfo : MonoBehaviour, IDamageable, IProtectable
     private PlayerManager playerManager;
     private PhotonView photonView;
     private CardUI cardUI;
+    private CardParticlesManager particlesManager;
 
     public Card Card { get; set; }
     public bool IsProteged { get; set; }
@@ -18,11 +19,13 @@ public class CardInfo : MonoBehaviour, IDamageable, IProtectable
         if(SceneManager.GetActiveScene().buildIndex == 1)
         {
             playerManager = transform.root.GetComponent<PlayerManager>();
+            particlesManager = GetComponent<CardParticlesManager>();
         }
     }
 
     public void Damage(int amount)
     {
+        particlesManager.Play(CardParticles.Damage);
         playerManager.PlaySoundEffect(Clip.CardDamage);
         Card.LifePoints -= amount;
         CheckLife();
@@ -33,8 +36,10 @@ public class CardInfo : MonoBehaviour, IDamageable, IProtectable
     {
         if(Card.LifePoints <= 0)
         {
+            particlesManager.Play(CardParticles.Destruction);
             playerManager.PlaySoundEffect(Clip.CardDestruction);
             gameObject.SetActive(false);
+            playerManager.PlayerBoardArea.Remove(gameObject);
         }
     }
 

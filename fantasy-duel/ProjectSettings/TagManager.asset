@@ -15,6 +15,8 @@ TagManager:
   - PlayerLife
   - Interact
   - Character
+  - FxTemporaire
+  - TargetParticles
   layers:
   - Default
   - TransparentFX

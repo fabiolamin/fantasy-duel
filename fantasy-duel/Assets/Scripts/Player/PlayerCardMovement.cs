@@ -19,7 +19,7 @@ public class PlayerCardMovement : MonoBehaviour
     {
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("RaiseCardRPC", RpcTarget.AllBuffered, playerManager.PlayerHand.GetIndex(card));
+            playerManager.PhotonView.RPC("RaiseCardRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(card, playerManager.PlayerHand.Cards));
         }
     }
 
@@ -33,7 +33,7 @@ public class PlayerCardMovement : MonoBehaviour
     {
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("IncreaseCardScaleRPC", RpcTarget.AllBuffered, playerManager.PlayerHand.GetIndex(card));
+            playerManager.PhotonView.RPC("IncreaseCardScaleRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(card, playerManager.PlayerHand.Cards));
         }
     }
 
@@ -47,7 +47,7 @@ public class PlayerCardMovement : MonoBehaviour
     {
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("SetInitialTransformRPC", RpcTarget.AllBuffered, playerManager.PlayerHand.GetIndex(card));
+            playerManager.PhotonView.RPC("SetInitialTransformRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(card, playerManager.PlayerHand.Cards));
         }
     }
 

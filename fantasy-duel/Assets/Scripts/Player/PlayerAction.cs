@@ -4,6 +4,7 @@ using Photon.Pun;
 public class PlayerAction : MonoBehaviour
 {
     private PlayerManager playerManager;
+    private GameObject[] players;
     private GameObject player;
     private GameObject opponent;
     private GameObject playerObject;
@@ -22,7 +23,7 @@ public class PlayerAction : MonoBehaviour
         GetPlayers();
         GetSelections();
 
-        if (CanPlayerDoAnAction && playerObject != null)
+        if (CanPlayerDoAnAction && playerObject != null && opponentObject != null)
         {
             StartAction();
             ResetVariables();
@@ -45,13 +46,18 @@ public class PlayerAction : MonoBehaviour
 
     private void GetPlayers()
     {
-        foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            opponent = p;
+        players = GameObject.FindGameObjectsWithTag("Player");
 
-            if (p.GetComponent<PhotonView>().ViewID == playerManager.PhotonView.ViewID)
+        if (players.Length == 2)
+        {
+            foreach (GameObject p in GameObject.FindGameObjectsWithTag("Player"))
             {
-                player = p;
+                opponent = p;
+
+                if (p.GetComponent<PhotonView>().ViewID == playerManager.PhotonView.ViewID)
+                {
+                    player = p;
+                }
             }
         }
     }
@@ -141,5 +147,40 @@ public class PlayerAction : MonoBehaviour
             property.Add("IsReadyToUpdateObject", true);
             PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
         }
+    }
+
+    public void ShowAvailableOpponentCardsToAttack()
+    {
+        GetPlayers();
+        bool hasABaseCard = false;
+
+        if (opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards.Count > 0)
+        {
+            foreach (GameObject card in opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards)
+            {
+                if (card.GetComponent<CardInfo>().Card.Type == "Bases")
+                {
+                    hasABaseCard = true;
+                    card.GetComponent<CardParticlesManager>().Play(CardParticles.Target);
+                }
+            }
+
+            if (!hasABaseCard)
+            {
+                foreach (GameObject card in opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards)
+                {
+                    card.GetComponent<CardParticlesManager>().Play(CardParticles.Target);
+                }
+            }
+        }
+    }
+
+    public void HideAvailableOpponentCardsToAttack()
+    {
+        GetPlayers();
+
+        if (players.Length == 2)
+            opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards
+            .ForEach(card => card.GetComponent<CardParticlesManager>().Stop(CardParticles.Target));
     }
 }

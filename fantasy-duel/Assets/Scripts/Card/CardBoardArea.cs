@@ -19,10 +19,13 @@ public class CardBoardArea : MonoBehaviour
 
     private void Update()
     {
-        VerifyRaycast();
+        if(playerManager.PlayerTurn.IsMyTurn)
+        {
+            CheckRaycast();
+        }
     }
 
-    private void VerifyRaycast()
+    private void CheckRaycast()
     {
         if (Physics.Raycast(ray.origin, ray.direction * 25f, out raycastHit))
         {
@@ -38,7 +41,6 @@ public class CardBoardArea : MonoBehaviour
     {
         if (CanCardBePlayed())
         {
-            
             playerManager.PlaySoundEffect(Clip.CardPlayed);
             playedCard.GetComponent<CardInteraction>().WasPlayed = true;
             playedCard.GetComponent<CardInteraction>().TurnWhenWasPlayed = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
@@ -50,6 +52,7 @@ public class CardBoardArea : MonoBehaviour
             playerManager.PlayerHand.RemoveCard(playedCard);
             playerManager.PlayerHand.UpdateHand();
             playerManager.PlayerHand.Lock(true);
+            playerManager.PlayerBoardArea.PlayCardParticles(playedCard, CardParticles.Played);
         }
     }
 

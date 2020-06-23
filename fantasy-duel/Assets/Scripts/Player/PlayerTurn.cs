@@ -11,6 +11,8 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
     [SerializeField] private float duration = 30f;
     [SerializeField] private float timeToShowDuration = 15f;
 
+    public bool IsMyTurn { get; private set; } = false;
+
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -36,11 +38,14 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
     {
         if (playerManager.PhotonView.IsMine)
         {
+            playerManager.PlayerBoardArea.StopAllCardsParticles();
             playerManager.PlayerHUD.ActiveTurnDurationText(false);
-            duration = durationAux;
-            IsReadyToCountdown = false;
             playerManager.PlayerHUD.ActiveButtons(false);
             playerManager.PlayerHand.Lock(true);
+            playerManager.PlayerAction.HideAvailableOpponentCardsToAttack();
+            duration = durationAux;
+            IsReadyToCountdown = false;
+            IsMyTurn = false;
             UpdateOpponentTurnProperty();
         }
     }
@@ -89,7 +94,10 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         playerManager.PlayerHUD.ActiveButtons(true);
         playerManager.PlayerHand.Lock(false);
         playerManager.PlayerAction.CanPlayerDoAnAction = true;
+        playerManager.PlayerAction.ShowAvailableOpponentCardsToAttack();
+        playerManager.PlayerBoardArea.ShowAvailableCards();
         IsReadyToCountdown = true;
+        IsMyTurn = true;
         UpdateRoomTurnProperty();
     }
 }

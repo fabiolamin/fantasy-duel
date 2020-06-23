@@ -6,6 +6,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
 {
     private PlayerManager playerManager;
     private CardInfo cardInfo;
+    private CardParticlesManager particlesManager;
     private int sceneIndex;
     private bool isMouseOver = false;
     private Vector3 screenPosition;
@@ -21,6 +22,8 @@ public class CardInteraction : MonoBehaviour, ISelectable
     private void Awake()
     {
         cardInfo = GetComponent<CardInfo>();
+        particlesManager = GetComponent<CardParticlesManager>();
+
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
         IsDragging = false;
         WasPlayed = false;
@@ -81,6 +84,11 @@ public class CardInteraction : MonoBehaviour, ISelectable
             foreach (GameObject obj in playerManager.PlayerBoardArea.Objects)
             {
                 obj.GetComponent<ISelectable>().IsSelected = false;
+
+                if(obj.CompareTag("Card"))
+                {
+                    playerManager.PlayerBoardArea.StopCardParticles(obj, CardParticles.SelectMatch);
+                }
             }
         }
     }
@@ -93,10 +101,17 @@ public class CardInteraction : MonoBehaviour, ISelectable
             {
                 IsSelected = true;
                 AudioManager.Instance.Play(Audio.SoundEffects, Clip.CardSelect, false);
+                particlesManager.Play(CardParticles.SelectMenu);
             }
         }
         else
         {
+            if (WasPlayed && CanDoAnAction() && playerManager.PlayerTurn.IsMyTurn && cardInfo.Card.Type == "Creatures")
+            {
+                particlesManager.Stop(CardParticles.Available);
+                playerManager.PlayerBoardArea.PlayCardParticles(gameObject, CardParticles.SelectMatch);
+            }
+
             playerManager.PlaySoundEffect(Clip.ObjectHit);
             IsSelected = true;
         }
@@ -115,8 +130,9 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     private void SetDragAndDrop()
     {
-        if (sceneIndex == 1 && !IsDragging && !WasPlayed && !IsLocked)
+        if (sceneIndex == 1 && !IsDragging && !WasPlayed && !IsLocked && playerManager.PhotonView.IsMine)
         {
+            particlesManager.Play(CardParticles.SelectMatch);
             playerManager.PlaySoundEffect(Clip.CardDrag);
             IsDragging = true;
             screenPosition = Camera.main.WorldToScreenPoint(transform.position);
@@ -134,17 +150,26 @@ public class CardInteraction : MonoBehaviour, ISelectable
         }
     }
 
+    public void CheckCardAvailability()
+    {
+        if (CanDoAnAction() && WasPlayed && cardInfo.Card.Type == "Creatures")
+        {
+            particlesManager.Play(CardParticles.Available);
+        }
+    }
+
     private void ReturnToInitialTransform()
     {
         if (sceneIndex == 1 && !WasPlayed)
         {
             playerManager.PlayerCardMovement.SetInitialTransform(cardInfo.Card);
+            particlesManager.Stop(CardParticles.SelectMatch);
         }
     }
 
     public bool CanDoAnAction()
     {
         int currentTurn = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
-        return (TurnWhenWasPlayed + 2) <= currentTurn;
+        return (TurnWhenWasPlayed + 1) <= currentTurn;
     }
 }

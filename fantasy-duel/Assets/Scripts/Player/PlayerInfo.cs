@@ -9,6 +9,8 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     [SerializeField] private int maxLifePoints;
     [SerializeField] private int maxCoins;
     [SerializeField] private GameObject cameraPrefab;
+    [SerializeField] private ParticleSystem damageParticle;
+    [SerializeField] private ParticleSystem coinsParticle;
 
     public int LifePoints { get; private set; }
     public int Coins { get; private set; }
@@ -58,6 +60,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     {
         LifePoints = Mathf.Clamp(LifePoints - amount, 0, maxLifePoints);
         playerManager.PlayCharacterAnimation(CharacterAnimations.Damage);
+        damageParticle.Play();
 
         if (LifePoints <= 0)
         {
@@ -80,6 +83,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     [PunRPC]
     private void UpdateCoinsRPC(int amount)
     {
+        coinsParticle.Play();
         Coins = Mathf.Clamp(Coins + amount, 0, maxCoins);
     }
 

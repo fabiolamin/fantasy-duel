@@ -18,7 +18,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: 
+    FixedRegion: sa
     Server: 
     Port: 0
     Protocol: 0
@@ -64,5 +64,8 @@ MonoBehaviour:
   - AddRoundRPC
   - PlaySoundEffectRPC
   - PlayCharacterAnimationRPC
+  - PlayCardParticlesRPC
+  - StopCardParticlesRPC
+  - RemoveRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

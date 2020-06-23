@@ -1,4 +1,6 @@
 ﻿using Photon.Pun;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Utility
 {
@@ -11,5 +13,11 @@ public class Utility
         }
 
         return y;
+    }
+
+    public static int GetCardIndexFromList(Card card, List<GameObject> cardCollection)
+    {
+        int index = cardCollection.FindIndex(c => c.GetComponent<CardInfo>().Card.Id == card.Id && c.GetComponent<CardInfo>().Card.Type == card.Type);
+        return index;
     }
 }

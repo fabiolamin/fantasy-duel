@@ -21,6 +21,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private GameObject endMatchPanel;
     [SerializeField] private Transform playersRoundsPanel;
     [SerializeField] private GameObject playerRoundsText;
+    [SerializeField] private ParticleSystem notificationParticle;
 
     private void Awake()
     {
@@ -96,6 +97,7 @@ public class PlayerHUD : MonoBehaviour
     {
         if (playerManager.PhotonView.IsMine)
         {
+            notificationParticle.Play();
             matchMessage.gameObject.SetActive(isActivated);
             isReadyToHideMatchMessage = isActivated;
         }

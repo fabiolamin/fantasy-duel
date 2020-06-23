@@ -106,7 +106,7 @@ public class PlayerHand : MonoBehaviour
         Card card = handCard.GetComponent<CardInfo>().Card;
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("RemoveCard", RpcTarget.AllBuffered, GetIndex(card));
+            playerManager.PhotonView.RPC("RemoveCard", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(card, Cards));
         }
     }
 
@@ -114,12 +114,6 @@ public class PlayerHand : MonoBehaviour
     private void RemoveCard(int index)
     {
         Cards.RemoveAt(index);
-    }
-
-    public int GetIndex(Card card)
-    {
-        int index = Cards.FindIndex(c => c.GetComponent<CardInfo>().Card.Id == card.Id && c.GetComponent<CardInfo>().Card.Type == card.Type);
-        return index;
     }
 
     public void Lock(bool isLocked)
