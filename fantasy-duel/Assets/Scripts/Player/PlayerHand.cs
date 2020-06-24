@@ -1,16 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System.Linq;
 
 public class PlayerHand : MonoBehaviour
 {
+    private int index = 0;
     private PlayerManager playerManager;
     private List<Card> convertedCards = new List<Card>();
-    private List<GameObject> deck = new List<GameObject>();
 
     [SerializeField] private Transform cardsParent;
-    [SerializeField] private Transform deckPosition;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform[] cardsTransform;
 
@@ -25,11 +23,9 @@ public class PlayerHand : MonoBehaviour
 
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("BuildDeck", RpcTarget.AllBuffered);
-
-            while (Cards.Count < 5)
+            while (index < 5)
             {
-                playerManager.PhotonView.RPC("AddCard", RpcTarget.AllBuffered);
+                playerManager.PhotonView.RPC("InstantiateCard", RpcTarget.AllBuffered);
             }
 
             playerManager.PhotonView.RPC("OrganizeCards", RpcTarget.AllBuffered);
@@ -44,45 +40,33 @@ public class PlayerHand : MonoBehaviour
     }
 
     [PunRPC]
-    private void BuildDeck()
+    private void InstantiateCard()
     {
-        for (int index = 0; index < convertedCards.Count; index++)
+        if(index < convertedCards.Count)
         {
             Card card = convertedCards[index];
-            GameObject instantiatedCard = Instantiate(cardPrefab, deckPosition.position, Quaternion.Euler(-90, Utility.GetYRotation(), 0), cardsParent);
+            GameObject instantiatedCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.Euler(-90, Utility.GetYRotation(), 0), cardsParent);
             instantiatedCard.GetComponent<CardUI>().Set(card);
             instantiatedCard.GetComponent<CardInfo>().Card = card;
             if (card.Type == "Creatures")
             {
                 instantiatedCard.GetComponent<CardInfo>().IsProteged = true;
             }
-            instantiatedCard.SetActive(false);
-            deck.Add(instantiatedCard);
+
+            Cards.Add(instantiatedCard);
+
+            index++;
         }
     }
+
     public void UpdateHand()
     {
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("AddCard", RpcTarget.AllBuffered);
+            playerManager.PhotonView.RPC("InstantiateCard", RpcTarget.AllBuffered);
             playerManager.PhotonView.RPC("OrganizeCards", RpcTarget.AllBuffered);
             TurnHandCardsUp();
         }
-    }
-
-    [PunRPC]
-    private void AddCard()
-    {
-        GameObject card = new GameObject();
-
-        if (deck.Count != 0)
-        {
-            card = deck.First();
-        }
-
-        deck.Remove(card);
-        Cards.Add(card);
-        card.SetActive(true);
     }
 
     [PunRPC]
