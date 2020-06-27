@@ -33,7 +33,7 @@ public class PlayerAction : MonoBehaviour
     private void StartAction()
     {
         UpdatePlayersObject();
-        playerManager.PlayCharacterAnimation(CharacterAnimations.Attack);
+        playerManager.PlayerInfo.PlayCharacterAnimation(CharacterAnimations.Attack);
     }
 
     private void ResetVariables()
@@ -111,14 +111,11 @@ public class PlayerAction : MonoBehaviour
 
     private bool HasOpponentPlayedABaseCard()
     {
-        foreach (GameObject card in opponent.GetComponent<PlayerManager>().PlayerBoardArea.Objects)
+        foreach (GameObject card in opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards)
         {
-            if (card.CompareTag("Card"))
+            if (card.GetComponent<CardInfo>().Card.Type == "Bases")
             {
-                if (card.GetComponent<CardInfo>().Card.Type == "Bases")
-                {
-                    return true;
-                }
+                return true;
             }
         }
 
@@ -153,10 +150,10 @@ public class PlayerAction : MonoBehaviour
     {
         GetPlayers();
         bool hasABaseCard = false;
-
-        if (opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards.Count > 0)
+        var opponentPlayerManager = opponent.GetComponent<PlayerManager>();
+        if (opponentPlayerManager.PlayerBoardArea.Objects.Count > 0)
         {
-            foreach (GameObject card in opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards)
+            foreach (GameObject card in opponentPlayerManager.PlayerBoardArea.Cards)
             {
                 if (card.GetComponent<CardInfo>().Card.Type == "Bases")
                 {
@@ -167,10 +164,12 @@ public class PlayerAction : MonoBehaviour
 
             if (!hasABaseCard)
             {
-                foreach (GameObject card in opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards)
+                foreach (GameObject card in opponentPlayerManager.PlayerBoardArea.Cards)
                 {
                     card.GetComponent<CardParticlesManager>().Play(CardParticles.Target);
                 }
+
+                opponentPlayerManager.PlayerInfo.Character.PlayParticles(CharacterParticles.Target);
             }
         }
     }
@@ -180,7 +179,11 @@ public class PlayerAction : MonoBehaviour
         GetPlayers();
 
         if (players.Length == 2)
-            opponent.GetComponent<PlayerManager>().PlayerBoardArea.Cards
-            .ForEach(card => card.GetComponent<CardParticlesManager>().Stop(CardParticles.Target));
+        {
+            var opponentPlayerManager = opponent.GetComponent<PlayerManager>();
+            opponentPlayerManager.PlayerBoardArea.Cards.ForEach(card => card.GetComponent<CardParticlesManager>().Stop(CardParticles.Target));
+            opponentPlayerManager.PlayerInfo.Character.StopParticles(CharacterParticles.Target);
+        }
+            
     }
 }
