@@ -61,14 +61,21 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
 
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("RemoveRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards));
+            playerManager.PhotonView.RPC("RemoveFromCardsRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards));
+            playerManager.PhotonView.RPC("RemoveFromObjectsRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Objects));
         }
     }
 
     [PunRPC]
-    private void RemoveRPC(int index)
+    private void RemoveFromCardsRPC(int index)
     {
         Cards.RemoveAt(index);
+    }
+
+    [PunRPC]
+    private void RemoveFromObjectsRPC(int index)
+    {
+        Objects.RemoveAt(index);
     }
 
     public void DamageObject(string targetTag, int targetId, string targetType, int amount)
