@@ -70,5 +70,6 @@ MonoBehaviour:
   - InstantiateCard
   - RemoveFromCardsRPC
   - RemoveFromObjectsRPC
+  - ClearBoardRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

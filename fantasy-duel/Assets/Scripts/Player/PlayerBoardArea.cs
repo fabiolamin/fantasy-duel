@@ -78,6 +78,20 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         Objects.RemoveAt(index);
     }
 
+    public void ClearBoard()
+    {
+        playerManager.PhotonView.RPC("ClearBoardRPC", RpcTarget.AllBuffered);
+    }
+
+    [PunRPC]
+    private void ClearBoardRPC()
+    {
+        Cards.ForEach(card => card.SetActive(false));
+        Cards.Clear();
+        Objects.Clear();
+        Objects.Add(character);
+    }
+
     public void DamageObject(string targetTag, int targetId, string targetType, int amount)
     {
         if (playerManager.PhotonView.IsMine)

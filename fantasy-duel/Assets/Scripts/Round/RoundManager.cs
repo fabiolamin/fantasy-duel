@@ -46,6 +46,7 @@ public class RoundManager : MonoBehaviourPunCallbacks
             playerManager.PlayerHUD.ActiveMatchMessage(true);
             playerManager.PlayerInfo.SetAttributes();
             playerManager.PlayerHUD.SetHUD();
+            playerManager.PlayerBoardArea.ClearBoard();
         }
     }
 
