@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject matchmakingPanel;
     [SerializeField] private GameObject deckBuildingPanel;
     [SerializeField] private GameObject canvasCardCollection;
+    [SerializeField] private GameObject canvasLogo;
+    [SerializeField] private ParticleSystem logoParticles;
 
     [SerializeField] private GameObject playButton;
     [SerializeField] private InputField playerName;
@@ -95,5 +97,11 @@ public class UIManager : MonoBehaviour
     {
         nickname.text = "Nickname: " + PlayerPrefs.GetString("Nickname");
         playButton.SetActive(true);
+    }
+
+    public void HideLogo()
+    {
+        canvasLogo.SetActive(false);
+        logoParticles.Play();
     }
 }

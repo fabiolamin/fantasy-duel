@@ -29,8 +29,12 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && !HasKeyBeenPressed)
+        {
             HasKeyBeenPressed = true;
+            UIManager.Instance.HideLogo();
+            AudioManager.Instance.Play(Audio.SoundEffects, Clip.Turn, false);
+        }
 
         if (HasKeyBeenPressed)
             Move();
