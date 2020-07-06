@@ -6,17 +6,18 @@ using System.Linq;
 public class PlayerHUD : MonoBehaviour
 {
     private PlayerManager playerManager;
-    private float matchMessageDurationAux;
-    private bool isReadyToHideMatchMessage = false;
+    private float notificationDurationAux;
+    private bool isReadyToHideNotification = false;
 
-    [SerializeField] private float matchMessageDuration = 2f;
+    [SerializeField] private float notificationDuration = 2f;
     [SerializeField] private Text lifePoints;
     [SerializeField] private Text coins;
     [SerializeField] private Text rounds;
     [SerializeField] private Text nickname;
     [SerializeField] private GameObject[] buttons;
     [SerializeField] private GameObject[] playedCardImages;
-    [SerializeField] private Text matchMessage;
+    [SerializeField] private GameObject notificationPanel;
+    [SerializeField] private Text notification;
     [SerializeField] private Text duration;
     [SerializeField] private GameObject endMatchPanel;
     [SerializeField] private Transform playersRoundsPanel;
@@ -36,30 +37,30 @@ public class PlayerHUD : MonoBehaviour
             playerManager.PhotonView.RPC("RotateHUDToOpponentRPC", RpcTarget.OthersBuffered);
         }
 
-        matchMessageDurationAux = matchMessageDuration;
+        notificationDurationAux = notificationDuration;
     }
 
     private void Update()
     {
-        if (isReadyToHideMatchMessage)
+        if (isReadyToHideNotification)
         {
-            CheckMatchMessageCountdown();
+            CheckNotificationCountdown();
         }
     }
 
-    private void CheckMatchMessageCountdown()
+    private void CheckNotificationCountdown()
     {
-        matchMessageDuration -= Time.deltaTime;
-        if (matchMessageDuration <= 0)
+        notificationDuration -= Time.deltaTime;
+        if (notificationDuration <= 0)
         {
-            HideMatchMessage();
+            HideNotification();
         }
     }
 
-    private void HideMatchMessage()
+    private void HideNotification()
     {
-        ActiveMatchMessage(false);
-        matchMessageDuration = matchMessageDurationAux;
+        ActiveNotification(false);
+        notificationDuration = notificationDurationAux;
     }
 
     public void SetHUD()
@@ -88,18 +89,18 @@ public class PlayerHUD : MonoBehaviour
         rounds.transform.Rotate(0, 0, 180);
     }
 
-    public void SetMatchMessage(string message)
+    public void SetNotification(string message)
     {
-        matchMessage.text = message;
+        notification.text = message;
     }
 
-    public void ActiveMatchMessage(bool isActivated)
+    public void ActiveNotification(bool isActivated)
     {
         if (playerManager.PhotonView.IsMine)
         {
             notificationParticle.Play();
-            matchMessage.gameObject.SetActive(isActivated);
-            isReadyToHideMatchMessage = isActivated;
+            notificationPanel.SetActive(isActivated);
+            isReadyToHideNotification = isActivated;
         }
     }
 

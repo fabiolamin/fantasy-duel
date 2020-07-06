@@ -138,7 +138,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
             }
             else if (changedProps.ContainsKey("IsMatchOver"))
             {
-                playerManager.PlayerHUD.ActiveMatchMessage(false);
+                playerManager.PlayerHUD.ActiveNotification(false);
                 playerManager.PlayerHUD.ShowEndMatchPanel();
                 playerManager.IsReadyToDisconnect = true;
             }

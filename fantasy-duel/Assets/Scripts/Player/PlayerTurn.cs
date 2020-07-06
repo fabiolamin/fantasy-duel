@@ -89,8 +89,8 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
     public void StartTurn()
     {
         AudioManager.Instance.Play(Audio.SoundEffects, Clip.Turn, false);
-        playerManager.PlayerHUD.ActiveMatchMessage(true);
-        playerManager.PlayerHUD.SetMatchMessage("Your turn!");
+        playerManager.PlayerHUD.ActiveNotification(true);
+        playerManager.PlayerHUD.SetNotification("Your turn!");
         playerManager.PlayerHUD.ActiveButtons(true);
         playerManager.PlayerHand.Lock(false);
         playerManager.PlayerAction.CanPlayerDoAnAction = true;

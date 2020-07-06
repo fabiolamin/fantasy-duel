@@ -42,8 +42,8 @@ public class RoundManager : MonoBehaviourPunCallbacks
                 message = "You lost a round!";
             }
 
-            playerManager.PlayerHUD.SetMatchMessage(message);
-            playerManager.PlayerHUD.ActiveMatchMessage(true);
+            playerManager.PlayerHUD.SetNotification(message);
+            playerManager.PlayerHUD.ActiveNotification(true);
             playerManager.PlayerInfo.SetAttributes();
             playerManager.PlayerHUD.SetHUD();
             playerManager.PlayerBoardArea.ClearBoard();
