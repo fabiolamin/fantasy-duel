@@ -21,13 +21,13 @@ public class DeckBuilding : MonoBehaviour
     }
     public void StoreCard()
     {
-        AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
         Card card = GetSelectedCard(storeCardPagination.CardPrefabs);
 
         if (card != null)
         {
             if (playerCoins >= card.Coins)
             {
+                AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
                 deckCardStorage.Collection.Add(card);
                 storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = false;
                 RefreshCardPageManager(card.Type);
@@ -38,13 +38,17 @@ public class DeckBuilding : MonoBehaviour
 
     public void DeleteCard()
     {
-        AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
         Card card = GetSelectedCard(deckCardPagination.CardPrefabs);
-        int index = deckCardStorage.Collection.FindIndex(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type);
-        deckCardStorage.Collection.RemoveAt(index);
-        storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = true;
-        RefreshCardPageManager(card.Type);
-        UpdateCoins(card.Coins);
+
+        if (card != null)
+        {
+            AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
+            int index = deckCardStorage.Collection.FindIndex(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type);
+            deckCardStorage.Collection.RemoveAt(index);
+            storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = true;
+            RefreshCardPageManager(card.Type);
+            UpdateCoins(card.Coins);
+        }
     }
 
     private Card GetSelectedCard(GameObject[] cardPrefabs)
