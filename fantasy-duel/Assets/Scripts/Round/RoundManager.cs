@@ -6,6 +6,7 @@ public class RoundManager : MonoBehaviourPunCallbacks
     private static RoundManager instance;
     [SerializeField] private int roundsToFinish = 2;
 
+    public int RoundsToFinish { get { return roundsToFinish; } private set { roundsToFinish = value; } }
     public static RoundManager Instance
     {
         get
@@ -56,7 +57,7 @@ public class RoundManager : MonoBehaviourPunCallbacks
         {
             PlayerManager playerManager = player.GetComponent<PlayerManager>();
 
-            if(playerManager.PlayerInfo.WonRounds == roundsToFinish)
+            if (playerManager.PlayerInfo.WonRounds == roundsToFinish)
             {
                 EndMatch();
             }

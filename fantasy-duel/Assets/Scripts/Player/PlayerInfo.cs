@@ -124,6 +124,24 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
         WonRounds++;
     }
 
+    private void CheckPlayerEndMatch()
+    {
+        if(WonRounds == RoundManager.Instance.RoundsToFinish)
+        {
+            int wins = 0;
+            wins = PlayerPrefs.GetInt("Wins");
+            wins++;
+            PlayerPrefs.SetInt("Wins", wins);
+        }
+        else
+        {
+            int losses = 0;
+            losses = PlayerPrefs.GetInt("Losses");
+            losses++;
+            PlayerPrefs.SetInt("Losses", losses);
+        }
+    }
+
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
         if (targetPlayer == playerManager.PhotonView.Owner && playerManager.PhotonView.IsMine)
@@ -141,6 +159,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
                 playerManager.PlayerHUD.ActiveNotification(false);
                 playerManager.PlayerHUD.ShowEndMatchPanel();
                 playerManager.IsReadyToDisconnect = true;
+                CheckPlayerEndMatch();
             }
         }
     }

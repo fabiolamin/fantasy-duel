@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CardPagination cardPaginationDeck;
 
     [SerializeField] private Text coins;
+    [SerializeField] private Text wins, losses;
 
     public static UIManager Instance
     {
@@ -47,6 +48,9 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         ShowMainMenuPanel();
+
+        wins.text = PlayerPrefs.GetInt("Wins").ToString();
+        losses.text = PlayerPrefs.GetInt("Losses").ToString();
     }
 
     public void ShowMainMenuPanel()

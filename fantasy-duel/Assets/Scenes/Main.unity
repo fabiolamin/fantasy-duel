@@ -3914,6 +3914,8 @@ MonoBehaviour:
   cardPagination: {fileID: 1259741117}
   cardPaginationDeck: {fileID: 744786137}
   coins: {fileID: 402958206}
+  wins: {fileID: 1893772717}
+  losses: {fileID: 1037162549}
 --- !u!4 &405042319
 Transform:
   m_ObjectHideFlags: 0
@@ -9074,7 +9076,7 @@ GameObject:
   - component: {fileID: 1037162549}
   - component: {fileID: 1037162548}
   m_Layer: 5
-  m_Name: Number
+  m_Name: Losses Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15508,7 +15510,7 @@ GameObject:
   - component: {fileID: 1893772717}
   - component: {fileID: 1893772716}
   m_Layer: 5
-  m_Name: Number
+  m_Name: Wins Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
