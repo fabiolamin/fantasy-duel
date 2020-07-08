@@ -82,7 +82,7 @@ public class DeckBuilding : MonoBehaviour
     {
         deckCardStorage.SaveCardsAsFiles();
         storeCardStorage.SaveCardsAsFiles();
-        UIManager.Instance.ShowMainMenuPanel();
+        UIManager.Instance.Panel.ShowMainMenuPanel();
     }
 
     private Card SetCardAsAvailable(Card card)

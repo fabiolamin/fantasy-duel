@@ -340,7 +340,7 @@ Transform:
   - {fileID: 2094721862}
   - {fileID: 605816686}
   m_Father: {fileID: 525397955}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &36751108
 GameObject:
@@ -3867,6 +3867,7 @@ GameObject:
   m_Component:
   - component: {fileID: 405042319}
   - component: {fileID: 405042318}
+  - component: {fileID: 405042320}
   m_Layer: 0
   m_Name: UI Manager
   m_TagString: Untagged
@@ -3886,31 +3887,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa344f1f28db9d845b2076f66b88828e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenuPanel: {fileID: 819200449}
-  nicknameCreationPanel: {fileID: 1046927094}
-  matchmakingPanel: {fileID: 480360190}
-  deckBuildingPanel: {fileID: 795132999}
-  canvasCardCollection: {fileID: 45544286}
   canvasLogo: {fileID: 2094721861}
   logoParticles: {fileID: 605816687}
   playButton: {fileID: 1842061942}
   playerName: {fileID: 964761279}
   nickname: {fileID: 494260809}
   connectionStatus: {fileID: 1458457938}
-  cardPlaceholder:
-  - {fileID: 1840912595}
-  - {fileID: 1813297314}
-  - {fileID: 1363196547}
-  - {fileID: 258666994}
-  - {fileID: 1717098371}
-  - {fileID: 543485591}
-  cardPlaceholderDeck:
-  - {fileID: 160961369}
-  - {fileID: 171076576}
-  - {fileID: 1866804219}
-  - {fileID: 1767256647}
-  - {fileID: 667533384}
-  - {fileID: 1236483586}
   cardPagination: {fileID: 1259741117}
   cardPaginationDeck: {fileID: 744786137}
   coins: {fileID: 402958206}
@@ -3928,8 +3910,39 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 525397955}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &405042320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405042317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a5b5163d58b30438bea321b6b1ff39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainMenuPanel: {fileID: 819200449}
+  nicknameCreationPanel: {fileID: 1046927094}
+  matchmakingPanel: {fileID: 480360190}
+  deckBuildingPanel: {fileID: 795132999}
+  canvasCardCollection: {fileID: 45544286}
+  cardPlaceholderStore:
+  - {fileID: 1840912595}
+  - {fileID: 1813297314}
+  - {fileID: 1363196547}
+  - {fileID: 258666994}
+  - {fileID: 1717098371}
+  - {fileID: 543485591}
+  cardPlaceholderDeck:
+  - {fileID: 160961369}
+  - {fileID: 171076576}
+  - {fileID: 1866804219}
+  - {fileID: 1767256647}
+  - {fileID: 667533384}
+  - {fileID: 1236483586}
 --- !u!1 &414313152
 GameObject:
   m_ObjectHideFlags: 0
@@ -4803,8 +4816,8 @@ Transform:
   m_Children:
   - {fileID: 594988064}
   - {fileID: 45544290}
-  - {fileID: 405042319}
   - {fileID: 26578338}
+  - {fileID: 405042319}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6779,7 +6792,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 405042318}
+      - m_Target: {fileID: 405042320}
         m_MethodName: ShowDeckBuildingPanel
         m_Mode: 1
         m_Arguments:
@@ -14904,7 +14917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1842061943
 RectTransform:
   m_ObjectHideFlags: 0

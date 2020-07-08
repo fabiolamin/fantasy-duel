@@ -14,7 +14,7 @@ public class PlayerSettings : MonoBehaviour
     {
         if (PlayerPrefs.GetString("Nickname") == "")
         {
-            UIManager.Instance.ShowNicknameCreationPanel();
+            UIManager.Instance.Panel.ShowNicknameCreationPanel();
         }
         else
         {

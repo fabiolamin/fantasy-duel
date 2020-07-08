@@ -1,15 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
-    [SerializeField] private GameObject mainMenuPanel;
-    [SerializeField] private GameObject nicknameCreationPanel;
-    [SerializeField] private GameObject matchmakingPanel;
-    [SerializeField] private GameObject deckBuildingPanel;
-    [SerializeField] private GameObject canvasCardCollection;
+
     [SerializeField] private GameObject canvasLogo;
     [SerializeField] private ParticleSystem logoParticles;
 
@@ -19,13 +14,11 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Text connectionStatus;
 
-    [SerializeField] private GameObject[] cardPlaceholder;
-    [SerializeField] private GameObject[] cardPlaceholderDeck;
-
     [SerializeField] private CardPagination cardPagination;
     [SerializeField] private CardPagination cardPaginationDeck;
 
     [SerializeField] private Text coins;
+
     [SerializeField] private Text wins, losses;
 
     public static UIManager Instance
@@ -40,6 +33,8 @@ public class UIManager : MonoBehaviour
             return instance;
         }
     }
+
+    public Panel Panel { get; private set; }
     public InputField PlayerName { get { return playerName; } private set { playerName = value; } }
     public Text ConnectionStatus { get { return connectionStatus; } set { connectionStatus = value; } }
     public Text Coins { get { return coins; } set { coins = value; } }
@@ -47,48 +42,12 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        ShowMainMenuPanel();
+
+        Panel = GetComponent<Panel>();
+        Panel.ShowMainMenuPanel();
 
         wins.text = PlayerPrefs.GetInt("Wins").ToString();
         losses.text = PlayerPrefs.GetInt("Losses").ToString();
-    }
-
-    public void ShowMainMenuPanel()
-    {
-        mainMenuPanel.SetActive(true);
-        nicknameCreationPanel.SetActive(false);
-        matchmakingPanel.SetActive(false);
-        playButton.SetActive(false);
-        deckBuildingPanel.SetActive(false);
-        canvasCardCollection.SetActive(false);
-        SetPlaceholdersAs(false);
-    }
-
-    private void SetPlaceholdersAs(bool status)
-    {
-        cardPlaceholder.ToList().ForEach(card => card.SetActive(status));
-        cardPlaceholderDeck.ToList().ForEach(card => card.SetActive(status));
-    }
-
-    public void ShowNicknameCreationPanel()
-    {
-        nicknameCreationPanel.SetActive(true);
-        mainMenuPanel.SetActive(false);
-    }
-
-    public void ShowMatchmakingPanel()
-    {
-        matchmakingPanel.SetActive(true);
-        mainMenuPanel.SetActive(false);
-        nicknameCreationPanel.SetActive(false);
-    }
-
-    public void ShowDeckBuildingPanel()
-    {
-        deckBuildingPanel.SetActive(true);
-        canvasCardCollection.SetActive(true);
-        mainMenuPanel.SetActive(false);
-        ShowCards();
     }
 
     public void ShowCards()
