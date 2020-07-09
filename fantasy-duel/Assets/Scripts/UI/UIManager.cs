@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         losses.text = PlayerPrefs.GetInt("Losses").ToString();
     }
 
-    public void ShowCards()
+    public void ShowDecks()
     {
         cardPagination.Load("Creatures");
         cardPaginationDeck.Load("Creatures");

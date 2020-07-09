@@ -15,7 +15,7 @@ public class Panel : MonoBehaviour
     public void ShowMainMenuPanel()
     {
         DisableAllPanels();
-        DisablePlaceholders();
+        HideCards();
         mainMenuPanel.SetActive(true);
     }
 
@@ -28,7 +28,7 @@ public class Panel : MonoBehaviour
         canvasCardCollection.SetActive(false);
     }
 
-    private void DisablePlaceholders()
+    private void HideCards()
     {
         cardPlaceholderStore.ToList().ForEach(card => card.SetActive(false));
         cardPlaceholderDeck.ToList().ForEach(card => card.SetActive(false));
@@ -51,6 +51,6 @@ public class Panel : MonoBehaviour
         DisableAllPanels();
         deckBuildingPanel.SetActive(true);
         canvasCardCollection.SetActive(true);
-        UIManager.Instance.ShowCards();
+        UIManager.Instance.ShowDecks();
     }
 }

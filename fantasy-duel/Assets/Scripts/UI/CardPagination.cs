@@ -5,14 +5,14 @@ using UnityEngine;
 public class CardPagination : MonoBehaviour
 {
     private int start = 0;
-    private int end = 6;
+    private int end = 4;
     private int pages;
     private int cardsPerPage;
 
     [SerializeField] private CardStorage cardStorage;
     [SerializeField] private GameObject[] cardPrefabs;
 
-    public GameObject[] CardPrefabs { get { return cardPrefabs; }}
+    public GameObject[] CardPrefabs { get { return cardPrefabs; } }
     public List<Card> Cards { get; set; }
 
     private void Awake()
