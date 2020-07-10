@@ -23,7 +23,7 @@ public class CardPagination : MonoBehaviour
 
     public void Load(string type)
     {
-        Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Id).ToList();
+        Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Coins).ToList();
         SetPagesNumber();
         SetInterval(0, cardsPerPage);
         SetPage();
