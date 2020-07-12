@@ -46,8 +46,9 @@ public class PlayerHand : MonoBehaviour
         {
             Card card = convertedCards[index];
             GameObject instantiatedCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.Euler(-90, Utility.GetYRotation(), 0), cardsParent);
-            instantiatedCard.GetComponent<CardUI>().Set(card);
             instantiatedCard.GetComponent<CardInfo>().Card = card;
+            instantiatedCard.GetComponent<CardUI>().Set();
+
             if (card.Type == "Creatures")
             {
                 instantiatedCard.GetComponent<CardInfo>().IsProteged = true;

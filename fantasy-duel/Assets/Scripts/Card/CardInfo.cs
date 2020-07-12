@@ -29,7 +29,7 @@ public class CardInfo : MonoBehaviour, IDamageable, IProtectable
         playerManager.PlaySoundEffect(Clip.CardDamage);
         Card.LifePoints -= amount;
         CheckLife();
-        cardUI.Set(Card);
+        cardUI.Set();
     }
 
     private void CheckLife()

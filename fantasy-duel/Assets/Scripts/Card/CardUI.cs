@@ -5,6 +5,8 @@ using Photon.Pun;
 public class CardUI : MonoBehaviour
 {
     private PhotonView photonView;
+    private CardInfo cardInfo;
+
     [SerializeField] private Text name;
     [SerializeField] private Text description;
     [SerializeField] private Image art;
@@ -20,31 +22,36 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Sprite[] magics;
     [SerializeField] private Sprite[] icons;
 
-    public void Set(Card card)
+    private void Awake()
     {
-        name.text = card.Name;
-        description.text = card.Description;
-        SetSprites(card);
-        coins.text = card.Coins.ToString();
-        attackPoints.text = card.AttackPoints.ToString();
-        lifePoints.text = card.LifePoints.ToString();
-        unavailableImage.SetActive(!card.IsAvailable);
+        cardInfo = GetComponent<CardInfo>();
     }
 
-    private void SetSprites(Card card)
+    public void Set()
     {
-        switch (card.Type)
+        name.text = cardInfo.Card.Name;
+        description.text = cardInfo.Card.Description;
+        SetSprites();
+        coins.text = cardInfo.Card.Coins.ToString();
+        attackPoints.text = cardInfo.Card.AttackPoints.ToString();
+        lifePoints.text = cardInfo.Card.LifePoints.ToString();
+        unavailableImage.SetActive(!cardInfo.Card.IsAvailable);
+    }
+
+    private void SetSprites()
+    {
+        switch (cardInfo.Card.Type)
         {
             case "Bases":
-                art.sprite = bases[card.Id - 1];
+                art.sprite = bases[cardInfo.Card.Id - 1];
                 icon.sprite = icons[0];
                 break;
             case "Creatures":
-                art.sprite = creatures[card.Id - 1];
+                art.sprite = creatures[cardInfo.Card.Id - 1];
                 icon.sprite = icons[1];
                 break;
             case "Magics":
-                art.sprite = magics[card.Id - 1];
+                art.sprite = magics[cardInfo.Card.Id - 1];
                 icon.sprite = icons[2];
                 break;
         }

@@ -55,8 +55,8 @@ public class CardPagination : MonoBehaviour
                 Card card = Cards[index];
                 int position = index % cardsPerPage;
                 cardPrefabs[position].SetActive(true);
-                cardPrefabs[position].GetComponent<CardUI>().Set(card);
                 cardPrefabs[position].GetComponent<CardInfo>().Card = card;
+                cardPrefabs[position].GetComponent<CardUI>().Set(); 
             }
         }
     }
