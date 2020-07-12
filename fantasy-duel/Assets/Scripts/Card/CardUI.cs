@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
-using UnityEngine.SceneManagement;
 
 public class CardUI : MonoBehaviour
 {
@@ -16,17 +14,39 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Text lifePoints;
     [SerializeField] private GameObject unavailableImage;
 
+    [Header("Sprites")]
+    [SerializeField] private Sprite[] bases;
+    [SerializeField] private Sprite[] creatures;
+    [SerializeField] private Sprite[] magics;
+    [SerializeField] private Sprite[] icons;
+
     public void Set(Card card)
     {
         name.text = card.Name;
         description.text = card.Description;
-        Sprite artSprite = Resources.Load<Sprite>("Sprites/Cards/" + card.Type + "/" + card.Id);
-        art.sprite = artSprite;
-        Sprite iconSprite = Resources.Load<Sprite>("Sprites/Cards/Icons/" + card.Type);
-        icon.sprite = iconSprite;
+        SetSprites(card);
         coins.text = card.Coins.ToString();
         attackPoints.text = card.AttackPoints.ToString();
         lifePoints.text = card.LifePoints.ToString();
         unavailableImage.SetActive(!card.IsAvailable);
+    }
+
+    private void SetSprites(Card card)
+    {
+        switch (card.Type)
+        {
+            case "Bases":
+                art.sprite = bases[card.Id - 1];
+                icon.sprite = icons[0];
+                break;
+            case "Creatures":
+                art.sprite = creatures[card.Id - 1];
+                icon.sprite = icons[1];
+                break;
+            case "Magics":
+                art.sprite = magics[card.Id - 1];
+                icon.sprite = icons[2];
+                break;
+        }
     }
 }
