@@ -5,7 +5,6 @@ using Photon.Pun;
 public class CardUI : MonoBehaviour
 {
     private PhotonView photonView;
-    private CardInfo cardInfo;
 
     [SerializeField] private Text name;
     [SerializeField] private Text description;
@@ -22,36 +21,31 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Sprite[] magics;
     [SerializeField] private Sprite[] icons;
 
-    private void Awake()
+    public void Set(Card card)
     {
-        cardInfo = GetComponent<CardInfo>();
+        name.text = card.Name;
+        description.text = card.Description;
+        SetSprites(card);
+        coins.text = card.Coins.ToString();
+        attackPoints.text = card.AttackPoints.ToString();
+        lifePoints.text = card.LifePoints.ToString();
+        unavailableImage.SetActive(!card.IsAvailable);
     }
 
-    public void Set()
+    private void SetSprites(Card card)
     {
-        name.text = cardInfo.Card.Name;
-        description.text = cardInfo.Card.Description;
-        SetSprites();
-        coins.text = cardInfo.Card.Coins.ToString();
-        attackPoints.text = cardInfo.Card.AttackPoints.ToString();
-        lifePoints.text = cardInfo.Card.LifePoints.ToString();
-        unavailableImage.SetActive(!cardInfo.Card.IsAvailable);
-    }
-
-    private void SetSprites()
-    {
-        switch (cardInfo.Card.Type)
+        switch (card.Type)
         {
             case "Bases":
-                art.sprite = bases[cardInfo.Card.Id - 1];
+                art.sprite = bases[card.Id - 1];
                 icon.sprite = icons[0];
                 break;
             case "Creatures":
-                art.sprite = creatures[cardInfo.Card.Id - 1];
+                art.sprite = creatures[card.Id - 1];
                 icon.sprite = icons[1];
                 break;
             case "Magics":
-                art.sprite = magics[cardInfo.Card.Id - 1];
+                art.sprite = magics[card.Id - 1];
                 icon.sprite = icons[2];
                 break;
         }

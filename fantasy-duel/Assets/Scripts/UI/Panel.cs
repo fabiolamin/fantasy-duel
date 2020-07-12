@@ -48,9 +48,9 @@ public class Panel : MonoBehaviour
 
     public void ShowDeckBuildingPanel()
     {
+        UIManager.Instance.ShowDecks();
         DisableAllPanels();
         deckBuildingPanel.SetActive(true);
         canvasCardCollection.SetActive(true);
-        UIManager.Instance.ShowDecks();
     }
 }

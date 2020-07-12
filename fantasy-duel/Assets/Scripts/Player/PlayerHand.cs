@@ -47,7 +47,7 @@ public class PlayerHand : MonoBehaviour
             Card card = convertedCards[index];
             GameObject instantiatedCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.Euler(-90, Utility.GetYRotation(), 0), cardsParent);
             instantiatedCard.GetComponent<CardInfo>().Card = card;
-            instantiatedCard.GetComponent<CardUI>().Set();
+            instantiatedCard.GetComponent<CardUI>().Set(card);
 
             if (card.Type == "Creatures")
             {
