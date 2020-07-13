@@ -17,7 +17,7 @@ public class DeckBuilding : MonoBehaviour
     private void Awake()
     {
         playerCoins = maximumPlayerCoins - deckCardStorage.Collection.Sum(card => card.Coins);
-        UIManager.Instance.Coins.text = "Coins: " + playerCoins;
+        UIManager.Instance.Coins.text = playerCoins + "/80";
     }
     public void StoreCard()
     {
@@ -75,7 +75,7 @@ public class DeckBuilding : MonoBehaviour
     private void UpdateCoins(int value)
     {
         playerCoins = Mathf.Clamp(playerCoins + value, 0, maximumPlayerCoins);
-        UIManager.Instance.Coins.text = "Coins: " + playerCoins;
+        UIManager.Instance.Coins.text = playerCoins + "/80";
     }
 
     public void Save()
