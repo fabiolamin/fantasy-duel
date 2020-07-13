@@ -1,1 +1,285 @@
-{"Card":[{"Id":1,"Name":"X","Description":"X","Type":"Bases","Coins":1,"AttackPoints":1,"LifePoints":1,"IsAvailable":true},{"Id":2,"Name":"X","Description":"X","Type":"Bases","Coins":2,"AttackPoints":2,"LifePoints":2,"IsAvailable":true},{"Id":3,"Name":"X","Description":"X","Type":"Bases","Coins":3,"AttackPoints":3,"LifePoints":3,"IsAvailable":true},{"Id":4,"Name":"X","Description":"X","Type":"Bases","Coins":4,"AttackPoints":4,"LifePoints":4,"IsAvailable":true},{"Id":5,"Name":"X","Description":"X","Type":"Bases","Coins":5,"AttackPoints":5,"LifePoints":5,"IsAvailable":true},{"Id":6,"Name":"X","Description":"X","Type":"Bases","Coins":1,"AttackPoints":1,"LifePoints":1,"IsAvailable":true},{"Id":7,"Name":"X","Description":"X","Type":"Bases","Coins":2,"AttackPoints":2,"LifePoints":2,"IsAvailable":true},{"Id":8,"Name":"X","Description":"X","Type":"Bases","Coins":3,"AttackPoints":3,"LifePoints":3,"IsAvailable":true},{"Id":9,"Name":"X","Description":"X","Type":"Bases","Coins":4,"AttackPoints":4,"LifePoints":4,"IsAvailable":true},{"Id":10,"Name":"X","Description":"X","Type":"Bases","Coins":5,"AttackPoints":5,"LifePoints":5,"IsAvailable":true},{"Id":11,"Name":"X","Description":"X","Type":"Bases","Coins":1,"AttackPoints":1,"LifePoints":1,"IsAvailable":true},{"Id":12,"Name":"X","Description":"X","Type":"Bases","Coins":2,"AttackPoints":2,"LifePoints":2,"IsAvailable":true},{"Id":13,"Name":"X","Description":"X","Type":"Bases","Coins":3,"AttackPoints":3,"LifePoints":3,"IsAvailable":true},{"Id":14,"Name":"X","Description":"X","Type":"Bases","Coins":4,"AttackPoints":4,"LifePoints":4,"IsAvailable":true},{"Id":15,"Name":"X","Description":"X","Type":"Bases","Coins":5,"AttackPoints":5,"LifePoints":5,"IsAvailable":true},{"Id":16,"Name":"X","Description":"X","Type":"Bases","Coins":1,"AttackPoints":1,"LifePoints":1,"IsAvailable":true},{"Id":17,"Name":"X","Description":"X","Type":"Bases","Coins":2,"AttackPoints":2,"LifePoints":2,"IsAvailable":true},{"Id":18,"Name":"X","Description":"X","Type":"Bases","Coins":3,"AttackPoints":3,"LifePoints":3,"IsAvailable":true},{"Id":19,"Name":"X","Description":"X","Type":"Bases","Coins":4,"AttackPoints":4,"LifePoints":4,"IsAvailable":true},{"Id":20,"Name":"X","Description":"X","Type":"Bases","Coins":5,"AttackPoints":5,"LifePoints":5,"IsAvailable":true},{"Id":21,"Name":"X","Description":"X","Type":"Bases","Coins":1,"AttackPoints":1,"LifePoints":1,"IsAvailable":true},{"Id":22,"Name":"X","Description":"X","Type":"Bases","Coins":2,"AttackPoints":2,"LifePoints":2,"IsAvailable":true},{"Id":23,"Name":"X","Description":"X","Type":"Bases","Coins":3,"AttackPoints":3,"LifePoints":3,"IsAvailable":true},{"Id":24,"Name":"X","Description":"X","Type":"Bases","Coins":4,"AttackPoints":4,"LifePoints":4,"IsAvailable":true},{"Id":25,"Name":"X","Description":"X","Type":"Bases","Coins":5,"AttackPoints":5,"LifePoints":5,"IsAvailable":true},{"Id":26,"Name":"X","Description":"X","Type":"Bases","Coins":1,"AttackPoints":1,"LifePoints":1,"IsAvailable":true},{"Id":27,"Name":"X","Description":"X","Type":"Bases","Coins":2,"AttackPoints":2,"LifePoints":2,"IsAvailable":true},{"Id":28,"Name":"X","Description":"X","Type":"Bases","Coins":3,"AttackPoints":3,"LifePoints":3,"IsAvailable":true}]}
+{
+  "Card": [
+    {
+      "Id": 1,
+      "Name": "Archery",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 1,
+      "AttackPoints": 1,
+      "LifePoints": 1,
+      "IsAvailable": true
+    },
+    
+    {
+      "Id": 2,
+      "Name": "Barracks",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 2,
+      "AttackPoints": 2,
+      "LifePoints": 2,
+      "IsAvailable": true
+    },
+    {
+      "Id": 3,
+      "Name": "Cataclysm",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 3,
+      "AttackPoints": 3,
+      "LifePoints": 3,
+      "IsAvailable": true
+    },
+    {
+      "Id": 4,
+      "Name": "Chapel",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 4,
+      "AttackPoints": 4,
+      "LifePoints": 4,
+      "IsAvailable": true
+    },
+    {
+      "Id": 5,
+      "Name": "Den",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 5,
+      "AttackPoints": 5,
+      "LifePoints": 5,
+      "IsAvailable": true
+    },
+    {
+      "Id": 6,
+      "Name": "Desert",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 1,
+      "AttackPoints": 1,
+      "LifePoints": 1,
+      "IsAvailable": true
+    },
+    {
+      "Id": 7,
+      "Name": "Cabin",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 2,
+      "AttackPoints": 2,
+      "LifePoints": 2,
+      "IsAvailable": true
+    },
+    {
+      "Id": 8,
+      "Name": "Mine",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 3,
+      "AttackPoints": 3,
+      "LifePoints": 3,
+      "IsAvailable": true
+    },
+    {
+      "Id": 9,
+      "Name": "Highlander",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 4,
+      "AttackPoints": 4,
+      "LifePoints": 4,
+      "IsAvailable": true
+    },
+    {
+      "Id": 10,
+      "Name": "Ice Hut",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 5,
+      "AttackPoints": 5,
+      "LifePoints": 5,
+      "IsAvailable": true
+    },
+    {
+      "Id": 11,
+      "Name": "Infernal",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 1,
+      "AttackPoints": 1,
+      "LifePoints": 1,
+      "IsAvailable": true
+    },
+    {
+      "Id": 12,
+      "Name": "Iodge",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 2,
+      "AttackPoints": 2,
+      "LifePoints": 2,
+      "IsAvailable": true
+    },
+    {
+      "Id": 13,
+      "Name": "Mill",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 3,
+      "AttackPoints": 3,
+      "LifePoints": 3,
+      "IsAvailable": true
+    },
+    {
+      "Id": 14,
+      "Name": "Obelisk",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 4,
+      "AttackPoints": 4,
+      "LifePoints": 4,
+      "IsAvailable": true
+    },
+    {
+      "Id": 15,
+      "Name": "Temple",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 5,
+      "AttackPoints": 5,
+      "LifePoints": 5,
+      "IsAvailable": true
+    },
+    {
+      "Id": 16,
+      "Name": "Old Tower",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 1,
+      "AttackPoints": 1,
+      "LifePoints": 1,
+      "IsAvailable": true
+    },
+    {
+      "Id": 17,
+      "Name": "Portal",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 2,
+      "AttackPoints": 2,
+      "LifePoints": 2,
+      "IsAvailable": true
+    },
+    {
+      "Id": 18,
+      "Name": "Ruins",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 3,
+      "AttackPoints": 3,
+      "LifePoints": 3,
+      "IsAvailable": true
+    },
+    {
+      "Id": 19,
+      "Name": "Sentry",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 4,
+      "AttackPoints": 4,
+      "LifePoints": 4,
+      "IsAvailable": true
+    },
+    {
+      "Id": 20,
+      "Name": "Shack",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 5,
+      "AttackPoints": 5,
+      "LifePoints": 5,
+      "IsAvailable": true
+    },
+    {
+      "Id": 21,
+      "Name": "Spring",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 1,
+      "AttackPoints": 1,
+      "LifePoints": 1,
+      "IsAvailable": true
+    },
+    {
+      "Id": 22,
+      "Name": "Shell",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 2,
+      "AttackPoints": 2,
+      "LifePoints": 2,
+      "IsAvailable": true
+    },
+    {
+      "Id": 23,
+      "Name": "Sign",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 3,
+      "AttackPoints": 3,
+      "LifePoints": 3,
+      "IsAvailable": true
+    },
+    {
+      "Id": 24,
+      "Name": "Tavern",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 4,
+      "AttackPoints": 4,
+      "LifePoints": 4,
+      "IsAvailable": true
+    },
+    {
+      "Id": 25,
+      "Name": "Tower",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 5,
+      "AttackPoints": 5,
+      "LifePoints": 5,
+      "IsAvailable": true
+    },
+    {
+      "Id": 26,
+      "Name": "Valley",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 1,
+      "AttackPoints": 1,
+      "LifePoints": 1,
+      "IsAvailable": true
+    },
+    {
+      "Id": 27,
+      "Name": "Waggon",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 2,
+      "AttackPoints": 2,
+      "LifePoints": 2,
+      "IsAvailable": true
+    },
+    {
+      "Id": 28,
+      "Name": "Well",
+      "Description": "",
+      "Type": "Bases",
+      "Coins": 3,
+      "AttackPoints": 3,
+      "LifePoints": 3,
+      "IsAvailable": true
+    }
+  ]
+}
