@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardPagination : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class CardPagination : MonoBehaviour
 
     [SerializeField] private CardStorage cardStorage;
     [SerializeField] private GameObject[] cardPrefabs;
+
+    [SerializeField] private Text cardsNumber;
 
     public GameObject[] CardPrefabs { get { return cardPrefabs; } }
     public List<Card> Cards { get; set; }
@@ -39,6 +42,8 @@ public class CardPagination : MonoBehaviour
         {
             Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Coins).ToList();
         }
+
+        cardsNumber.text = Cards.Count + " cards";
     }
 
     private void SetPagesNumber()
