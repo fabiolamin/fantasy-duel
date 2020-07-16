@@ -40,7 +40,7 @@ public class CardStorage : MonoBehaviour
             File.WriteAllText(path, String.Empty);
             TextWriter tw = new StreamWriter(path, true);
             Card[] cards = Collection.FindAll(card => card.Type == fileName).ToArray();
-            tw.WriteLine(CardConverter.GetJsonFrom(cards));
+            tw.WriteLine(Utility.GetJsonFrom(cards));
             tw.Close();
         }
     }

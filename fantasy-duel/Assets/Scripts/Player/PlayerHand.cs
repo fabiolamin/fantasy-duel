@@ -36,7 +36,7 @@ public class PlayerHand : MonoBehaviour
     private void GetAllCards()
     {
         string json = playerManager.PhotonView.Owner.CustomProperties[playerManager.PhotonView.Owner.NickName].ToString();
-        convertedCards = CardConverter.GetCardsFrom(json);
+        convertedCards = Utility.GetCardsFrom(json);
     }
 
     [PunRPC]

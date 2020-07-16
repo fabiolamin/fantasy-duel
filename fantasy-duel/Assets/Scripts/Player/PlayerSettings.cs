@@ -32,7 +32,7 @@ public class PlayerSettings : MonoBehaviour
 
     public void SetDeckAsProperty()
     {
-        string json = CardConverter.GetJsonFrom(GetCustomDeck());
+        string json = Utility.GetJsonFrom(GetCustomDeck());
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         properties.Add(PhotonNetwork.NickName, json);
         PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
