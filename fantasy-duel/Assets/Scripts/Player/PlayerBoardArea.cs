@@ -132,46 +132,6 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         return null;
     }
 
-    public void PlayCardParticles(GameObject card, CardParticles cardParticles)
-    {
-        Card playedCard = card.GetComponent<CardInfo>().Card;
-
-        if (playerManager.PhotonView.IsMine)
-        {
-            playerManager.PhotonView.RPC("PlayCardParticlesRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards), (int)cardParticles);
-        }
-    }
-
-    [PunRPC]
-    private void PlayCardParticlesRPC(int cardIndex, int particlesIndex)
-    {
-        Cards[cardIndex].GetComponent<CardParticlesManager>().Play((CardParticles)particlesIndex);
-    }
-
-    public void StopAllCardsParticles()
-    {
-        Cards.ForEach(card => { StopCardParticles(card, CardParticles.SelectMatch);
-            StopCardParticles(card, CardParticles.Available);
-        });
-    }
-
-    public void StopCardParticles(GameObject card, CardParticles cardParticles)
-    {
-        Card playedCard = card.GetComponent<CardInfo>().Card;
-
-        if (playerManager.PhotonView.IsMine)
-        {
-            playerManager.PhotonView.RPC("StopCardParticlesRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards), (int)cardParticles);
-        }
-    }
-
-    [PunRPC]
-    private void StopCardParticlesRPC(int cardIndex, int particlesIndex)
-    {
-        if(cardIndex >= 0)
-        Cards[cardIndex].GetComponent<CardParticlesManager>().Stop((CardParticles)particlesIndex);
-    }
-
     public void ShowAvailableCards()
     {
         Cards.ForEach(card => card.GetComponent<CardInteraction>().CheckCardAvailability());

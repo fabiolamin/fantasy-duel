@@ -87,7 +87,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
                 if(obj.CompareTag("Card"))
                 {
-                    playerManager.PlayerBoardArea.StopCardParticles(obj, CardParticles.SelectMatch);
+                    playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.SelectMatch);
                 }
             }
         }
@@ -109,7 +109,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
             if (WasPlayed && CanDoAnAction() && playerManager.PlayerTurn.IsMyTurn && cardInfo.Card.Type == "Creatures")
             {
                 particlesManager.Stop(CardParticles.Available);
-                playerManager.PlayerBoardArea.PlayCardParticles(gameObject, CardParticles.SelectMatch);
+                playerManager.PlayerParticlesControl.PlayCardParticles(gameObject, CardParticles.SelectMatch);
             }
 
             playerManager.PlaySoundEffect(Clip.ObjectHit);

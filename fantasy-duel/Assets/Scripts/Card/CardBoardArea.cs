@@ -52,7 +52,7 @@ public class CardBoardArea : MonoBehaviour
             playerManager.PlayerHand.RemoveCard(playedCard);
             playerManager.PlayerHand.UpdateHand();
             playerManager.PlayerHand.Lock(true);
-            playerManager.PlayerBoardArea.PlayCardParticles(playedCard, CardParticles.Played);
+            playerManager.PlayerParticlesControl.PlayCardParticles(playedCard, CardParticles.Played);
         }
     }
 

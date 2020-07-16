@@ -19,7 +19,10 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
 
         durationAux = duration;
         round = 0;
+    }
 
+    private void Start()
+    {
         if (!PhotonNetwork.IsMasterClient)
         {
             EndTurn();
@@ -38,7 +41,7 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
     {
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PlayerBoardArea.StopAllCardsParticles();
+            playerManager.PlayerParticlesControl.StopAllCardsParticles();
             playerManager.PlayerHUD.ActiveTurnDurationText(false);
             playerManager.PlayerHUD.ActiveButtons(false);
             playerManager.PlayerHand.Lock(true);

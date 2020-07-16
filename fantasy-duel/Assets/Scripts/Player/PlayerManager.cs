@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     public PlayerBoardArea PlayerBoardArea { get; private set; }
     public PlayerAction PlayerAction { get; private set; }
     public PlayerTurn PlayerTurn { get; private set; }
+    public PlayerParticlesControl PlayerParticlesControl { get; private set; }
     public bool IsReadyToDisconnect { get; set; } = false;
 
     private void Awake()
@@ -24,6 +25,7 @@ public class PlayerManager : MonoBehaviour
         PlayerBoardArea = GetComponent<PlayerBoardArea>();
         PlayerAction = GetComponent<PlayerAction>();
         PlayerTurn = GetComponent<PlayerTurn>();
+        PlayerParticlesControl = GetComponent<PlayerParticlesControl>();
     }
 
     private void Update()
