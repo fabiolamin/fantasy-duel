@@ -23,10 +23,22 @@ public class CardPagination : MonoBehaviour
 
     public void Load(string type)
     {
-        Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Coins).ToList();
+        GetCards(type);
         SetPagesNumber();
         SetInterval(0, cardsPerPage);
         SetPage();
+    }
+
+    private void GetCards(string type)
+    {
+        if (type.Equals("All"))
+        {
+            Cards = cardStorage.Collection.OrderBy(card => card.Coins).ToList();
+        }
+        else
+        {
+            Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Coins).ToList();
+        }
     }
 
     private void SetPagesNumber()
@@ -50,7 +62,7 @@ public class CardPagination : MonoBehaviour
 
         for (int index = start; index < end; index++)
         {
-            if (index < Cards.Count)
+            if (index < Cards.Count && Cards.Count != 0)
             {
                 Card card = Cards[index];
                 int position = index % cardsPerPage;

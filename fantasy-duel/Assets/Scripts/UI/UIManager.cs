@@ -52,8 +52,8 @@ public class UIManager : MonoBehaviour
 
     public void ShowDecks()
     {
-        cardPagination.Load("Bases");
-        cardPaginationDeck.Load("Bases");
+        cardPagination.Load("All");
+        cardPaginationDeck.Load("All");
     }
 
     public void SetNicknameText()
