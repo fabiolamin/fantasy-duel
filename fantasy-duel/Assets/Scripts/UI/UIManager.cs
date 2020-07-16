@@ -17,8 +17,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private CardPagination cardPagination;
     [SerializeField] private CardPagination cardPaginationDeck;
 
-    [SerializeField] private Text coins;
-
     [SerializeField] private Text wins, losses;
 
     public static UIManager Instance
@@ -37,7 +35,6 @@ public class UIManager : MonoBehaviour
     public Panel Panel { get; private set; }
     public InputField PlayerName { get { return playerName; } private set { playerName = value; } }
     public Text ConnectionStatus { get { return connectionStatus; } set { connectionStatus = value; } }
-    public Text Coins { get { return coins; } set { coins = value; } }
 
     private void Awake()
     {

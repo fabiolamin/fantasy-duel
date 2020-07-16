@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class DeckBuilding : MonoBehaviour
 {
     private int playerCoins;
     [SerializeField] private int maximumPlayerCoins = 80;
+
+    [SerializeField] private Text coins;
 
     [Header("Store")]
     [SerializeField] private CardStorage storeCardStorage;
@@ -17,7 +20,7 @@ public class DeckBuilding : MonoBehaviour
     private void Awake()
     {
         playerCoins = maximumPlayerCoins - deckCardStorage.Collection.Sum(card => card.Coins);
-        UIManager.Instance.Coins.text = playerCoins + "/80";
+        coins.text = playerCoins + "/80";
     }
     public void StoreCard()
     {
@@ -75,7 +78,7 @@ public class DeckBuilding : MonoBehaviour
     private void UpdateCoins(int value)
     {
         playerCoins = Mathf.Clamp(playerCoins + value, 0, maximumPlayerCoins);
-        UIManager.Instance.Coins.text = playerCoins + "/80";
+        coins.text = playerCoins + "/80";
     }
 
     public void Save()
