@@ -2,7 +2,6 @@
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 
 public class CardStorage : MonoBehaviour
 {
@@ -43,5 +42,22 @@ public class CardStorage : MonoBehaviour
             tw.WriteLine(Utility.GetJsonFrom(cards));
             tw.Close();
         }
+    }
+
+    public Card[] GetCustomDeck()
+    {
+        List<Card> customDeck = new List<Card>();
+        int cardsLength = Collection.Count;
+
+        while (cardsLength > 0)
+        {
+            int index = UnityEngine.Random.Range(0, cardsLength);
+            Card card = Collection[index];
+            customDeck.Add(card);
+            Collection.RemoveAt(index);
+            cardsLength--;
+        }
+
+        return customDeck.ToArray();
     }
 }

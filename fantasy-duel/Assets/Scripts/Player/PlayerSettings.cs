@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using Photon.Pun;
-using System.Collections.Generic;
 using UnityEngine.UI;
-
 
 public class PlayerSettings : MonoBehaviour
 {
@@ -36,26 +34,9 @@ public class PlayerSettings : MonoBehaviour
 
     public void SetDeckAsProperty()
     {
-        string json = Utility.GetJsonFrom(GetCustomDeck());
+        string json = Utility.GetJsonFrom(deckCardStorage.GetCustomDeck());
         ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
         properties.Add(PhotonNetwork.NickName, json);
         PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
-    }
-
-    private Card[] GetCustomDeck()
-    {
-        List<Card> customDeck = new List<Card>();
-        int cardsLength = deckCardStorage.Collection.Count;
-
-        while (cardsLength > 0)
-        {
-            int index = Random.Range(0, cardsLength);
-            Card card = deckCardStorage.Collection[index];
-            customDeck.Add(card);
-            deckCardStorage.Collection.RemoveAt(index);
-            cardsLength--;
-        }
-
-        return customDeck.ToArray();
     }
 }
