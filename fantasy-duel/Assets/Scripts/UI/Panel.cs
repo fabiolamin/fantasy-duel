@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class Panel : MonoBehaviour
 {
+    [SerializeField] private PlayerSettings playerSettings;
+
     [SerializeField] private GameObject mainMenuPanel;
-    [SerializeField] private GameObject nicknameCreationPanel;
     [SerializeField] private GameObject matchmakingPanel;
     [SerializeField] private GameObject deckBuildingPanel;
+    [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject canvasCardCollection;
 
     [SerializeField] private GameObject[] cardPlaceholderStore;
@@ -22,9 +24,9 @@ public class Panel : MonoBehaviour
     private void DisableAllPanels()
     {
         mainMenuPanel.SetActive(false);
-        nicknameCreationPanel.SetActive(false);
         matchmakingPanel.SetActive(false);
         deckBuildingPanel.SetActive(false);
+        settingsPanel.SetActive(false);
         canvasCardCollection.SetActive(false);
     }
 
@@ -32,12 +34,6 @@ public class Panel : MonoBehaviour
     {
         cardPlaceholderStore.ToList().ForEach(card => card.SetActive(false));
         cardPlaceholderDeck.ToList().ForEach(card => card.SetActive(false));
-    }
-
-    public void ShowNicknameCreationPanel()
-    {
-        DisableAllPanels();
-        nicknameCreationPanel.SetActive(true);
     }
 
     public void ShowMatchmakingPanel()
@@ -52,5 +48,12 @@ public class Panel : MonoBehaviour
         DisableAllPanels();
         deckBuildingPanel.SetActive(true);
         canvasCardCollection.SetActive(true);
+    }
+
+    public void ShowSettingsPanel()
+    {
+        DisableAllPanels();
+        settingsPanel.SetActive(true);
+        playerSettings.ShowNickname();
     }
 }

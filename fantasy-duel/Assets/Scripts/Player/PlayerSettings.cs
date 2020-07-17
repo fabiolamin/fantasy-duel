@@ -1,33 +1,37 @@
 ﻿using UnityEngine;
 using Photon.Pun;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 
 public class PlayerSettings : MonoBehaviour
 {
-    private string nickname;
-
     [SerializeField] private Networking networking;
     [SerializeField] private CardStorage deckCardStorage;
+    [SerializeField] private InputField playerNameInput;
 
     public void VerifyNickname()
     {
         if (PlayerPrefs.GetString("Nickname") == "")
-        {
-            UIManager.Instance.Panel.ShowNicknameCreationPanel();
-        }
+            PlayerPrefs.SetString("Nickname", "user" + Random.Range(100, 999));
         else
-        {
             networking.Connect();
+    }
+
+    public void UpdateNickname()
+    {
+        if (playerNameInput.text != PlayerPrefs.GetString("Nickname"))
+        {
+            int random = Random.Range(100, 999);
+            string nickname = playerNameInput.text + random.ToString();
+            PlayerPrefs.SetString("Nickname", nickname);
+            ShowNickname();
         }
     }
 
-    public void CreateNickname()
+    public void ShowNickname()
     {
-        int random = Random.Range(100, 999);
-        nickname = UIManager.Instance.PlayerName.text + random.ToString();
-        PlayerPrefs.SetString("Nickname", nickname);
-        UIManager.Instance.SetNicknameText();
+        playerNameInput.text = PlayerPrefs.GetString("Nickname");
     }
 
     public void SetDeckAsProperty()

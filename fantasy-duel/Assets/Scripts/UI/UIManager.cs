@@ -8,10 +8,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject canvasLogo;
     [SerializeField] private ParticleSystem logoParticles;
 
-    [SerializeField] private GameObject playButton;
-    [SerializeField] private InputField playerName;
-    [SerializeField] private Text nickname;
-
     [SerializeField] private Text connectionStatus;
 
     [SerializeField] private CardPagination cardPagination;
@@ -33,7 +29,6 @@ public class UIManager : MonoBehaviour
     }
 
     public Panel Panel { get; private set; }
-    public InputField PlayerName { get { return playerName; } private set { playerName = value; } }
     public Text ConnectionStatus { get { return connectionStatus; } set { connectionStatus = value; } }
 
     private void Awake()
@@ -51,12 +46,6 @@ public class UIManager : MonoBehaviour
     {
         cardPagination.Load("All");
         cardPaginationDeck.Load("All");
-    }
-
-    public void SetNicknameText()
-    {
-        nickname.text = "Nickname: " + PlayerPrefs.GetString("Nickname");
-        playButton.SetActive(true);
     }
 
     public void HideLogo()
