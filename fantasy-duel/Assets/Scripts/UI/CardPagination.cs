@@ -22,6 +22,8 @@ public class CardPagination : MonoBehaviour
     {
         cardStorage.SaveCardsAsList();
         cardsPerPage = cardPrefabs.Length;
+
+        Load("All");
     }
 
     public void Load(string type)
@@ -35,13 +37,9 @@ public class CardPagination : MonoBehaviour
     private void GetCards(string type)
     {
         if (type.Equals("All"))
-        {
             Cards = cardStorage.Collection.OrderBy(card => card.Coins).ToList();
-        }
         else
-        {
             Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Coins).ToList();
-        }
 
         cardsNumber.text = Cards.Count + " cards";
     }

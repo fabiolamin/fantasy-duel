@@ -1,8 +1,12 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-public class Panel : MonoBehaviour
+public class PanelManager : MonoBehaviour
 {
+    private static PanelManager instance;
+
+    [SerializeField] private Text wins, losses;
+
     [SerializeField] private PlayerSettings playerSettings;
 
     [SerializeField] private GameObject mainMenuPanel;
@@ -11,13 +15,30 @@ public class Panel : MonoBehaviour
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject canvasCardCollection;
 
-    [SerializeField] private GameObject[] cardPlaceholderStore;
-    [SerializeField] private GameObject[] cardPlaceholderDeck;
+    public static PanelManager Instance 
+    {
+        get
+        {
+            if (instance == null)
+                Debug.LogError("PanelManager is NULL.");
+
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        instance = this;
+
+        ShowMainMenuPanel();
+
+        wins.text = PlayerPrefs.GetInt("Wins").ToString();
+        losses.text = PlayerPrefs.GetInt("Losses").ToString();
+    }
 
     public void ShowMainMenuPanel()
     {
         DisableAllPanels();
-        HideCards();
         mainMenuPanel.SetActive(true);
     }
 
@@ -30,12 +51,6 @@ public class Panel : MonoBehaviour
         canvasCardCollection.SetActive(false);
     }
 
-    private void HideCards()
-    {
-        cardPlaceholderStore.ToList().ForEach(card => card.SetActive(false));
-        cardPlaceholderDeck.ToList().ForEach(card => card.SetActive(false));
-    }
-
     public void ShowMatchmakingPanel()
     {
         DisableAllPanels();
@@ -44,7 +59,6 @@ public class Panel : MonoBehaviour
 
     public void ShowDeckBuildingPanel()
     {
-        UIManager.Instance.ShowDecks();
         DisableAllPanels();
         deckBuildingPanel.SetActive(true);
         canvasCardCollection.SetActive(true);

@@ -2,12 +2,15 @@
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using UnityEngine.UI;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
     private bool isReadyToLoad = false;
     [SerializeField] private PlayerSettings playerSettings;
     [SerializeField] private float timeToLoad = 4f;
+    [SerializeField] private Text connectionStatus;
+
     private void Awake()
     {
         if (PhotonNetwork.IsConnected)
@@ -30,15 +33,15 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public void Connect()
     {
-        UIManager.Instance.Panel.ShowMatchmakingPanel();
-        UIManager.Instance.ConnectionStatus.text = "Connecting to server...";
+        PanelManager.Instance.ShowMatchmakingPanel();
+        connectionStatus.text = "Connecting to server...";
         PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
-        UIManager.Instance.ConnectionStatus.text = "Finding an oponnent...";
+        connectionStatus.text = "Finding an oponnent...";
         PhotonNetwork.JoinLobby();
     }
 

@@ -276,7 +276,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &36751110
 MonoBehaviour:
@@ -3450,7 +3450,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press any key to start
+  m_Text: Press any key
 --- !u!222 &306828330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3605,7 +3605,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.28219232, y: 0.12775359}
   m_AnchorMax: {x: 0.73600006, y: 0.9165563}
-  m_AnchoredPosition: {x: 1.3499756, y: 16.49997}
+  m_AnchoredPosition: {x: 1.3499756, y: 16.5}
   m_SizeDelta: {x: -2.6999998, y: 4.199997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &320528035
@@ -3766,7 +3766,7 @@ Transform:
   - {fileID: 2116602270}
   - {fileID: 362926445}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &348799348 stripped
 Transform:
@@ -4119,34 +4119,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 405042319}
-  - component: {fileID: 405042318}
   - component: {fileID: 405042320}
   m_Layer: 0
-  m_Name: UI Manager
+  m_Name: Panel Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &405042318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 405042317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa344f1f28db9d845b2076f66b88828e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasLogo: {fileID: 2094721861}
-  logoParticles: {fileID: 605816687}
-  connectionStatus: {fileID: 1458457938}
-  cardPagination: {fileID: 1259741117}
-  cardPaginationDeck: {fileID: 744786137}
-  wins: {fileID: 1893772717}
-  losses: {fileID: 1037162549}
 --- !u!4 &405042319
 Transform:
   m_ObjectHideFlags: 0
@@ -4155,11 +4135,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405042317}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -192.35484, y: -544.17993, z: -612.4139}
+  m_LocalPosition: {x: 376.64514, y: 0, z: 4862.586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 525397955}
-  m_RootOrder: 3
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &405042320
 MonoBehaviour:
@@ -4173,22 +4153,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a5b5163d58b30438bea321b6b1ff39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wins: {fileID: 1893772717}
+  losses: {fileID: 1037162549}
   playerSettings: {fileID: 36751110}
   mainMenuPanel: {fileID: 819200449}
   matchmakingPanel: {fileID: 480360190}
   deckBuildingPanel: {fileID: 795132999}
   settingsPanel: {fileID: 1765919117}
   canvasCardCollection: {fileID: 45544286}
-  cardPlaceholderStore:
-  - {fileID: 1840912595}
-  - {fileID: 1813297314}
-  - {fileID: 1363196547}
-  - {fileID: 258666994}
-  cardPlaceholderDeck:
-  - {fileID: 160961369}
-  - {fileID: 171076576}
-  - {fileID: 1866804219}
-  - {fileID: 1767256647}
 --- !u!1 &414313152
 GameObject:
   m_ObjectHideFlags: 0
@@ -4200,6 +4172,7 @@ GameObject:
   - component: {fileID: 414313155}
   - component: {fileID: 414313154}
   - component: {fileID: 414313153}
+  - component: {fileID: 414313156}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -4272,6 +4245,22 @@ Transform:
   m_Father: {fileID: 1608571673}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &414313156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 414313152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9aa371287211914ca2653c7da52ddc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destination: {fileID: 1605827364}
+  speed: 3000
+  canvasLogo: {fileID: 2094721861}
+  logoParticles: {fileID: 605816687}
 --- !u!1001 &422600061
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5205,9 +5194,8 @@ Transform:
   - {fileID: 594988064}
   - {fileID: 45544290}
   - {fileID: 26578338}
-  - {fileID: 405042319}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &535197092 stripped
 Transform:
@@ -7000,7 +6988,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 47.76, y: -30, z: 0}
 --- !u!4 &705690538 stripped
 Transform:
@@ -13025,7 +13013,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1491103693
 GameObject:
@@ -14284,7 +14272,6 @@ Transform:
   m_Children:
   - {fileID: 414313155}
   - {fileID: 1605827364}
-  - {fileID: 1818243103}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14857,7 +14844,7 @@ Transform:
   - {fileID: 1996150568}
   - {fileID: 1259741118}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1674592258 stripped
 Transform:
@@ -15221,7 +15208,7 @@ Transform:
   - {fileID: 1880738396}
   - {fileID: 744786136}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1782775172
 GameObject:
@@ -15618,52 +15605,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1813297311}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1818243102
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1818243103}
-  - component: {fileID: 1818243104}
-  m_Layer: 0
-  m_Name: Camera Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1818243103
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818243102}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1608571673}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1818243104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818243102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9aa371287211914ca2653c7da52ddc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 414313155}
-  destination: {fileID: 1605827364}
-  speed: 3000
 --- !u!1 &1822839656
 GameObject:
   m_ObjectHideFlags: 0
@@ -16288,7 +16229,7 @@ GameObject:
   - component: {fileID: 1881426511}
   - component: {fileID: 1881426510}
   m_Layer: 0
-  m_Name: Networking Manager
+  m_Name: Networking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16308,6 +16249,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSettings: {fileID: 36751110}
   timeToLoad: 4
+  connectionStatus: {fileID: 1458457938}
 --- !u!4 &1881426511
 Transform:
   m_ObjectHideFlags: 0
@@ -16320,7 +16262,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1883642173
 GameObject:
@@ -17844,7 +17786,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2116602270 stripped
 Transform:
@@ -18178,7 +18120,7 @@ PrefabInstance:
     - target: {fileID: 1179043746935831234, guid: c587ac33fe935874bbf5ff5e6fbdef90,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1179043746935831234, guid: c587ac33fe935874bbf5ff5e6fbdef90,
         type: 3}

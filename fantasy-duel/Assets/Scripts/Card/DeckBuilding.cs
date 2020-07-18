@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class DeckBuilding : MonoBehaviour
 {
     private int playerCoins;
+
     [SerializeField] private int maximumPlayerCoins = 80;
 
     [SerializeField] private Text coins;
@@ -85,7 +86,7 @@ public class DeckBuilding : MonoBehaviour
     {
         deckCardStorage.SaveCardsAsFiles();
         storeCardStorage.SaveCardsAsFiles();
-        UIManager.Instance.Panel.ShowMainMenuPanel();
+        PanelManager.Instance.ShowMainMenuPanel();
     }
 
     private Card SetCardAsAvailable(Card card)
