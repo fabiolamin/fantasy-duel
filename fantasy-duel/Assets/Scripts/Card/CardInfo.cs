@@ -42,19 +42,4 @@ public class CardInfo : MonoBehaviour, IDamageable, IProtectable
             playerManager.PlayerBoardArea.Remove(gameObject);
         }
     }
-
-    public Card GetAvailableCard()
-    {
-        Card card = new Card();
-        card.Id = Card.Id;
-        card.Name = Card.Name;
-        card.Description = Card.Description;
-        card.Type = Card.Type;
-        card.Coins = Card.Coins;
-        card.AttackPoints = Card.AttackPoints;
-        card.LifePoints = Card.LifePoints;
-        card.IsAvailable = true;
-
-        return card;
-    }
 }

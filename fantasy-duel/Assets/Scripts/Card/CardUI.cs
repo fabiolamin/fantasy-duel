@@ -13,7 +13,6 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Text coins;
     [SerializeField] private Text attackPoints;
     [SerializeField] private Text lifePoints;
-    [SerializeField] private GameObject unavailableImage;
 
     [Header("Sprites")]
     [SerializeField] private Sprite[] bases;
@@ -29,7 +28,6 @@ public class CardUI : MonoBehaviour
         coins.text = card.Coins.ToString();
         attackPoints.text = card.AttackPoints.ToString();
         lifePoints.text = card.LifePoints.ToString();
-        unavailableImage.SetActive(!card.IsAvailable);
     }
 
     private void SetSprites(Card card)

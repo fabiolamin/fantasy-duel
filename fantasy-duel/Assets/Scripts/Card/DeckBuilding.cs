@@ -32,8 +32,8 @@ public class DeckBuilding : MonoBehaviour
             if (playerCoins >= card.Coins)
             {
                 AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
+                storeCardStorage.Collection.Remove(card);
                 deckCardStorage.Collection.Add(card);
-                storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = false;
                 RefreshCardPageManager(card.Type);
                 UpdateCoins(-card.Coins);
             }
@@ -47,23 +47,21 @@ public class DeckBuilding : MonoBehaviour
         if (card != null)
         {
             AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
-            int index = deckCardStorage.Collection.FindIndex(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type);
-            deckCardStorage.Collection.RemoveAt(index);
-            storeCardStorage.Collection.Find(defaultCard => defaultCard.Id == card.Id && defaultCard.Type == card.Type).IsAvailable = true;
+            deckCardStorage.Collection.Remove(card);
+            storeCardStorage.Collection.Add(card);
             RefreshCardPageManager(card.Type);
             UpdateCoins(card.Coins);
         }
     }
 
-    private Card GetSelectedCard(GameObject[] cardPrefabs)
+    private Card GetSelectedCard(GameObject[] cards)
     {
-        foreach (GameObject cardPrefab in cardPrefabs)
+        foreach (GameObject card in cards)
         {
-            if (cardPrefab.GetComponent<CardInteraction>().IsSelected)
+            if (card.GetComponent<CardInteraction>().IsSelected)
             {
-                Card card = cardPrefab.GetComponent<CardInfo>().GetAvailableCard();
-                cardPrefab.GetComponent<CardInteraction>().IsSelected = false;
-                return card;
+                card.GetComponent<CardInteraction>().IsSelected = false;
+                return card.GetComponent<CardInfo>().Card;
             }
         }
 
@@ -87,20 +85,5 @@ public class DeckBuilding : MonoBehaviour
         deckCardStorage.SaveCardsAsFiles();
         storeCardStorage.SaveCardsAsFiles();
         PanelManager.Instance.ShowMainMenuPanel();
-    }
-
-    private Card SetCardAsAvailable(Card card)
-    {
-        Card availableCard = new Card();
-
-        availableCard.Id = card.Id;
-        availableCard.Name = card.Name;
-        availableCard.Coins = card.Coins;
-        availableCard.Description = card.Description;
-        availableCard.AttackPoints = card.AttackPoints;
-        availableCard.LifePoints = card.LifePoints;
-        availableCard.IsAvailable = true;
-
-        return availableCard;
     }
 }
