@@ -64,7 +64,7 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        playerSettings.SetDeckAsProperty();
+        playerSettings.SetProperties();
 
         if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
         {

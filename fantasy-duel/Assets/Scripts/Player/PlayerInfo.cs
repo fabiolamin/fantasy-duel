@@ -10,18 +10,16 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     [SerializeField] private int maxCoins;
     [SerializeField] private GameObject cameraPrefab;
     [SerializeField] private ParticleSystem coinsParticle;
-    [SerializeField] private Character character;
 
     public int LifePoints { get; private set; }
     public int Coins { get; private set; }
     public int WonRounds { get; private set; } = 0;
 
-    public Character Character { get { return character; } private set { character = value; } }
+    public Character Character { get; set; }
 
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
-
         SetAttributes();
 
         if (playerManager.PhotonView.IsMine)
@@ -70,12 +68,12 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     private void DamageRPC(int amount)
     {
         LifePoints = Mathf.Clamp(LifePoints - amount, 0, maxLifePoints);
-        character.PlayAnimation(CharacterAnimations.Damage);
-        character.PlayParticles(CharacterParticles.Damage);
+        Character.PlayAnimation(CharacterAnimations.Damage);
+        Character.PlayParticles(CharacterParticles.Damage);
 
         if (LifePoints <= 0)
         {
-            character.PlayAnimation(CharacterAnimations.Die);
+            Character.PlayAnimation(CharacterAnimations.Die);
             AudioManager.Instance.Play(Audio.SoundEffects, Clip.Round, false);
             RoundManager.Instance.SetRound();
             RoundManager.Instance.CheckRounds();
@@ -91,7 +89,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     [PunRPC]
     private void PlayCharacterAnimationRPC(int index)
     {
-        character.PlayAnimation((CharacterAnimations)index);
+        Character.PlayAnimation((CharacterAnimations)index);
     }
 
     public void UpdateCoins(int amount)
@@ -126,7 +124,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
 
     private void CheckPlayerEndMatch()
     {
-        if(WonRounds == RoundManager.Instance.RoundsToFinish)
+        if (WonRounds == RoundManager.Instance.RoundsToFinish)
         {
             int wins = 0;
             wins = PlayerPrefs.GetInt("Wins");

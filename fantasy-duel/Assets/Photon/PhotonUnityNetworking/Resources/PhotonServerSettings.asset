@@ -71,5 +71,6 @@ MonoBehaviour:
   - RemoveFromCardsRPC
   - RemoveFromObjectsRPC
   - ClearBoardRPC
+  - SpawnCharacter
   DisableAutoOpenWizard: 1
   ShowSettings: 1

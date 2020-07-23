@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterInteraction : MonoBehaviour, ISelectable, IProtectable
 {
@@ -7,14 +8,20 @@ public class CharacterInteraction : MonoBehaviour, ISelectable, IProtectable
     public bool IsProteged { get; set; }
     private void Awake()
     {
-        playerManager = transform.root.GetComponent<PlayerManager>();
-        IsProteged = true;
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            playerManager = transform.root.GetComponent<PlayerManager>();
+            IsProteged = true;
+        }
     }
 
     private void OnMouseDown()
     {
-        Deselect();
-        Select();
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            Deselect();
+            Select();
+        }
     }
 
     public void Select()

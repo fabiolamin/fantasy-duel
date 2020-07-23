@@ -13,6 +13,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private GameObject matchmakingPanel;
     [SerializeField] private GameObject deckBuildingPanel;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject characterPanel;
     [SerializeField] private GameObject canvasCardCollection;
 
     public static PanelManager Instance 
@@ -49,6 +50,7 @@ public class PanelManager : MonoBehaviour
         deckBuildingPanel.SetActive(false);
         settingsPanel.SetActive(false);
         canvasCardCollection.SetActive(false);
+        characterPanel.SetActive(false);
     }
 
     public void ShowMatchmakingPanel()
@@ -69,5 +71,11 @@ public class PanelManager : MonoBehaviour
         DisableAllPanels();
         settingsPanel.SetActive(true);
         playerSettings.ShowNickname();
+    }
+
+    public void ShowCharacterPanel()
+    {
+        DisableAllPanels();
+        characterPanel.SetActive(true);
     }
 }

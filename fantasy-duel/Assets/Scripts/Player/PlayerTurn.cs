@@ -91,6 +91,7 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
 
     public void StartTurn()
     {
+        IsMyTurn = true;
         AudioManager.Instance.Play(Audio.SoundEffects, Clip.Turn, false);
         playerManager.PlayerHUD.ActiveNotification(true);
         playerManager.PlayerHUD.SetNotification("Your turn!");
@@ -100,7 +101,6 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         playerManager.PlayerAction.ShowAvailableOpponentCardsToAttack();
         playerManager.PlayerBoardArea.ShowAvailableCards();
         IsReadyToCountdown = true;
-        IsMyTurn = true;
         UpdateRoomTurnProperty();
     }
 }

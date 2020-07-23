@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlayerSettings : MonoBehaviour
 {
+    ExitGames.Client.Photon.Hashtable playerProperties = new ExitGames.Client.Photon.Hashtable();
+
     [SerializeField] private Networking networking;
     [SerializeField] private CardStorage deckCardStorage;
     [SerializeField] private InputField playerNameInput;
@@ -32,11 +34,21 @@ public class PlayerSettings : MonoBehaviour
         playerNameInput.text = PlayerPrefs.GetString("Nickname");
     }
 
-    public void SetDeckAsProperty()
+    public void SetProperties()
+    {
+        SetDeck();
+        SetCharacter();
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+    }
+
+    private void SetDeck()
     {
         string json = Utility.GetJsonFrom(deckCardStorage.GetCustomDeck());
-        ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-        properties.Add(PhotonNetwork.NickName, json);
-        PhotonNetwork.LocalPlayer.SetCustomProperties(properties);
+        playerProperties.Add(PhotonNetwork.NickName, json);
+    }
+
+    private void SetCharacter()
+    {
+        playerProperties.Add(PhotonNetwork.NickName + "-Character", PlayerPrefs.GetInt("Character"));
     }
 }

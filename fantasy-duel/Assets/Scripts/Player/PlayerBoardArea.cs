@@ -6,7 +6,9 @@ using System.Linq;
 public class PlayerBoardArea : MonoBehaviourPunCallbacks
 {
     private PlayerManager playerManager;
-    [SerializeField] private GameObject character;
+    private GameObject character;
+    [SerializeField] private GameObject[] characters;
+    [SerializeField] private Transform characterSpawn;
     [SerializeField] private GameObject[] playedCards;
     public List<GameObject> Objects { get; private set; } = new List<GameObject>();
     public List<GameObject> Cards { get; private set; } = new List<GameObject>();
@@ -14,12 +16,24 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     private void Awake()
     {
         playerManager = GetComponent<PlayerManager>();
-        Objects.Add(character);
 
         if (playerManager.PhotonView.IsMine)
         {
             playedCards.ToList().ForEach(card => card.SetActive(true));
+            playerManager.PhotonView.RPC("SpawnCharacter", RpcTarget.AllBuffered);
         }
+    }
+
+    [PunRPC]
+    private void SpawnCharacter()
+    {
+        int characterId = int.Parse(playerManager.PhotonView.Owner.CustomProperties[playerManager.PhotonView.Owner.NickName + "-Character"].ToString());
+        GameObject characterToInstantiate = characters.ToList().Find(ch => ch.GetComponent<CharacterInfo>().Id == characterId);
+        character = Instantiate(characterToInstantiate, characterSpawn.position, characterSpawn.localRotation, characterSpawn.parent);
+        character.transform.localScale = characterSpawn.localScale;
+        character.transform.forward = characterSpawn.forward;
+        playerManager.PlayerInfo.Character = character.GetComponent<Character>();
+        Objects.Add(character);
     }
 
     public void SetCard(Card card, Vector3 position)
