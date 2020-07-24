@@ -38,6 +38,11 @@ public class Networking : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    public void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
+    }
+
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
@@ -106,6 +111,6 @@ public class Networking : MonoBehaviourPunCallbacks
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.Log(cause);
+        PanelManager.Instance.ShowMainMenuPanel();
     }
 }
