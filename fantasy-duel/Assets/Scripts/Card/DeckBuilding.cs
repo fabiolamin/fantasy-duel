@@ -84,6 +84,7 @@ public class DeckBuilding : MonoBehaviour
     {
         deckCardStorage.SaveCardsAsFiles();
         storeCardStorage.SaveCardsAsFiles();
+        PlayerPrefs.SetInt("Deck", deckCardStorage.Collection.Count);
         PanelManager.Instance.ShowMainMenuPanel();
     }
 }

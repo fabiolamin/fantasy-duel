@@ -10,12 +10,18 @@ public class PlayerSettings : MonoBehaviour
     [SerializeField] private CardStorage deckCardStorage;
     [SerializeField] private InputField playerNameInput;
 
-    public void VerifyNickname()
+    public void VerifyPlayer()
     {
-        if (PlayerPrefs.GetString("Nickname") == "")
-            PlayerPrefs.SetString("Nickname", "user" + Random.Range(100, 999));
+        if (!CanPlayerStartAMatch())
+            PanelManager.Instance.ShowNotificationPanel();
         else
             networking.Connect();
+    }
+
+    private bool CanPlayerStartAMatch()
+    {
+        return PlayerPrefs.GetString("Nickname") != "" && PlayerPrefs.GetInt("Deck") > 5 && 
+        PlayerPrefs.GetInt("Character") > 0;
     }
 
     public void UpdateNickname()
