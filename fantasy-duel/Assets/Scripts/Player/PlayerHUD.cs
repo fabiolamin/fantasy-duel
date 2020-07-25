@@ -23,6 +23,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Transform playersRoundsPanel;
     [SerializeField] private GameObject playerRoundsText;
     [SerializeField] private ParticleSystem notificationParticle;
+    [SerializeField] private GameObject leavingPanel;
 
     private void Awake()
     {
@@ -122,6 +123,7 @@ public class PlayerHUD : MonoBehaviour
 
     public void ShowEndMatchPanel()
     {
+        notificationParticle.Play();
         playerManager.PlaySoundEffect(Clip.EndMatch);
         endMatchPanel.SetActive(true);
 
@@ -132,5 +134,10 @@ public class PlayerHUD : MonoBehaviour
             int wonRounds = playerManager.PlayerInfo.WonRounds;
             playerRounds.GetComponent<Text>().text = playerManager.PhotonView.Owner.NickName + "  " + wonRounds;
         }
+    }
+
+    public void ActiveLeavingPanel(bool isActivated)
+    {
+        leavingPanel.SetActive(isActivated);
     }
 }

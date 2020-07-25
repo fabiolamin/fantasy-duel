@@ -7,6 +7,7 @@ public class RoundManager : MonoBehaviourPunCallbacks
     [SerializeField] private int roundsToFinish = 2;
 
     public int RoundsToFinish { get { return roundsToFinish; } private set { roundsToFinish = value; } }
+    public bool isThereAPlayerLeavingMatch { get; set; } = false;
     public static RoundManager Instance
     {
         get
@@ -64,7 +65,7 @@ public class RoundManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void EndMatch()
+    public void EndMatch()
     {
         foreach (var player in PhotonNetwork.PlayerList)
         {

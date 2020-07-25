@@ -122,7 +122,15 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
         WonRounds++;
     }
 
-    private void CheckPlayerEndMatch()
+    private void CheckPlayerResult()
+    {
+        if (!RoundManager.Instance.isThereAPlayerLeavingMatch)
+        {
+            SetPlayerResult();
+        }
+    }
+
+    private void SetPlayerResult()
     {
         if (WonRounds == RoundManager.Instance.RoundsToFinish)
         {
@@ -157,7 +165,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
                 playerManager.PlayerHUD.ActiveNotification(false);
                 playerManager.PlayerHUD.ShowEndMatchPanel();
                 playerManager.IsReadyToDisconnect = true;
-                CheckPlayerEndMatch();
+                CheckPlayerResult();
             }
         }
     }

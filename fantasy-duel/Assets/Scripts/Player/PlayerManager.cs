@@ -50,6 +50,16 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void LeaveMatch()
+    {
+        PlayerHUD.ActiveLeavingPanel(false);
+        int losses = PlayerPrefs.GetInt("Losses");
+        losses++;
+        PlayerPrefs.SetInt("Losses", losses);
+        RoundManager.Instance.isThereAPlayerLeavingMatch = true;
+        RoundManager.Instance.EndMatch();
+    }
+
     public void PlaySoundEffect(Clip clip)
     {
         PhotonView.RPC("PlaySoundEffectRPC", RpcTarget.AllBuffered, (int)clip);
