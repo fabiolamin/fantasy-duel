@@ -10,5 +10,4 @@ public class Card
     public int Coins;
     public int AttackPoints;
     public int LifePoints;
-    public bool IsAvailable;
 }

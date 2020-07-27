@@ -85,7 +85,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
             {
                 obj.GetComponent<ISelectable>().IsSelected = false;
 
-                if(obj.CompareTag("Card"))
+                if (obj.CompareTag("Card"))
                 {
                     playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.SelectMatch);
                 }
@@ -97,12 +97,9 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         if (sceneIndex == 0)
         {
-            if (cardInfo.Card.IsAvailable)
-            {
-                IsSelected = true;
-                AudioManager.Instance.Play(Audio.SoundEffects, Clip.CardSelect, false);
-                particlesManager.Play(CardParticles.SelectMenu);
-            }
+            IsSelected = true;
+            AudioManager.Instance.Play(Audio.SoundEffects, Clip.CardSelect, false);
+            particlesManager.Play(CardParticles.SelectMenu);
         }
         else
         {

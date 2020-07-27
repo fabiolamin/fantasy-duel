@@ -2,6 +2,7 @@
 using System.IO;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CardStorage : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class CardStorage : MonoBehaviour
             string path = Application.streamingAssetsPath + "/Data/" + folderName + "/" + fileName + ".json";
             File.WriteAllText(path, String.Empty);
             TextWriter tw = new StreamWriter(path, true);
-            Card[] cards = Collection.FindAll(card => card.Type == fileName).ToArray();
+            Card[] cards = Collection.FindAll(card => card.Type == fileName).OrderBy(c => c.Id).ToArray();
             tw.WriteLine(Utility.GetJsonFrom(cards));
             tw.Close();
         }
