@@ -1,5 +1,6 @@
 ﻿public enum CharacterParticles
 {
     Damage,
-    Target
+    Target,
+    Healing
 }

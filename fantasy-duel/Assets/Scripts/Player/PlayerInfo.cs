@@ -3,7 +3,7 @@ using Photon.Pun;
 using ExitGames.Client.Photon;
 using Photon.Realtime;
 
-public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
+public class PlayerInfo : MonoBehaviourPunCallbacks
 {
     private PlayerManager playerManager;
     [SerializeField] private int maxLifePoints;
@@ -51,26 +51,27 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
     public void TransferSomeLifePointsToCoins()
     {
         playerManager.PlaySoundEffect(Clip.Sacrifice);
-        Damage(3);
+        ChangeLife(-3);
         UpdateCoins(5);
     }
 
-    public void Damage(int amount)
+    [PunRPC]
+    private void ChangeLifeRPC(int value)
     {
-        if (playerManager.PhotonView.IsMine)
+        LifePoints = Mathf.Clamp(LifePoints + value, 0, maxLifePoints);
+
+        if (value < 0)
         {
-            playerManager.PhotonView.RPC("DamageRPC", RpcTarget.AllBuffered, amount);
-            playerManager.PlayerHUD.SetHUD();
+            Character.PlayAnimation(CharacterAnimations.Damage);
+            Character.PlayParticles(CharacterParticles.Damage);
+            CheckLife();
         }
+        else
+            Character.PlayParticles(CharacterParticles.Healing);
     }
 
-    [PunRPC]
-    private void DamageRPC(int amount)
+    private void CheckLife()
     {
-        LifePoints = Mathf.Clamp(LifePoints - amount, 0, maxLifePoints);
-        Character.PlayAnimation(CharacterAnimations.Damage);
-        Character.PlayParticles(CharacterParticles.Damage);
-
         if (LifePoints <= 0)
         {
             Character.PlayAnimation(CharacterAnimations.Die);
@@ -158,7 +159,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
             }
             else if (changedProps.ContainsKey("IsReadyToUpdateObject"))
             {
-                playerManager.PlayerBoardArea.SetDamageToObject(changedProps);
+                playerManager.PlayerBoardArea.UpdateObject(changedProps);
             }
             else if (changedProps.ContainsKey("IsMatchOver"))
             {
@@ -167,6 +168,15 @@ public class PlayerInfo : MonoBehaviourPunCallbacks, IDamageable
                 playerManager.IsReadyToDisconnect = true;
                 CheckPlayerResult();
             }
+        }
+    }
+
+    public void ChangeLife(int value)
+    {
+        if (playerManager.PhotonView.IsMine)
+        {
+            playerManager.PhotonView.RPC("ChangeLifeRPC", RpcTarget.AllBuffered, value);
+            playerManager.PlayerHUD.SetHUD();
         }
     }
 }

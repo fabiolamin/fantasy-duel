@@ -10,4 +10,6 @@ public class Card
     public int Coins;
     public int AttackPoints;
     public int LifePoints;
+    public int Healing;
+    public int Fortification;
 }

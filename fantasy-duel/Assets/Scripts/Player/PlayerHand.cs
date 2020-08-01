@@ -42,7 +42,7 @@ public class PlayerHand : MonoBehaviour
     [PunRPC]
     private void InstantiateCard()
     {
-        if(index < convertedCards.Count)
+        if (index < convertedCards.Count)
         {
             Card card = convertedCards[index];
             GameObject instantiatedCard = Instantiate(cardPrefab, Vector3.zero, Quaternion.Euler(-90, Utility.GetYRotation(), 0), cardsParent);
@@ -75,7 +75,8 @@ public class PlayerHand : MonoBehaviour
     {
         for (int index = 0; index < CardsTransform.Length; index++)
         {
-            Cards[index].transform.position = CardsTransform[index].position;
+            if (index <= Cards.Count - 1)
+                Cards[index].transform.position = CardsTransform[index].position;
         }
     }
     private void TurnHandCardsUp()
@@ -93,6 +94,9 @@ public class PlayerHand : MonoBehaviour
         {
             playerManager.PhotonView.RPC("RemoveCard", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(card, Cards));
         }
+
+        UpdateHand();
+        Lock(true);
     }
 
     [PunRPC]

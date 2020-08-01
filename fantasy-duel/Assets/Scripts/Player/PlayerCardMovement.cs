@@ -54,8 +54,11 @@ public class PlayerCardMovement : MonoBehaviour
     [PunRPC]
     private void SetInitialTransformRPC(int index)
     {
-        Vector3 scale = playerManager.PlayerHand.CardsTransform[index].transform.localScale;
-        playerManager.PlayerHand.Cards[index].transform.position = playerManager.PlayerHand.CardsTransform[index].transform.position;
-        playerManager.PlayerHand.Cards[index].transform.localScale = new Vector3(scale.x, scale.z, 0.00001f);
+        if (index >= 0)
+        {
+            Vector3 scale = playerManager.PlayerHand.CardsTransform[index].transform.localScale;
+            playerManager.PlayerHand.Cards[index].transform.position = playerManager.PlayerHand.CardsTransform[index].transform.position;
+            playerManager.PlayerHand.Cards[index].transform.localScale = new Vector3(scale.x, scale.z, 0.00001f);
+        }
     }
 }

@@ -50,6 +50,8 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     {
         playerManager.PlayerHand.Cards[index].transform.position = new Vector3(position[0], position[1], position[2]);
         playerManager.PlayerHand.Cards[index].transform.rotation = Quaternion.Euler(90, Utility.GetYRotation(), 0);
+        playerManager.PlayerHand.Cards[index].transform.localScale = new Vector3(playedCards[0].transform.localScale.x, 
+        playedCards[0].transform.localScale.z, 0.00001f);
     }
 
     public void Add(GameObject card)
@@ -106,27 +108,42 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         Objects.Add(character);
     }
 
-    public void DamageObject(string targetTag, int targetId, string targetType, int amount)
+    public void ChangeLifeObject(string targetTag, int targetId, string targetType, int value)
     {
         if (playerManager.PhotonView.IsMine)
         {
-            playerManager.PhotonView.RPC("DamageObjectRPC", RpcTarget.AllBuffered, targetTag, targetId, targetType, amount);
+            playerManager.PhotonView.RPC("ChangeLifeObjectRPC", RpcTarget.AllBuffered, targetTag, targetId, targetType, value);
+        }
+    }
+
+    public void FortifyCard(GameObject card, int value)
+    {
+        Card playedCard = card.GetComponent<CardInfo>().Card;
+
+        if (playerManager.PhotonView.IsMine)
+        {
+            playerManager.PhotonView.RPC("FortifyCardRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards), value);
         }
     }
 
     [PunRPC]
-    private void DamageObjectRPC(string targetTag, int targetId, string targetType, int amount)
+    private void FortifyCardRPC(int index, int value)
+    {
+        Cards[index].GetComponent<CardInfo>().Fortify(value);
+    }
+
+    [PunRPC]
+    private void ChangeLifeObjectRPC(string targetTag, int targetId, string targetType, int value)
     {
         switch (targetTag)
         {
             case "Character":
-                playerManager.PlaySoundEffect(Clip.CharacterDamage);
-                GetComponent<IDamageable>().Damage(amount);
+                GetComponent<PlayerInfo>().ChangeLife(value);
                 break;
 
             case "Card":
                 GameObject card = GetSelectedCard(targetId, targetType);
-                card.GetComponent<IDamageable>().Damage(amount);
+                card.GetComponent<CardInfo>().ChangeLife(value);
                 break;
         }
     }
@@ -151,7 +168,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
         Cards.ForEach(card => card.GetComponent<CardInteraction>().CheckCardAvailability());
     }
 
-    public void SetDamageToObject(ExitGames.Client.Photon.Hashtable changedProps)
+    public void UpdateObject(ExitGames.Client.Photon.Hashtable changedProps)
     {
         string targetTag = changedProps["TargetTag"].ToString();
         int targetCardId = 0;
@@ -165,6 +182,6 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
 
         int cardAttack = (int)changedProps["CardAttack"];
 
-        DamageObject(targetTag, targetCardId, targetCardType, cardAttack);
+        ChangeLifeObject(targetTag, targetCardId, targetCardType, cardAttack);
     }
 }

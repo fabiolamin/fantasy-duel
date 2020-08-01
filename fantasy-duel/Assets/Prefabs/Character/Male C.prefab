@@ -1408,8 +1408,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2830267, y: 1.8734467, z: 0.9999996}
-  m_Center: {x: -0.009071128, y: 0.86593187, z: 0.00023490732}
+  m_Size: {x: 1.2830269, y: 0.96589106, z: 0.99999946}
+  m_Center: {x: -0.00907114, y: 1.3197054, z: 0.00023489284}
 --- !u!114 &458578441720631814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1425,6 +1425,7 @@ MonoBehaviour:
   particles:
   - {fileID: 4849903488746203761}
   - {fileID: 261420345515970788}
+  - {fileID: 1652559255086298027}
 --- !u!114 &7503092607191118710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4807,6 +4808,12 @@ ParticleSystem:
 --- !u!198 &261420345515970788 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 506854194706149671, guid: 4c6494e331475a748983371d592170e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 335647223858225603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1652559255086298027 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1317132175222084200, guid: 4c6494e331475a748983371d592170e5,
     type: 3}
   m_PrefabInstance: {fileID: 335647223858225603}
   m_PrefabAsset: {fileID: 0}

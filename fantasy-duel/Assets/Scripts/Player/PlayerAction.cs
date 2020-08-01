@@ -134,13 +134,13 @@ public class PlayerAction : MonoBehaviour
             if (opponentObject.CompareTag("Card"))
             {
                 Card opponentCard = opponentObject.GetComponent<CardInfo>().Card;
-                playerBoardArea.DamageObject(playerObject.tag, playerCard.Id, playerCard.Type, opponentCard.AttackPoints);
+                playerBoardArea.ChangeLifeObject(playerObject.tag, playerCard.Id, playerCard.Type, -opponentCard.AttackPoints);
                 property.Add("TargetCardID", opponentCard.Id);
                 property.Add("TargetCardType", opponentCard.Type);
             }
 
             property.Add("TargetTag", opponentObject.tag);
-            property.Add("CardAttack", playerCard.AttackPoints);
+            property.Add("CardAttack", -playerCard.AttackPoints);
             property.Add("IsReadyToUpdateObject", true);
             PhotonNetwork.PlayerListOthers[0].SetCustomProperties(property);
         }

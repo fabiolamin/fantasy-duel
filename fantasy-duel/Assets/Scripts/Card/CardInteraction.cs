@@ -13,9 +13,10 @@ public class CardInteraction : MonoBehaviour, ISelectable
     private Vector3 offset;
     private Vector3 initialPosition;
     private Vector3 initialScale;
-    public bool IsDragging { get; private set; }
-    public bool WasPlayed { get; set; }
-    public bool IsLocked { get; set; }
+    public bool IsDragging { get; private set; } = false;
+    public bool WasPlayed { get; set; } = false;
+    public bool IsReadyToBePlayed { get; set; }
+    public bool IsLocked { get; set; } = false;
     public int TurnWhenWasPlayed { get; set; }
     public bool IsSelected { get; set; }
 
@@ -25,9 +26,6 @@ public class CardInteraction : MonoBehaviour, ISelectable
         particlesManager = GetComponent<CardParticlesManager>();
 
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
-        IsDragging = false;
-        WasPlayed = false;
-        IsLocked = false;
         initialPosition = transform.position;
         initialScale = transform.localScale;
 
@@ -66,8 +64,12 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     private void OnMouseUp()
     {
-        ReturnToInitialTransform();
         IsDragging = false;
+
+        if (!IsReadyToBePlayed)
+        {
+            ReturnToInitialTransform();
+        }
     }
 
     public void Deselect()
@@ -129,9 +131,9 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         if (sceneIndex == 1 && !IsDragging && !WasPlayed && !IsLocked && playerManager.PhotonView.IsMine)
         {
+            IsDragging = true;
             particlesManager.Play(CardParticles.SelectMatch);
             playerManager.PlaySoundEffect(Clip.CardDrag);
-            IsDragging = true;
             screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z));
         }
@@ -168,5 +170,16 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         int currentTurn = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
         return (TurnWhenWasPlayed + 1) <= currentTurn;
+    }
+    public bool CanCardBePlayed()
+    {
+        return IsReadyToBePlayed && !IsDragging && !WasPlayed &&
+        playerManager.PlayerInfo.Coins >= cardInfo.Card.Coins;
+    }
+    public void PlayCard()
+    {
+        WasPlayed = true;
+        TurnWhenWasPlayed = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
+        IsSelected = false;
     }
 }

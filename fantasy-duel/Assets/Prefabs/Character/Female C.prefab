@@ -940,6 +940,7 @@ MonoBehaviour:
   particles:
   - {fileID: 3525560245172468475}
   - {fileID: 8071540906895949934}
+  - {fileID: 7299224733628277537}
 --- !u!114 &2660613787725459001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -977,8 +978,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.2699864, y: 1.8999537, z: 0.95500225}
-  m_Center: {x: 0.011249343, y: 0.86620533, z: -0.022498745}
+  m_Size: {x: 1.2699864, y: 1.023272, z: 0.95500225}
+  m_Center: {x: 0.011249343, y: 1.3045461, z: -0.022498745}
 --- !u!1 &1142277583328720
 GameObject:
   m_ObjectHideFlags: 0
@@ -6006,6 +6007,12 @@ ParticleSystem:
 --- !u!198 &8071540906895949934 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 506854194706149671, guid: 4c6494e331475a748983371d592170e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8578067033746387273}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7299224733628277537 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1317132175222084200, guid: 4c6494e331475a748983371d592170e5,
     type: 3}
   m_PrefabInstance: {fileID: 8578067033746387273}
   m_PrefabAsset: {fileID: 0}

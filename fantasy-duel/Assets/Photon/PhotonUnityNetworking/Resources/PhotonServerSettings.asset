@@ -72,5 +72,9 @@ MonoBehaviour:
   - RemoveFromObjectsRPC
   - ClearBoardRPC
   - SpawnCharacter
+  - ChangeLifeRPC
+  - ChangeObjectRPC
+  - ChangeLifeObjectRPC
+  - FortifyCardRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

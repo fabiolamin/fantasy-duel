@@ -1,4 +1,4 @@
-﻿interface IDamageable
-{
-    void Damage(int amount);
-}
+﻿//interface IDamageable
+//{
+//    void Damage(int amount);
+//}

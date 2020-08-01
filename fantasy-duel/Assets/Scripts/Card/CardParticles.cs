@@ -6,5 +6,6 @@
     Played,
     SelectMatch,
     SelectMenu,
-    Target
+    Target,
+    Healing
 }
