@@ -284,7 +284,10 @@ MonoBehaviour:
   coins: {fileID: 3931820909662621933}
   attackPoints: {fileID: 8188939127491746422}
   lifePoints: {fileID: 9051241003691034741}
-  unavailableImage: {fileID: 6329753878168435564}
+  bases: []
+  creatures: []
+  magics: []
+  icons: []
 --- !u!114 &29811355387717599
 MonoBehaviour:
   m_ObjectHideFlags: 0
