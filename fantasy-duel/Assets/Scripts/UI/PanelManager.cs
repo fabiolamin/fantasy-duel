@@ -15,6 +15,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject characterPanel;
     [SerializeField] private GameObject tutorialPanel;
+    [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject notificationPanel;
     [SerializeField] private GameObject canvasCardCollection;
 
@@ -55,6 +56,7 @@ public class PanelManager : MonoBehaviour
         characterPanel.SetActive(false);
         notificationPanel.SetActive(false);
         tutorialPanel.SetActive(false);
+        creditsPanel.SetActive(false);
     }
 
     public void ShowMatchmakingPanel()
@@ -90,6 +92,13 @@ public class PanelManager : MonoBehaviour
 
     public void ShowTutorialPanel()
     {
+        DisableAllPanels();
         tutorialPanel.SetActive(true);
+    }
+
+    public void ShowCreditsPanel()
+    {
+        DisableAllPanels();
+        creditsPanel.SetActive(true);
     }
 }
