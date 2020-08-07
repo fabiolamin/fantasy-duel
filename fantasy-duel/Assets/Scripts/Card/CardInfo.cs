@@ -7,7 +7,6 @@ public class CardInfo : MonoBehaviour, IProtectable
     private PlayerManager playerManager;
     private PhotonView photonView;
     private CardUI cardUI;
-    private CardInteraction cardInteraction;
     private CardParticlesManager particlesManager;
 
     public Card Card { get; set; }
@@ -20,19 +19,7 @@ public class CardInfo : MonoBehaviour, IProtectable
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
             playerManager = transform.root.GetComponent<PlayerManager>();
-            cardInteraction = GetComponent<CardInteraction>();
             particlesManager = GetComponent<CardParticlesManager>();
-        }
-    }
-
-    private void CheckLife()
-    {
-        if (Card.LifePoints <= 0)
-        {
-            particlesManager.Play(CardParticles.Destruction);
-            playerManager.PlaySoundEffect(Clip.CardDestruction);
-            gameObject.SetActive(false);
-            playerManager.PlayerBoardArea.Remove(gameObject);
         }
     }
 
@@ -47,6 +34,22 @@ public class CardInfo : MonoBehaviour, IProtectable
             particlesManager.Play(CardParticles.Damage);
             playerManager.PlaySoundEffect(Clip.CardDamage);
         }
+    }
+
+    private void CheckLife()
+    {
+        if (Card.LifePoints <= 0)
+        {
+            particlesManager.Play(CardParticles.Destruction);
+            playerManager.PlaySoundEffect(Clip.CardDestruction);
+            playerManager.PlayerBoardArea.Remove(gameObject);
+            Invoke("Disable", 0.7f);
+        }
+    }
+
+    private void Disable()
+    {
+        gameObject.SetActive(false);
     }
 
     public void Fortify(int value)
