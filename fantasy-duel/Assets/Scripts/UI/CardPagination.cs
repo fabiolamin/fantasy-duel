@@ -30,7 +30,7 @@ public class CardPagination : MonoBehaviour
     {
         GetCards(type);
         SetPagesNumber();
-        SetInterval(0, cardsPerPage);
+        SetInterval(start, end);
         SetPage();
     }
 
