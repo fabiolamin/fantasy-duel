@@ -34,7 +34,7 @@ public class Networking : MonoBehaviourPunCallbacks
     public void Connect()
     {
         PanelManager.Instance.ShowMatchmakingPanel();
-        connectionStatus.text = "Connecting to server...";
+        //connectionStatus.text = "Connecting to server...";
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -46,7 +46,7 @@ public class Networking : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
-        connectionStatus.text = "Finding an oponnent...";
+        //connectionStatus.text = "Finding an oponnent...";
         PhotonNetwork.JoinLobby();
     }
 

@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87dda9bb27b2a0f4f8c6efee1af8e7d1, type: 3}
+  m_Name: TutorialText
+  m_EditorClassIdentifier: 
+  keyName: 22
+  englishTranslation: 'Fantasy Duel is a multiplayer collectible card game.  The
+    game is composed by 3 turns and the player who wins at leats 2 rounds is the
+    winner of match.  To win a single round, the player must defeat the life of his
+    opponent and to do that he should play cards per turn and then attack.  Each
+    player has a number of coins per turn to play his cards.  Each card has a number
+    of coins to be played and purchased at the deck building panel.  The game has
+    3 types of cards:  Creatures: Offensive cards that can attack the opponent''s
+    cards or life. To attack, the player must select your card, then select the target
+    and click at the action button.  Bases: Defensive cards that opponent must kill
+    first to then can attack the others player''s cards or life.  Magics: Spells
+    cards that can increase life or attack. To play a card magic, the player must
+    drag and drop to the card that will receive the benefits.  At last but not least,
+    Fantasy Duel has a feature called "Sacrifice" that can convert some life points
+    to coins during the match.'
+  portugueseTranslation: "Fantasy Duel \xE9 um jogo de cartas colecion\xE1veis para
+    multijogadores.  O jogo \xE9 composto por 3 turnos e o jogador que ganhar pelo
+    menos 2 turnos \xE9 o vencedor da partida.  Para ganhar uma rodada, o jogador
+    deve destruiur os pontos de vida do oponente e para fazer isso deve jogar cartas
+    a cada turno.  Cada jogador tem um n\xFAmero de moedas por turno para jogar suas
+    cartas.  Cada carta tem um n\xFAmero de moedas para que possa ser jogada e comprada
+    no menu de constru\xE7\xE3o de deck.  O jogo possui 3 tipos de cartas:  Criaturas:
+    cartas ofensivas que podem atacar a vida do oponente ou suas cartas. Para atacar,
+    o jogador deve selecionar sua carta, depois selecionar o alvo e clicar no bot\xE3o
+    de a\xE7\xE3o.  Bases: cartas defensivas que protegem as cartas e vida do jogador. 
+    Magias: cartas que podem aumentar os pontos de vida ou ataque. Para jogar uma
+    carta m\xE1gica, o jogador deve arrastar e soltar at\xE9 a carta que receber\xE1
+    o benef\xEDcio.  Por \xFAltimo mas n\xE3o menos importante, o Fantasy Duel tem
+    uma funcionalidade chamada \"Sacrif\xEDcio\" que pode converter alguns pontos
+    de vida em moedas durante a partida.  "

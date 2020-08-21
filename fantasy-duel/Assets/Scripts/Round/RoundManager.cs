@@ -37,11 +37,11 @@ public class RoundManager : MonoBehaviourPunCallbacks
             if (life != 0)
             {
                 playerManager.PlayerInfo.AddRound();
-                message = "You won a round!";
+                message = playerManager.PlayerHUD.GetNotificationTranslation(LocalizationKeyNames.PlayerRoundWon);
             }
             else
             {
-                message = "You lost a round!";
+                message = playerManager.PlayerHUD.GetNotificationTranslation(LocalizationKeyNames.PlayerRoundLost);
             }
 
             playerManager.PlayerHUD.SetNotification(message);

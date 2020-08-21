@@ -44,7 +44,7 @@ public class CharacterSelection : MonoBehaviour
 
     private void ShowCharacterInfo()
     {
-        winsToUnlockCharacter.text = "Wins to unlock: " + characterInfo.WinsToUnlock.ToString();
+        winsToUnlockCharacter.text = characterInfo.WinsToUnlock.ToString();
         selectButton.SetActive(characterInfo.IsUnlocked);
         selected.SetActive(characterInfo.Id == PlayerPrefs.GetInt("Character"));
     }

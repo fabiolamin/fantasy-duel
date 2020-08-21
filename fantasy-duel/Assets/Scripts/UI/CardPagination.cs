@@ -41,7 +41,7 @@ public class CardPagination : MonoBehaviour
         else
             Cards = cardStorage.Collection.FindAll(card => card.Type == type).OrderBy(card => card.Coins).ToList();
 
-        cardsNumber.text = Cards.Count + " cards";
+        cardsNumber.text = Cards.Count.ToString();
     }
 
     private void SetPagesNumber()

@@ -24,6 +24,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private GameObject playerRoundsText;
     [SerializeField] private ParticleSystem notificationParticle;
     [SerializeField] private GameObject leavingPanel;
+    [SerializeField] LocalizationLoader localizationLoader;
 
     private void Awake()
     {
@@ -139,5 +140,23 @@ public class PlayerHUD : MonoBehaviour
     public void ActiveLeavingPanel(bool isActivated)
     {
         leavingPanel.SetActive(isActivated);
+    }
+
+    public string GetNotificationTranslation(LocalizationKeyNames keyName)
+    {
+        string translation = "";
+
+        switch(PlayerPrefs.GetInt("Language"))
+        {
+            case 0:
+                translation = localizationLoader.Localizations.Single(l => l.KeyName == keyName).EnglishTranslation;
+                break;
+
+            case 1:
+                translation = localizationLoader.Localizations.Single(l => l.KeyName == keyName).PortugueseTranslation;
+                break;
+        }
+
+        return translation;
     }
 }
