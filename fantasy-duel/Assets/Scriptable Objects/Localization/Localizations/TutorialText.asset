@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyName: 22
   englishTranslation: 'Fantasy Duel is a multiplayer collectible card game.  The
-    game is composed by 3 turns and the player who wins at leats 2 rounds is the
+    game is composed by 3 rounds and the player who wins at leats 2 rounds is the
     winner of match.  To win a single round, the player must defeat the life of his
     opponent and to do that he should play cards per turn and then attack.  Each
     player has a number of coins per turn to play his cards.  Each card has a number
@@ -28,8 +28,8 @@ MonoBehaviour:
     Fantasy Duel has a feature called "Sacrifice" that can convert some life points
     to coins during the match.'
   portugueseTranslation: "Fantasy Duel \xE9 um jogo de cartas colecion\xE1veis para
-    multijogadores.  O jogo \xE9 composto por 3 turnos e o jogador que ganhar pelo
-    menos 2 turnos \xE9 o vencedor da partida.  Para ganhar uma rodada, o jogador
+    multijogadores.  O jogo \xE9 composto por 3 rodadas e o jogador que ganhar pelo
+    menos 2 rodadas \xE9 o vencedor da partida.  Para ganhar uma rodada, o jogador
     deve destruiur os pontos de vida do oponente e para fazer isso deve jogar cartas
     a cada turno.  Cada jogador tem um n\xFAmero de moedas por turno para jogar suas
     cartas.  Cada carta tem um n\xFAmero de moedas para que possa ser jogada e comprada
