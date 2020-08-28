@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Networking : MonoBehaviourPunCallbacks
 {
-    private bool isReadyToLoad = false;
     [SerializeField] private PlayerSettings playerSettings;
     [SerializeField] private float timeToLoad = 4f;
     [SerializeField] private Text connectionStatus;
@@ -20,21 +19,9 @@ public class Networking : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
-    private void CheckLoadCountdown()
-    {
-        timeToLoad -= Time.deltaTime;
-        AudioManager.Instance.UpdateVolume(Audio.Soundtrack, -Time.deltaTime);
-
-        if (timeToLoad <= 0)
-        {
-            PhotonNetwork.LoadLevel(1);
-        }
-    }
-
     public void Connect()
     {
         PanelManager.Instance.ShowMatchmakingPanel();
-        //connectionStatus.text = "Connecting to server...";
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -46,7 +33,6 @@ public class Networking : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.NickName = PlayerPrefs.GetString("Nickname");
-        //connectionStatus.text = "Finding an oponnent...";
         PhotonNetwork.JoinLobby();
     }
 
