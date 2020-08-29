@@ -4,10 +4,11 @@ using Photon.Pun;
 public class RoundManager : MonoBehaviourPunCallbacks
 {
     private static RoundManager instance;
+    private bool isMatchOver = false;
     [SerializeField] private int roundsToFinish = 2;
 
     public int RoundsToFinish { get { return roundsToFinish; } private set { roundsToFinish = value; } }
-    public bool isThereAPlayerLeavingMatch { get; set; } = false;
+   
     public static RoundManager Instance
     {
         get
@@ -60,18 +61,8 @@ public class RoundManager : MonoBehaviourPunCallbacks
 
             if (playerManager.PlayerInfo.WonRounds == roundsToFinish)
             {
-                EndMatch();
+                MatchManager.Instance.EndMatch();
             }
-        }
-    }
-
-    public void EndMatch()
-    {
-        foreach (var player in PhotonNetwork.PlayerList)
-        {
-            ExitGames.Client.Photon.Hashtable property = new ExitGames.Client.Photon.Hashtable();
-            property.Add("IsMatchOver", true);
-            player.SetCustomProperties(property);
         }
     }
 }

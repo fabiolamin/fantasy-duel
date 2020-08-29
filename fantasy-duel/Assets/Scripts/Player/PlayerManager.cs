@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private float timeToDisconnect = 3f;
     public PhotonView PhotonView { get; private set; }
@@ -42,11 +44,7 @@ public class PlayerManager : MonoBehaviour
 
         if (timeToDisconnect <= 0)
         {
-            PhotonNetwork.Destroy(gameObject);
-            if (PhotonView.Owner.IsMasterClient)
-            {
-                PhotonNetwork.LoadLevel(0);
-            }
+            PhotonNetwork.Disconnect();
         }
     }
 
@@ -56,8 +54,15 @@ public class PlayerManager : MonoBehaviour
         int losses = PlayerPrefs.GetInt("Losses");
         losses++;
         PlayerPrefs.SetInt("Losses", losses);
-        RoundManager.Instance.isThereAPlayerLeavingMatch = true;
-        RoundManager.Instance.EndMatch();
+
+        PhotonView.RPC("NotifyMatchAbandonment", RpcTarget.AllBuffered);
+        MatchManager.Instance.EndMatch();
+    }
+
+    [PunRPC]
+    private void NotifyMatchAbandonment()
+    {
+        MatchManager.Instance.isThereAPlayerLeavingMatch = true;
     }
 
     public void PlaySoundEffect(Clip clip)
@@ -69,5 +74,27 @@ public class PlayerManager : MonoBehaviour
     private void PlaySoundEffectRPC(int index)
     {
         AudioManager.Instance.Play(Audio.SoundEffects, (Clip)index, false);
+    }
+
+    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
+    {
+        if (targetPlayer == PhotonView.Owner && PhotonView.IsMine)
+        {
+            if (changedProps.ContainsKey("IsReadyToPlayTurn"))
+            {
+                PlayerTurn.StartTurn();
+            }
+            else if (changedProps.ContainsKey("IsReadyToUpdateObject"))
+            {
+                PlayerBoardArea.UpdateObject(changedProps);
+            }
+            else if (changedProps.ContainsKey("IsMatchOver"))
+            {
+                PlayerHUD.ActiveNotification(false);
+                PlayerHUD.ShowEndMatchPanel();
+                IsReadyToDisconnect = true;
+                PlayerInfo.CheckPlayerResult();
+            }
+        }
     }
 }

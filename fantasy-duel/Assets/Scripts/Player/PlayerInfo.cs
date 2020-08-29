@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using Photon.Pun;
-using ExitGames.Client.Photon;
-using Photon.Realtime;
 
 public class PlayerInfo : MonoBehaviourPunCallbacks
 {
@@ -123,9 +121,10 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         WonRounds++;
     }
 
-    private void CheckPlayerResult()
+    public void CheckPlayerResult()
     {
-        if (!RoundManager.Instance.isThereAPlayerLeavingMatch)
+
+        if (!MatchManager.Instance.isThereAPlayerLeavingMatch)
         {
             SetPlayerResult();
         }
@@ -146,28 +145,6 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
             losses = PlayerPrefs.GetInt("Losses");
             losses++;
             PlayerPrefs.SetInt("Losses", losses);
-        }
-    }
-
-    public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
-    {
-        if (targetPlayer == playerManager.PhotonView.Owner && playerManager.PhotonView.IsMine)
-        {
-            if (changedProps.ContainsKey("IsReadyToPlayTurn"))
-            {
-                playerManager.PlayerTurn.StartTurn();
-            }
-            else if (changedProps.ContainsKey("IsReadyToUpdateObject"))
-            {
-                playerManager.PlayerBoardArea.UpdateObject(changedProps);
-            }
-            else if (changedProps.ContainsKey("IsMatchOver"))
-            {
-                playerManager.PlayerHUD.ActiveNotification(false);
-                playerManager.PlayerHUD.ShowEndMatchPanel();
-                playerManager.IsReadyToDisconnect = true;
-                CheckPlayerResult();
-            }
         }
     }
 
