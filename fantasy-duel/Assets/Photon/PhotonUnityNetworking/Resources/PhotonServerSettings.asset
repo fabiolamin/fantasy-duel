@@ -18,7 +18,7 @@ MonoBehaviour:
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: sa
+    FixedRegion: 
     Server: 
     Port: 0
     Protocol: 0
@@ -29,52 +29,35 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - AddCardToHandCardsRPC
-  - BuildDeckRPC
+  - AddRoundRPC
+  - AddRPC
+  - ChangeLifeObjectRPC
+  - ChangeLifeRPC
+  - ClearBoardRPC
   - ClickRpc
   - DestroyRpc
   - DestroySpaceship
   - Fire
+  - FortifyCardRPC
   - IncreaseCardScaleRPC
-  - OrganizeHandCardsRPC
-  - RaiseCardRPC
-  - RemoveCardFromHandCardsRPC
-  - RespawnSpaceship
-  - RotateHUDToOpponentRPC
-  - SetCardInBoardAreaRPC
-  - SetHUDRPC
-  - SetInitialTransformRPC
-  - UpdateCoinsRPC
-  - UpdateLifePointsRPC
-  - AddCardToPlayedCardsRPC
-  - DamageRPC
-  - AddCardRPC
-  - AddRPC
-  - DamageCardRPC
-  - OrganizeCardsRPC
-  - RemoveCardRPC
-  - SetCardRPC
-  - BuildDeck
-  - AddCard
-  - OrganizeCards
-  - RemoveCard
-  - DamageObjectRPC
-  - SetAttributesRPC
-  - AddRound
-  - AddRoundRPC
-  - PlaySoundEffectRPC
-  - PlayCharacterAnimationRPC
-  - PlayCardParticlesRPC
-  - StopCardParticlesRPC
-  - RemoveRPC
   - InstantiateCard
+  - OrganizeCards
+  - PlayCardParticlesRPC
+  - PlayCharacterAnimationRPC
+  - PlaySoundEffectRPC
+  - RaiseCardRPC
+  - RemoveCard
   - RemoveFromCardsRPC
   - RemoveFromObjectsRPC
-  - ClearBoardRPC
+  - RespawnSpaceship
+  - RotateHUDToOpponentRPC
+  - SetAttributesRPC
+  - SetCardRPC
+  - SetHUDRPC
+  - SetInitialTransformRPC
   - SpawnCharacter
-  - ChangeLifeRPC
-  - ChangeObjectRPC
-  - ChangeLifeObjectRPC
-  - FortifyCardRPC
+  - StopCardParticlesRPC
+  - UpdateCoinsRPC
+  - NotifyMatchAbandonment
   DisableAutoOpenWizard: 1
   ShowSettings: 1
