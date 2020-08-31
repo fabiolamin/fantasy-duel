@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
 public class CardUI : MonoBehaviour
 {
-    private PhotonView photonView;
+    private Card card;
 
-    [SerializeField] private Text name;
+    [SerializeField] private Text cardName;
     [SerializeField] private Text description;
     [SerializeField] private Image art;
     [SerializeField] private Image icon;
@@ -14,23 +13,29 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Text attackPoints;
     [SerializeField] private Text lifePoints;
 
+    [Header("Magics Cards")]
+    [SerializeField] private Color fortificationColor;
+    [SerializeField] private Color healingColor;
+
     [Header("Sprites")]
     [SerializeField] private Sprite[] bases;
     [SerializeField] private Sprite[] creatures;
     [SerializeField] private Sprite[] magics;
     [SerializeField] private Sprite[] icons;
 
-    public void Set(Card card)
+    public void Set(Card newCard)
     {
-        name.text = card.Name;
+        card = newCard;
+        cardName.text = card.Name;
         description.text = card.Description;
-        SetSprites(card);
+        SetSprites();
+        SetDescription();
         coins.text = card.Coins.ToString();
         attackPoints.text = card.AttackPoints.ToString();
         lifePoints.text = card.LifePoints.ToString();
     }
 
-    private void SetSprites(Card card)
+    private void SetSprites()
     {
         switch (card.Type)
         {
@@ -46,6 +51,20 @@ public class CardUI : MonoBehaviour
                 art.sprite = magics[card.Id - 1];
                 icon.sprite = icons[2];
                 break;
+        }
+    }
+
+    private void SetDescription()
+    {
+        if(card.Fortification > 0)
+        {
+            description.color = fortificationColor;
+            description.text = "+" + card.Fortification;
+        }
+        else if (card.Healing > 0)
+        {
+            description.color = healingColor;
+            description.text = "+" + card.Healing;
         }
     }
 }
