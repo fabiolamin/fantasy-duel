@@ -2,5 +2,6 @@
 {
     Damage,
     Target,
-    Healing
+    Healing,
+    Selected
 }

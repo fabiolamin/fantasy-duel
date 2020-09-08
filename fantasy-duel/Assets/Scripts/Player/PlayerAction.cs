@@ -34,6 +34,7 @@ public class PlayerAction : MonoBehaviour
     {
         UpdatePlayersObject();
         playerManager.PlayerInfo.PlayCharacterAnimation(CharacterAnimations.Attack);
+        playerManager.PlayerParticlesControl.StopAllCardsParticles();
     }
 
     private void ResetVariables()

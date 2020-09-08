@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerTurn : MonoBehaviourPunCallbacks
 {
@@ -48,7 +49,7 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
             playerManager.PlayerAction.HideAvailableOpponentCardsToAttack();
             duration = durationAux;
             IsReadyToCountdown = false;
-            IsMyTurn = false;
+            ActiveTurn(false);
             UpdateOpponentTurnProperty();
         }
     }
@@ -91,8 +92,9 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
 
     public void StartTurn()
     {
-        IsMyTurn = true;
+        ActiveTurn(true);
         AudioManager.Instance.Play(Audio.SoundEffects, Clip.Turn, false);
+        playerManager.PlayerParticlesControl.StopAllCardsParticles();
         playerManager.PlayerHUD.ActiveNotification(true);
         string turnMessage = playerManager.PlayerHUD.GetNotificationTranslation(LocalizationKeyNames.PlayerTurn);
         playerManager.PlayerHUD.SetNotification(turnMessage);
@@ -101,7 +103,20 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         playerManager.PlayerAction.CanPlayerDoAnAction = true;
         playerManager.PlayerAction.ShowAvailableOpponentCardsToAttack();
         playerManager.PlayerBoardArea.ShowAvailableCards();
+        playerManager.PlayerParticlesControl.StopCharacterParticles();
         IsReadyToCountdown = true;
         UpdateRoomTurnProperty();
+    }
+
+    private void ActiveTurn(bool isActivated)
+    {
+        if (playerManager.PhotonView.IsMine)
+            playerManager.PhotonView.RPC("ActiveTurnRPC", RpcTarget.AllBuffered, isActivated);
+    }
+
+    [PunRPC]
+    private void ActiveTurnRPC(bool isActivated)
+    {
+        IsMyTurn = isActivated;
     }
 }

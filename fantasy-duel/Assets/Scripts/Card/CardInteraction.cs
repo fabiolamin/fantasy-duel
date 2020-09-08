@@ -83,15 +83,28 @@ public class CardInteraction : MonoBehaviour, ISelectable
         }
         else
         {
-            foreach (GameObject obj in playerManager.PlayerBoardArea.Objects)
-            {
-                obj.GetComponent<ISelectable>().IsSelected = false;
+            DeselectInMatch();
+        }
+    }
 
-                if (obj.CompareTag("Card"))
+    private void DeselectInMatch()
+    {
+        foreach (GameObject obj in playerManager.PlayerBoardArea.Objects)
+        {
+            obj.GetComponent<ISelectable>().IsSelected = false;
+
+            if (obj.CompareTag("Card"))
+            {
+                playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.SelectMatch);
+
+                if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
                 {
-                    playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.SelectMatch);
+                    particlesManager.Stop(CardParticles.SelectMatch);
+                    playerManager.PlayerParticlesControl.StopOpponentCardParticles(obj, CardParticles.SelectMatch);
                 }
             }
+            else
+                playerManager.PlayerParticlesControl.StopOpponentCharacterParticles();
         }
     }
 
@@ -105,15 +118,25 @@ public class CardInteraction : MonoBehaviour, ISelectable
         }
         else
         {
-            if (WasPlayed && CanDoAnAction() && playerManager.PlayerTurn.IsMyTurn && cardInfo.Card.Type == "Creatures")
-            {
-                particlesManager.Stop(CardParticles.Available);
-                playerManager.PlayerParticlesControl.PlayCardParticles(gameObject, CardParticles.SelectMatch);
-            }
-
-            playerManager.PlaySoundEffect(Clip.ObjectHit);
-            IsSelected = true;
+            SelectCardInMatch();
         }
+    }
+
+    private void SelectCardInMatch()
+    {
+        if (WasPlayed && CanDoAnAction() && playerManager.PlayerTurn.IsMyTurn && cardInfo.Card.Type == "Creatures")
+        {
+            particlesManager.Stop(CardParticles.Available);
+            playerManager.PlayerParticlesControl.PlayCardParticles(gameObject, CardParticles.SelectMatch);
+        }
+        else if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
+        {
+            particlesManager.Stop(CardParticles.Target);
+            playerManager.PlayerParticlesControl.PlayOpponentCardParticles(gameObject, CardParticles.SelectMatch);
+        }
+
+        playerManager.PlaySoundEffect(Clip.ObjectHit);
+        IsSelected = true;
     }
 
     private void EnhanceCard()

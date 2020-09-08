@@ -26,6 +26,12 @@ public class CharacterInteraction : MonoBehaviour, ISelectable, IProtectable
 
     public void Select()
     {
+        if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
+        {
+            GetComponent<Character>().StopParticles(CharacterParticles.Target);
+            playerManager.PlayerParticlesControl.PlayOpponentCharacterParticles();
+        }
+
         playerManager.PlaySoundEffect(Clip.ObjectHit);
         IsSelected = true;
     }
@@ -35,6 +41,18 @@ public class CharacterInteraction : MonoBehaviour, ISelectable, IProtectable
         foreach (GameObject obj in playerManager.PlayerBoardArea.Objects)
         {
             obj.GetComponent<ISelectable>().IsSelected = false;
+
+            if (obj.CompareTag("Card"))
+            {
+                playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.SelectMatch);
+
+                if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
+                {
+                    playerManager.PlayerParticlesControl.StopOpponentCardParticles(obj, CardParticles.SelectMatch);
+                }
+            }
+            else
+                playerManager.PlayerParticlesControl.StopOpponentCharacterParticles();
         }
     }
 }

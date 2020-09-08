@@ -941,6 +941,7 @@ MonoBehaviour:
   - {fileID: 3525560245172468475}
   - {fileID: 8071540906895949934}
   - {fileID: 7299224733628277537}
+  - {fileID: 2539664140111810639}
 --- !u!114 &2660613787725459001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6013,6 +6014,12 @@ ParticleSystem:
 --- !u!198 &7299224733628277537 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1317132175222084200, guid: 4c6494e331475a748983371d592170e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 8578067033746387273}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2539664140111810639 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6067995288366784774, guid: 4c6494e331475a748983371d592170e5,
     type: 3}
   m_PrefabInstance: {fileID: 8578067033746387273}
   m_PrefabAsset: {fileID: 0}
