@@ -50,7 +50,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     {
         playerManager.PlayerHand.Cards[index].transform.position = new Vector3(position[0], position[1], position[2]);
         playerManager.PlayerHand.Cards[index].transform.rotation = Quaternion.Euler(90, Utility.GetYRotation(), 0);
-        playerManager.PlayerHand.Cards[index].transform.localScale = new Vector3(playedCards[0].transform.localScale.x, 
+        playerManager.PlayerHand.Cards[index].transform.localScale = new Vector3(playedCards[0].transform.localScale.x,
         playedCards[0].transform.localScale.z, 0.00001f);
     }
 
@@ -110,19 +110,25 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
 
     public void ChangeLifeObject(string targetTag, int targetId, string targetType, int value)
     {
-        if (playerManager.PhotonView.IsMine)
+        if(value != 0)
         {
-            playerManager.PhotonView.RPC("ChangeLifeObjectRPC", RpcTarget.AllBuffered, targetTag, targetId, targetType, value);
+            if (playerManager.PhotonView.IsMine)
+            {
+                playerManager.PhotonView.RPC("ChangeLifeObjectRPC", RpcTarget.AllBuffered, targetTag, targetId, targetType, value);
+            }
         }
     }
 
     public void FortifyCard(GameObject card, int value)
     {
-        Card playedCard = card.GetComponent<CardInfo>().Card;
-
-        if (playerManager.PhotonView.IsMine)
+        if (value > 0)
         {
-            playerManager.PhotonView.RPC("FortifyCardRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards), value);
+            Card playedCard = card.GetComponent<CardInfo>().Card;
+
+            if (playerManager.PhotonView.IsMine)
+            {
+                playerManager.PhotonView.RPC("FortifyCardRPC", RpcTarget.AllBuffered, Utility.GetCardIndexFromList(playedCard, Cards), value);
+            }
         }
     }
 
@@ -130,6 +136,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
     private void FortifyCardRPC(int index, int value)
     {
         Cards[index].GetComponent<CardInfo>().Fortify(value);
+        Cards[index].GetComponent<CardUI>().ShowNewPoints(value, Color.cyan);
     }
 
     [PunRPC]
@@ -144,6 +151,7 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
             case "Card":
                 GameObject card = GetSelectedCard(targetId, targetType);
                 card.GetComponent<CardInfo>().ChangeLife(value);
+                card.GetComponent<CardUI>().ShowNewPoints(value, Color.red);
                 break;
         }
     }

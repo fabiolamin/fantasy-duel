@@ -63,5 +63,7 @@ MonoBehaviour:
   - StopCharacterParticlesRPC
   - ActiveTurn
   - ActiveTurnRPC
+  - ShowLifePointsReceivedRPC
+  - ShowHitPointsRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1

@@ -57,6 +57,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     private void ChangeLifeRPC(int value)
     {
         LifePoints = Mathf.Clamp(LifePoints + value, 0, maxLifePoints);
+        playerManager.PlayerHUD.ShowHitPoints(value);
 
         if (value < 0)
         {

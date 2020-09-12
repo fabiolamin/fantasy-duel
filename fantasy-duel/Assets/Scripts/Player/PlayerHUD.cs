@@ -7,9 +7,13 @@ public class PlayerHUD : MonoBehaviour
 {
     private PlayerManager playerManager;
     private float notificationDurationAux;
+    private float hitPointsDurationAux;
     private bool isReadyToHideNotification = false;
+    private bool isReadyToShowHitPoints = false;
 
     [SerializeField] private float notificationDuration = 2f;
+    [SerializeField] private float hitPointsDuration = 2f;
+    [SerializeField] private Text hitPoints;
     [SerializeField] private Text lifePoints;
     [SerializeField] private Text coins;
     [SerializeField] private Text rounds;
@@ -40,6 +44,7 @@ public class PlayerHUD : MonoBehaviour
         }
 
         notificationDurationAux = notificationDuration;
+        hitPointsDurationAux = hitPointsDuration;
     }
 
     private void Update()
@@ -47,6 +52,11 @@ public class PlayerHUD : MonoBehaviour
         if (isReadyToHideNotification)
         {
             CheckNotificationCountdown();
+        }
+
+        if (isReadyToShowHitPoints)
+        {
+            CheckHitPoints();
         }
     }
 
@@ -87,6 +97,7 @@ public class PlayerHUD : MonoBehaviour
     {
         nickname.transform.Rotate(0, 0, 180);
         lifePoints.transform.Rotate(0, 0, 180);
+        hitPoints.transform.Rotate(0, 0, 180);
         coins.transform.Rotate(0, 0, 180);
         rounds.transform.Rotate(0, 0, 180);
     }
@@ -128,7 +139,7 @@ public class PlayerHUD : MonoBehaviour
         playerManager.PlaySoundEffect(Clip.EndMatch);
         endMatchPanel.SetActive(true);
 
-        foreach(var player in GameObject.FindGameObjectsWithTag("Player"))
+        foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
         {
             PlayerManager playerManager = player.GetComponent<PlayerManager>();
             GameObject playerRounds = Instantiate(playerRoundsText, playersRoundsPanel);
@@ -146,7 +157,7 @@ public class PlayerHUD : MonoBehaviour
     {
         string translation = "";
 
-        switch(PlayerPrefs.GetInt("Language"))
+        switch (PlayerPrefs.GetInt("Language"))
         {
             case 0:
                 translation = localizationLoader.Localizations.Single(l => l.KeyName == keyName).EnglishTranslation;
@@ -158,5 +169,27 @@ public class PlayerHUD : MonoBehaviour
         }
 
         return translation;
+    }
+
+    public void ShowHitPoints(int value)
+    {
+        isReadyToShowHitPoints = true;
+        hitPoints.gameObject.SetActive(true);
+
+        if (value > 0)
+            hitPoints.text = "+" + value.ToString();
+        else
+            hitPoints.text = value.ToString();
+    }
+
+    private void CheckHitPoints()
+    {
+        hitPointsDuration -= Time.deltaTime;
+
+        if (hitPointsDuration <= 0)
+        {
+            hitPoints.gameObject.SetActive(false);
+            hitPointsDuration = hitPointsDurationAux;
+        }
     }
 }

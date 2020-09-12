@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class CardUI : MonoBehaviour
 {
     private Card card;
+    private bool isReadyToShowNewPoints = false;
+    private float timeAux = 0;
 
     [SerializeField] private Text cardName;
     [SerializeField] private Text description;
@@ -12,6 +16,9 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Text coins;
     [SerializeField] private Text attackPoints;
     [SerializeField] private Text lifePoints;
+
+    [SerializeField] private Text newPoints;
+    [SerializeField] private float newPointsDuration = 2f;
 
     [Header("Magics Cards")]
     [SerializeField] private Color fortificationColor;
@@ -22,6 +29,19 @@ public class CardUI : MonoBehaviour
     [SerializeField] private Sprite[] creatures;
     [SerializeField] private Sprite[] magics;
     [SerializeField] private Sprite[] icons;
+
+    private void Awake()
+    {
+        timeAux = newPointsDuration;
+    }
+
+    private void Update()
+    {
+        if (isReadyToShowNewPoints)
+        {
+            CheckNewPoints();
+        }
+    }
 
     public void Set(Card newCard)
     {
@@ -56,7 +76,7 @@ public class CardUI : MonoBehaviour
 
     private void SetDescription()
     {
-        if(card.Fortification > 0)
+        if (card.Fortification > 0)
         {
             description.color = fortificationColor;
             description.text = "+" + card.Fortification;
@@ -65,6 +85,29 @@ public class CardUI : MonoBehaviour
         {
             description.color = healingColor;
             description.text = "+" + card.Healing;
+        }
+    }
+
+    public void ShowNewPoints(int points, Color color)
+    {
+        newPoints.gameObject.SetActive(true);
+        isReadyToShowNewPoints = true;
+        newPoints.color = color;
+        if (points > 0)
+            newPoints.text = "+" + points;
+        else
+            newPoints.text = points.ToString();
+    }
+
+    private void CheckNewPoints()
+    {
+        newPointsDuration -= Time.deltaTime;
+
+        if (newPointsDuration <= 0)
+        {
+            newPoints.gameObject.SetActive(false);
+            newPointsDuration = timeAux;
+            isReadyToShowNewPoints = false;
         }
     }
 }
