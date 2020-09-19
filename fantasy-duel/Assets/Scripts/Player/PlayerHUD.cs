@@ -18,6 +18,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Text coins;
     [SerializeField] private Text rounds;
     [SerializeField] private Text nickname;
+    [SerializeField] private GameObject lifePanel;
     [SerializeField] private GameObject[] buttons;
     [SerializeField] private GameObject[] playedCardImages;
     [SerializeField] private GameObject notificationPanel;
@@ -96,7 +97,8 @@ public class PlayerHUD : MonoBehaviour
     private void RotateHUDToOpponentRPC()
     {
         nickname.transform.Rotate(0, 0, 180);
-        lifePoints.transform.Rotate(0, 0, 180);
+        // lifePoints.transform.Rotate(0, 0, 180);
+        lifePanel.transform.Rotate(0, 0, 180);
         hitPoints.transform.Rotate(0, 0, 180);
         coins.transform.Rotate(0, 0, 180);
         rounds.transform.Rotate(0, 0, 180);
