@@ -419,6 +419,8 @@ MonoBehaviour:
   lifePoints: {fileID: 9051241003691034741}
   newPoints: {fileID: 7359751564897866257}
   newPointsDuration: 2
+  life: {fileID: 4389570844390820350}
+  attack: {fileID: 6185736067050486958}
   fortificationColor: {r: 0, g: 0.97032166, b: 1, a: 0.33333334}
   healingColor: {r: 1, g: 0, b: 0.09523821, a: 0.27058825}
   bases:
@@ -897,8 +899,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.022800695}
   m_AnchorMax: {x: 0.194, y: 0.14872353}
-  m_AnchoredPosition: {x: 39.563, y: 40.245}
-  m_SizeDelta: {x: -17.962, y: -11.476}
+  m_AnchoredPosition: {x: 39.61, y: 40.301086}
+  m_SizeDelta: {x: -17.663, y: -11.4412}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2595870253074969370
 CanvasRenderer:
@@ -989,8 +991,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02534438, y: 0.022800695}
   m_AnchorMax: {x: 0.17861727, y: 0.14872353}
-  m_AnchoredPosition: {x: 40.527, y: 40.268913}
-  m_SizeDelta: {x: -14.867, y: -12.137}
+  m_AnchoredPosition: {x: 40.474, y: 40.321}
+  m_SizeDelta: {x: -14.761, y: -12.032}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7971338297956692425
 CanvasRenderer:
@@ -1100,8 +1102,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02534438, y: 0.022800695}
   m_AnchorMax: {x: 0.17861727, y: 0.14872353}
-  m_AnchoredPosition: {x: 39.064487, y: 40.2799}
-  m_SizeDelta: {x: -14.867, y: -12.1029}
+  m_AnchoredPosition: {x: 39.112236, y: 40.33067}
+  m_SizeDelta: {x: -14.7715, y: -12.0014}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &555465485267644087
 CanvasRenderer:
@@ -1174,8 +1176,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.79300004, y: 0.022800695}
   m_AnchorMax: {x: 0.98200005, y: 0.14872353}
-  m_AnchoredPosition: {x: -38.025, y: 40.23052}
-  m_SizeDelta: {x: -17.463, y: -11.4552}
+  m_AnchoredPosition: {x: -38.078, y: 40.293438}
+  m_SizeDelta: {x: -17.129, y: -11.3778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3538057304953592367
 CanvasRenderer:

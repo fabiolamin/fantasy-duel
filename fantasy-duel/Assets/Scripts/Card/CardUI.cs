@@ -1,5 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +17,8 @@ public class CardUI : MonoBehaviour
 
     [SerializeField] private Text newPoints;
     [SerializeField] private float newPointsDuration = 2f;
+    [SerializeField] private GameObject life;
+    [SerializeField] private GameObject attack;
 
     [Header("Magics Cards")]
     [SerializeField] private Color fortificationColor;
@@ -57,6 +57,9 @@ public class CardUI : MonoBehaviour
 
     private void SetSprites()
     {
+        life.SetActive(true);
+        attack.SetActive(true);
+
         switch (card.Type)
         {
             case "Bases":
@@ -70,6 +73,8 @@ public class CardUI : MonoBehaviour
             case "Magics":
                 art.sprite = magics[card.Id - 1];
                 icon.sprite = icons[2];
+                life.SetActive(false);
+                attack.SetActive(false);
                 break;
         }
     }
