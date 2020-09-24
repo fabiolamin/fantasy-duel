@@ -44,11 +44,11 @@ public class CharacterInteraction : MonoBehaviour, ISelectable, IProtectable
 
             if (obj.CompareTag("Card"))
             {
-                playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.SelectMatch);
+                playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.MatchSelection);
 
                 if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
                 {
-                    playerManager.PlayerParticlesControl.StopOpponentCardParticles(obj, CardParticles.SelectMatch);
+                    playerManager.PlayerParticlesControl.StopOpponentCardParticles(obj, CardParticles.OpponentSelection);
                 }
             }
             else

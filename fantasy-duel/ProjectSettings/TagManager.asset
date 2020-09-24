@@ -19,6 +19,8 @@ TagManager:
   - TargetParticles
   - Tooltip
   - Language
+  - NonRotatableParticles
+  - OpponentSelectionParticles
   layers:
   - Default
   - TransparentFX

@@ -17,7 +17,7 @@ public class CardParticlesManager : MonoBehaviour
     {
         foreach (var particle in particles)
         {
-            if(!particle.CompareTag("TargetParticles"))
+            if(!particle.CompareTag("NonRotatableParticles"))
             {
                 particle.transform.localRotation = Quaternion.Euler(90, 0, 0);
             }

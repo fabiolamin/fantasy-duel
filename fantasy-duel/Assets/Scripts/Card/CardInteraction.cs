@@ -95,12 +95,12 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
             if (obj.CompareTag("Card"))
             {
-                playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.SelectMatch);
+                playerManager.PlayerParticlesControl.StopCardParticles(obj, CardParticles.MatchSelection);
 
                 if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
                 {
-                    particlesManager.Stop(CardParticles.SelectMatch);
-                    playerManager.PlayerParticlesControl.StopOpponentCardParticles(obj, CardParticles.SelectMatch);
+                    particlesManager.Stop(CardParticles.MatchSelection);
+                    playerManager.PlayerParticlesControl.StopOpponentCardParticles(obj, CardParticles.OpponentSelection);
                 }
             }
             else
@@ -114,7 +114,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
         {
             IsSelected = true;
             AudioManager.Instance.Play(Audio.SoundEffects, Clip.CardSelect, false);
-            particlesManager.Play(CardParticles.SelectMenu);
+            particlesManager.Play(CardParticles.MenuSelection);
         }
         else
         {
@@ -127,12 +127,12 @@ public class CardInteraction : MonoBehaviour, ISelectable
         if (WasPlayed && CanDoAnAction() && playerManager.PlayerTurn.IsMyTurn && cardInfo.Card.Type == "Creatures")
         {
             particlesManager.Stop(CardParticles.Available);
-            playerManager.PlayerParticlesControl.PlayCardParticles(gameObject, CardParticles.SelectMatch);
+            playerManager.PlayerParticlesControl.PlayCardParticles(gameObject, CardParticles.MatchSelection);
         }
         else if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
         {
             particlesManager.Stop(CardParticles.Target);
-            playerManager.PlayerParticlesControl.PlayOpponentCardParticles(gameObject, CardParticles.SelectMatch);
+            playerManager.PlayerParticlesControl.PlayOpponentCardParticles(gameObject, CardParticles.OpponentSelection);
         }
 
         playerManager.PlaySoundEffect(Clip.ObjectHit);
@@ -155,7 +155,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
         if (sceneIndex == 1 && !IsDragging && !WasPlayed && !IsLocked && playerManager.PhotonView.IsMine)
         {
             IsDragging = true;
-            particlesManager.Play(CardParticles.SelectMatch);
+            particlesManager.Play(CardParticles.MatchSelection);
             playerManager.PlaySoundEffect(Clip.CardDrag);
             screenPosition = Camera.main.WorldToScreenPoint(transform.position);
             offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPosition.z));
@@ -185,7 +185,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
         if (sceneIndex == 1 && !WasPlayed)
         {
             playerManager.PlayerCardMovement.SetInitialTransform(cardInfo.Card);
-            particlesManager.Stop(CardParticles.SelectMatch);
+            particlesManager.Stop(CardParticles.MatchSelection);
         }
     }
 

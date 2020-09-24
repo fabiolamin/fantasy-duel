@@ -45,8 +45,9 @@ public class PlayerParticlesControl : MonoBehaviour
     public void StopAllCardsParticles()
     {
         playerManager.PlayerBoardArea.Cards.ForEach(card => {
-            StopCardParticles(card, CardParticles.SelectMatch);
+            StopCardParticles(card, CardParticles.MatchSelection);
             StopCardParticles(card, CardParticles.Available);
+            StopCardParticles(card, CardParticles.OpponentSelection);
         });
     }
 

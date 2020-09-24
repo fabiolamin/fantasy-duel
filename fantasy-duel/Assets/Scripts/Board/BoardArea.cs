@@ -41,7 +41,7 @@ public abstract class BoardArea : MonoBehaviour
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
             playerManager.PlayerBoardArea.SetCard(playedCard, position);
             playerManager.PlayerBoardArea.Add(playedCardGameObject);
-            playerManager.PlayerParticlesControl.StopCardParticles(playedCardGameObject, CardParticles.SelectMatch);
+            playerManager.PlayerParticlesControl.StopCardParticles(playedCardGameObject, CardParticles.MatchSelection);
             playerManager.PlayerParticlesControl.PlayCardParticles(playedCardGameObject, CardParticles.Played);
             firstCardPlayedIndex = playerManager.PlayerBoardArea.Cards.FindIndex(c => c == playedCardGameObject);
             playerManager.PlaySoundEffect(Clip.CardPlayed);

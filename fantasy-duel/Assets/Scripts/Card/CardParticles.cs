@@ -4,7 +4,8 @@
     Damage,
     Destruction,
     Played,
-    SelectMatch,
-    SelectMenu,
-    Target
+    MatchSelection,
+    MenuSelection,
+    Target,
+    OpponentSelection
 }
