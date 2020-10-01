@@ -34,7 +34,7 @@ public class DeckBuilding : MonoBehaviour
                 AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
                 storeCardStorage.Collection.Remove(card);
                 deckCardStorage.Collection.Add(card);
-                RefreshCardPageManager(card.Type);
+                LoadChanges(card.Type);
                 UpdateCoins(-card.Coins);
             }
         }
@@ -49,7 +49,7 @@ public class DeckBuilding : MonoBehaviour
             AudioManager.Instance.Play(Audio.SoundEffects, Clip.Coins, false);
             deckCardStorage.Collection.Remove(card);
             storeCardStorage.Collection.Add(card);
-            RefreshCardPageManager(card.Type);
+            LoadChanges(card.Type);
             UpdateCoins(card.Coins);
         }
     }
@@ -68,7 +68,7 @@ public class DeckBuilding : MonoBehaviour
         return null;
     }
 
-    private void RefreshCardPageManager(string type)
+    private void LoadChanges(string type)
     {
         storeCardPagination.Load(type);
         deckCardPagination.Load(type);

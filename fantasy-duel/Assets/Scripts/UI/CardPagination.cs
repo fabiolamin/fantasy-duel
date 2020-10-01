@@ -32,6 +32,9 @@ public class CardPagination : MonoBehaviour
         SetPagesNumber();
         SetInterval(start, end);
         SetPage();
+
+        if (cardPrefabs.ToList().All(cardPrefab => !cardPrefab.activeSelf))
+            ChangePage(-1);
     }
 
     private void GetCards(string type)
