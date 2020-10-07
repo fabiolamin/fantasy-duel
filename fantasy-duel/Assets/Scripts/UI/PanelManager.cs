@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PanelManager : MonoBehaviour
 {
     private static PanelManager instance;
+
+    private int tutorialSectionIndex = 0;
 
     [SerializeField] private Text wins, losses;
 
@@ -18,6 +21,7 @@ public class PanelManager : MonoBehaviour
     [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject notificationPanel;
     [SerializeField] private GameObject canvasCardCollection;
+    [SerializeField] private GameObject[] tutorialSections;
 
     public static PanelManager Instance
     {
@@ -100,5 +104,12 @@ public class PanelManager : MonoBehaviour
     {
         DisableAllPanels();
         creditsPanel.SetActive(true);
+    }
+
+    public void UpdateTutorialPanel(int direction)
+    {
+        tutorialSections.ToList().ForEach(t => t.SetActive(false));
+        tutorialSectionIndex = Mathf.Clamp(tutorialSectionIndex + direction, 0, tutorialSections.Length - 1);
+        tutorialSections[tutorialSectionIndex].SetActive(true);
     }
 }

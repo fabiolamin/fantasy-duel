@@ -37,5 +37,9 @@
     MatchNotification,
     PlayerTurn,
     PlayerRoundWon,
-    PlayerRoundLost
+    PlayerRoundLost,
+    TutorialIntro,
+    CreaturesDescription,
+    BasesDescription,
+    MagicsDescription
 }
