@@ -1462,8 +1462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfe51be636899fa459aac84d6182f09d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLifePoints: 10
-  maxCoins: 30
+  maxLifePoints: 20
+  maxCoins: 20
   cameraPrefab: {fileID: 1373471743830481196, guid: 9aae16e4491d4774887df665a257b35d,
     type: 3}
   coinsParticle: {fileID: 64155209924631197}
