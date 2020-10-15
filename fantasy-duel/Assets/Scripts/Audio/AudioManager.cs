@@ -33,13 +33,7 @@ public class AudioManager : MonoBehaviour
     public void Play(Audio audio, Clip clip, bool isLooping)
     {
         sources[(int)audio].clip = clips[(int)clip];
-        sources[(int)audio].volume = 1f;
         sources[(int)audio].Play();
         sources[(int)audio].loop = isLooping;
-    }
-
-    public void UpdateVolume(Audio audio, float value)
-    {
-        sources[(int)audio].volume += value;
     }
 }
