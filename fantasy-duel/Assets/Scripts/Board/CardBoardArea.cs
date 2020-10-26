@@ -3,7 +3,7 @@ public class CardBoardArea : BoardArea
 {
     protected override void SetCard()
     {
-        if (playedCard.Type.Equals("Magics"))
+        if (newCard.Type.Equals("Magics"))
             SetMagicCard();
         else
             SetDefaultCard();
@@ -11,20 +11,20 @@ public class CardBoardArea : BoardArea
 
     protected override void SetMagicCard()
     {
-        CardInteraction cardInteraction = playedCardGameObject.GetComponent<CardInteraction>();
+        CardInteraction cardInteraction = newCardGameObject.GetComponent<CardInteraction>();
 
-        if (cardInteraction.CanCardBePlayed())
+        if (cardInteraction.CanCardBePlayed() && playedCard.activeSelf)
         {
-            GameObject firstCardPlayedGameObject = playerManager.PlayerBoardArea.Cards[firstCardPlayedIndex];
+            GameObject firstCardPlayedGameObject = playerManager.PlayerBoardArea.Cards[playedCardIndex];
             Card firstCardPlayed = firstCardPlayedGameObject.GetComponent<CardInfo>().Card;
-            playerManager.PlayerBoardArea.ChangeLifeObject(firstCardPlayedGameObject.tag, firstCardPlayed.Id, firstCardPlayed.Type, playedCard.Healing);
-            playerManager.PlayerBoardArea.FortifyCard(firstCardPlayedGameObject, playedCard.Fortification);
+            playerManager.PlayerBoardArea.ChangeLifeObject(firstCardPlayedGameObject.tag, firstCardPlayed.Id, firstCardPlayed.Type, newCard.Healing);
+            playerManager.PlayerBoardArea.FortifyCard(firstCardPlayedGameObject, newCard.Fortification);
             playerManager.PlayerParticlesControl.StopCardParticles(firstCardPlayedGameObject, CardParticles.Available);
             playerManager.PlayerParticlesControl.PlayCardParticles(firstCardPlayedGameObject, CardParticles.Played);
-            playedCardGameObject.SetActive(false);
+            newCardGameObject.SetActive(false);
             playerManager.PlaySoundEffect(Clip.CardPlayed);
-            playerManager.PlayerInfo.UpdateCoins(-playedCard.Coins);
-            playerManager.PlayerHand.RemoveCard(playedCardGameObject);
+            playerManager.PlayerInfo.UpdateCoins(-newCard.Coins);
+            playerManager.PlayerHand.RemoveCard(newCardGameObject);
         }
     }
 }

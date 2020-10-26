@@ -3,23 +3,26 @@
 public abstract class BoardArea : MonoBehaviour
 {
     protected PlayerManager playerManager;
-    protected GameObject playedCardGameObject;
-    protected Card playedCard;
-    protected int firstCardPlayedIndex;
+    protected GameObject newCardGameObject;
+    protected Card newCard;
+    protected GameObject playedCard;
+    protected int playedCardIndex;
 
     protected abstract void SetCard();
     protected abstract void SetMagicCard();
     protected void Awake()
     {
         playerManager = transform.root.GetComponent<PlayerManager>();
+        playedCard = new GameObject();
+        playedCard.SetActive(false);
     }
     protected void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Card"))
         {
-            playedCardGameObject = other.gameObject;
-            playedCardGameObject.GetComponent<CardInteraction>().IsReadyToBePlayed = true;
-            playedCard = playedCardGameObject.GetComponent<CardInfo>().Card;
+            newCardGameObject = other.gameObject;
+            newCardGameObject.GetComponent<CardInteraction>().IsReadyToBePlayed = true;
+            newCard = newCardGameObject.GetComponent<CardInfo>().Card;
 
             SetCard();
         }
@@ -28,25 +31,26 @@ public abstract class BoardArea : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Card"))
         {
-            playedCardGameObject.GetComponent<CardInteraction>().IsReadyToBePlayed = false;
+            newCardGameObject.GetComponent<CardInteraction>().IsReadyToBePlayed = false;
         }
     }
     protected void SetDefaultCard()
     {
-        CardInteraction cardInteraction = playedCardGameObject.GetComponent<CardInteraction>();
+        CardInteraction cardInteraction = newCardGameObject.GetComponent<CardInteraction>();
 
-        if (cardInteraction.CanCardBePlayed())
+        if (cardInteraction.CanCardBePlayed() && !playedCard.activeSelf)
         {
+            playedCard = newCardGameObject;
             cardInteraction.PlayCard();
             Vector3 position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-            playerManager.PlayerBoardArea.SetCard(playedCard, position);
-            playerManager.PlayerBoardArea.Add(playedCardGameObject);
-            playerManager.PlayerParticlesControl.StopCardParticles(playedCardGameObject, CardParticles.MatchSelection);
-            playerManager.PlayerParticlesControl.PlayCardParticles(playedCardGameObject, CardParticles.Played);
-            firstCardPlayedIndex = playerManager.PlayerBoardArea.Cards.FindIndex(c => c == playedCardGameObject);
+            playerManager.PlayerBoardArea.SetCard(newCard, position);
+            playerManager.PlayerBoardArea.Add(newCardGameObject);
+            playerManager.PlayerParticlesControl.StopCardParticles(newCardGameObject, CardParticles.MatchSelection);
+            playerManager.PlayerParticlesControl.PlayCardParticles(newCardGameObject, CardParticles.Played);
+            playedCardIndex = playerManager.PlayerBoardArea.Cards.FindIndex(c => c == newCardGameObject);
             playerManager.PlaySoundEffect(Clip.CardPlayed);
-            playerManager.PlayerInfo.UpdateCoins(-playedCard.Coins);
-            playerManager.PlayerHand.RemoveCard(playedCardGameObject);
+            playerManager.PlayerInfo.UpdateCoins(-newCard.Coins);
+            playerManager.PlayerHand.RemoveCard(newCardGameObject);
         }
     }
 }

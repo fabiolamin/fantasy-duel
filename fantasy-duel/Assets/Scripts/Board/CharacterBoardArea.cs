@@ -3,20 +3,20 @@ public class CharacterBoardArea : BoardArea
 {
     protected override void SetCard()
     {
-        if (playedCard.Type.Equals("Magics"))
+        if (newCard.Type.Equals("Magics"))
             SetMagicCard();
     }
 
     protected override void SetMagicCard()
     {
-        CardInteraction cardInteraction = playedCardGameObject.GetComponent<CardInteraction>();
+        CardInteraction cardInteraction = newCardGameObject.GetComponent<CardInteraction>();
         if (cardInteraction.CanCardBePlayed())
         {
-            playedCardGameObject.SetActive(false);
-            playerManager.PlayerInfo.ChangeLife(playedCard.Healing);
+            newCardGameObject.SetActive(false);
+            playerManager.PlayerInfo.ChangeLife(newCard.Healing);
             playerManager.PlaySoundEffect(Clip.CardPlayed);
-            playerManager.PlayerInfo.UpdateCoins(-playedCard.Coins);
-            playerManager.PlayerHand.RemoveCard(playedCardGameObject);
+            playerManager.PlayerInfo.UpdateCoins(-newCard.Coins);
+            playerManager.PlayerHand.RemoveCard(newCardGameObject);
         }
     }
 }
