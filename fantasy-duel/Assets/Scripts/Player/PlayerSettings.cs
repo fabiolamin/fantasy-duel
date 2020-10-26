@@ -12,15 +12,15 @@ public class PlayerSettings : MonoBehaviour
 
     public void VerifyPlayer()
     {
-        if (!CanPlayerStartAMatch())
-            PanelManager.Instance.ShowNotificationPanel();
-        else
+        if (CanPlayerStartAMatch())
             networking.Connect();
+        else
+            PanelManager.Instance.ShowNotificationPanel();
     }
 
     private bool CanPlayerStartAMatch()
     {
-        return PlayerPrefs.GetString("Nickname") != "" && PlayerPrefs.GetInt("Deck") > 5 && 
+        return PlayerPrefs.GetString("Nickname") != "" && deckCardStorage.Collection.Count > 10 &&
         PlayerPrefs.GetInt("Character") > 0;
     }
 
