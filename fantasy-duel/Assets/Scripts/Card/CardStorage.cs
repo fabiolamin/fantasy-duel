@@ -6,6 +6,7 @@ using System.Linq;
 
 public class CardStorage : MonoBehaviour
 {
+    private List<Card> tempCollection = new List<Card>();
     private string[] cardsDataFileNames = new string[] { "Bases", "Creatures", "Magics" };
     [SerializeField] private string folderName;
     public List<Card> Collection { get; set; } = new List<Card>();
@@ -47,18 +48,29 @@ public class CardStorage : MonoBehaviour
 
     public Card[] GetCustomDeck()
     {
+        AddCardsInTemporaryCollection();
         List<Card> customDeck = new List<Card>();
-        int cardsLength = Collection.Count;
+        int cardsLength = tempCollection.Count;
 
         while (cardsLength > 0)
         {
             int index = UnityEngine.Random.Range(0, cardsLength);
-            Card card = Collection[index];
+            Card card = tempCollection[index];
             customDeck.Add(card);
-            Collection.RemoveAt(index);
+            tempCollection.RemoveAt(index);
             cardsLength--;
         }
 
         return customDeck.ToArray();
+    }
+
+    private List<Card> AddCardsInTemporaryCollection()
+    {
+        foreach (Card card in Collection)
+        {
+            tempCollection.Add(card);
+        }
+
+        return tempCollection;
     }
 }
