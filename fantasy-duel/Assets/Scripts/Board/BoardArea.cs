@@ -6,9 +6,10 @@ public abstract class BoardArea : MonoBehaviour
     protected GameObject newCardGameObject;
     protected Card newCard;
     protected GameObject playedCard;
+    protected CardInteraction cardInteraction;
     protected int playedCardIndex;
 
-    protected abstract void SetCard();
+    public abstract void SetCard();
     protected abstract void SetMagicCard();
     protected void Awake()
     {
@@ -21,24 +22,22 @@ public abstract class BoardArea : MonoBehaviour
         if (other.gameObject.CompareTag("Card"))
         {
             newCardGameObject = other.gameObject;
-            newCardGameObject.GetComponent<CardInteraction>().IsReadyToBePlayed = true;
+            cardInteraction = newCardGameObject.GetComponent<CardInteraction>();
+            cardInteraction.IsReadyToBePlayed = true;
+            cardInteraction.BoardArea = this;
             newCard = newCardGameObject.GetComponent<CardInfo>().Card;
-
-            SetCard();
         }
     }
     protected void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Card"))
         {
-            newCardGameObject.GetComponent<CardInteraction>().IsReadyToBePlayed = false;
+            cardInteraction.IsReadyToBePlayed = false;
         }
     }
     protected void SetDefaultCard()
     {
-        CardInteraction cardInteraction = newCardGameObject.GetComponent<CardInteraction>();
-
-        if (cardInteraction.CanCardBePlayed() && !playedCard.activeSelf)
+        if (!playedCard.activeSelf)
         {
             playedCard = newCardGameObject;
             cardInteraction.PlayCard();
@@ -51,6 +50,10 @@ public abstract class BoardArea : MonoBehaviour
             playerManager.PlaySoundEffect(Clip.CardPlayed);
             playerManager.PlayerInfo.UpdateCoins(-newCard.Coins);
             playerManager.PlayerHand.RemoveCard(newCardGameObject);
+        }
+        else
+        {
+            cardInteraction.ReturnToInitialTransform();
         }
     }
 }

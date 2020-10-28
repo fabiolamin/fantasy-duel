@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 public class CardBoardArea : BoardArea
 {
-    protected override void SetCard()
+    public override void SetCard()
     {
         if (newCard.Type.Equals("Magics"))
             SetMagicCard();
@@ -11,9 +11,7 @@ public class CardBoardArea : BoardArea
 
     protected override void SetMagicCard()
     {
-        CardInteraction cardInteraction = newCardGameObject.GetComponent<CardInteraction>();
-
-        if (cardInteraction.CanCardBePlayed() && playedCard.activeSelf)
+        if (playedCard.activeSelf)
         {
             GameObject firstCardPlayedGameObject = playerManager.PlayerBoardArea.Cards[playedCardIndex];
             Card firstCardPlayed = firstCardPlayedGameObject.GetComponent<CardInfo>().Card;
@@ -25,6 +23,10 @@ public class CardBoardArea : BoardArea
             playerManager.PlaySoundEffect(Clip.CardPlayed);
             playerManager.PlayerInfo.UpdateCoins(-newCard.Coins);
             playerManager.PlayerHand.RemoveCard(newCardGameObject);
+        }
+        else
+        {
+            cardInteraction.ReturnToInitialTransform();
         }
     }
 }

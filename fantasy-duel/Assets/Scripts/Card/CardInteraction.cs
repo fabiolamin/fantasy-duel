@@ -15,10 +15,12 @@ public class CardInteraction : MonoBehaviour, ISelectable
     private Vector3 initialScale;
     public bool IsDragging { get; private set; } = false;
     public bool WasPlayed { get; set; } = false;
-    public bool IsReadyToBePlayed { get; set; }
+    public bool IsReadyToBePlayed { get; set; } = false;
     public bool IsLocked { get; set; } = false;
     public int TurnWhenWasPlayed { get; set; }
     public bool IsSelected { get; set; }
+
+    public BoardArea BoardArea { get; set; }
 
     private void Awake()
     {
@@ -66,7 +68,11 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         IsDragging = false;
 
-        if (!IsReadyToBePlayed)
+        if(CanCardBePlayed())
+        {
+            BoardArea.SetCard();
+        }
+        else
         {
             ReturnToInitialTransform();
         }
@@ -180,7 +186,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
         }
     }
 
-    private void ReturnToInitialTransform()
+    public void ReturnToInitialTransform()
     {
         if (sceneIndex == 1 && !WasPlayed)
         {
