@@ -50,27 +50,25 @@ public class CardStorage : MonoBehaviour
     {
         AddCardsInTemporaryCollection();
         List<Card> customDeck = new List<Card>();
-        int cardsLength = tempCollection.Count;
+        int collectionLength = tempCollection.Count;
 
-        while (cardsLength > 0)
+        while (collectionLength > 0)
         {
-            int index = UnityEngine.Random.Range(0, cardsLength);
+            int index = UnityEngine.Random.Range(0, collectionLength);
             Card card = tempCollection[index];
             customDeck.Add(card);
             tempCollection.RemoveAt(index);
-            cardsLength--;
+            collectionLength--;
         }
 
         return customDeck.ToArray();
     }
 
-    private List<Card> AddCardsInTemporaryCollection()
+    private void AddCardsInTemporaryCollection()
     {
         foreach (Card card in Collection)
         {
             tempCollection.Add(card);
         }
-
-        return tempCollection;
     }
 }
