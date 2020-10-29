@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Partida finalizada!
+  m_Text: Match over!
 --- !u!114 &879774385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sair
+  m_Text: Leave match
 --- !u!114 &3462726038988936769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sair
+  m_Text: Leave match
 --- !u!114 &147905160064779195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1530,7 +1530,6 @@ MonoBehaviour:
   buttons:
   - {fileID: 3403891543185726795}
   - {fileID: 3403891543432417260}
-  - {fileID: 5615242341004176556}
   - {fileID: 1758801969}
   playedCardImages:
   - {fileID: 689328254296181014}
@@ -5365,7 +5364,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: "Realizar uma a\xE7\xE3o"
+      value: Do an action
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -5889,7 +5888,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Converter alguns pontos de vida em moedas
+      value: Convert some life points in coins
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -6030,7 +6029,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Passar o turno
+      value: Pass the turn
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -6240,7 +6239,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Moedas
+      value: Coins
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -6301,7 +6300,7 @@ PrefabInstance:
     - target: {fileID: 3659234928183838407, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
       propertyPath: m_Text
-      value: Cuidado, amigo!
+      value: Be careful, friend!
       objectReference: {fileID: 0}
     - target: {fileID: 3659234928733129458, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
@@ -6366,8 +6365,8 @@ PrefabInstance:
     - target: {fileID: 3659234928975046441, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
       propertyPath: m_Text
-      value: "Tem certeza que deseja sair? Se abandonar a partida, voc\xEA ser\xE1
-        derrotado."
+      value: 'Are you sure you want to leave the match? If you leave, you will be
+        defeated. '
       objectReference: {fileID: 0}
     - target: {fileID: 3659234928975046441, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
@@ -6755,7 +6754,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Rodadas ganhas
+      value: Won rounds
       objectReference: {fileID: 0}
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
@@ -6906,7 +6905,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Pontos de vida
+      value: Life points
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
