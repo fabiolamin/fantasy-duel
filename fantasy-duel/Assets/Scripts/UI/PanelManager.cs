@@ -112,4 +112,9 @@ public class PanelManager : MonoBehaviour
         tutorialSectionIndex = Mathf.Clamp(tutorialSectionIndex + direction, 0, tutorialSections.Length - 1);
         tutorialSections[tutorialSectionIndex].SetActive(true);
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
