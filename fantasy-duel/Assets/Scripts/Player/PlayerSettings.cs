@@ -9,6 +9,7 @@ public class PlayerSettings : MonoBehaviour
     [SerializeField] private Networking networking;
     [SerializeField] private CardStorage deckCardStorage;
     [SerializeField] private InputField playerNameInput;
+    [SerializeField] private int minCardsToPlay = 20;
 
     public void VerifyPlayer()
     {
@@ -20,7 +21,7 @@ public class PlayerSettings : MonoBehaviour
 
     private bool CanPlayerStartAMatch()
     {
-        return PlayerPrefs.GetString("Nickname") != "" && deckCardStorage.Collection.Count > 10 &&
+        return PlayerPrefs.GetString("Nickname") != "" && deckCardStorage.Collection.Count > minCardsToPlay &&
         PlayerPrefs.GetInt("Character") > 0;
     }
 
