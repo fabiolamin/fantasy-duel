@@ -99,6 +99,7 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         string turnMessage = playerManager.PlayerHUD.GetNotificationTranslation(LocalizationKeyNames.PlayerTurn);
         playerManager.PlayerHUD.SetNotification(turnMessage);
         playerManager.PlayerHUD.ActiveButtons(true);
+        playerManager.PlayerInfo.CanSacrifice = true;
         playerManager.PlayerHand.Lock(false);
         playerManager.PlayerAction.CanPlayerDoAnAction = true;
         playerManager.PlayerAction.ShowAvailableOpponentCardsToAttack();

@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Match over!
+  m_Text: Partida finalizada!
 --- !u!114 &879774385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Leave match
+  m_Text: Sair
 --- !u!114 &3462726038988936769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -743,7 +743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Leave match
+  m_Text: Sair
 --- !u!114 &147905160064779195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1531,6 +1531,7 @@ MonoBehaviour:
   - {fileID: 3403891543185726795}
   - {fileID: 3403891543432417260}
   - {fileID: 1758801969}
+  - {fileID: 5615242341004176556}
   playedCardImages:
   - {fileID: 689328254296181014}
   - {fileID: 3306523182136611518}
@@ -3643,7 +3644,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
+  m_UseSpriteMesh: 1
   m_PixelsPerUnitMultiplier: 1
 --- !u!114 &3403891543432417262
 MonoBehaviour:
@@ -5093,22 +5094,22 @@ PrefabInstance:
     - target: {fileID: 8987967899629428538, guid: 8f8a67d675e34444ba72307a22720709,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 6.800049
       objectReference: {fileID: 0}
     - target: {fileID: 8987967899629428538, guid: 8f8a67d675e34444ba72307a22720709,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -5.200012
       objectReference: {fileID: 0}
     - target: {fileID: 8987967899629428538, guid: 8f8a67d675e34444ba72307a22720709,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: -1
+      value: 106.1
       objectReference: {fileID: 0}
     - target: {fileID: 8987967899629428538, guid: 8f8a67d675e34444ba72307a22720709,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 95.6
       objectReference: {fileID: 0}
     - target: {fileID: 8987967899629428538, guid: 8f8a67d675e34444ba72307a22720709,
         type: 3}
@@ -5364,7 +5365,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Do an action
+      value: "Realizar uma a\xE7\xE3o"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -5888,7 +5889,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Convert some life points in coins
+      value: Converter alguns pontos de vida em moedas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -6029,7 +6030,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Pass the turn
+      value: Passar o turno
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -6239,7 +6240,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Coins
+      value: Moedas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}
@@ -6300,7 +6301,7 @@ PrefabInstance:
     - target: {fileID: 3659234928183838407, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
       propertyPath: m_Text
-      value: Be careful, friend!
+      value: Cuidado, amigo!
       objectReference: {fileID: 0}
     - target: {fileID: 3659234928733129458, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
@@ -6365,8 +6366,8 @@ PrefabInstance:
     - target: {fileID: 3659234928975046441, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
       propertyPath: m_Text
-      value: 'Are you sure you want to leave the match? If you leave, you will be
-        defeated. '
+      value: "Tem certeza que deseja sair? Se abandonar a partida, voc\xEA ser\xE1
+        derrotado."
       objectReference: {fileID: 0}
     - target: {fileID: 3659234928975046441, guid: 67a0a7aff1b9a2a428f6eb5a3af131a1,
         type: 3}
@@ -6754,7 +6755,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Won rounds
+      value: Rodadas ganhas
       objectReference: {fileID: 0}
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
@@ -6905,7 +6906,7 @@ PrefabInstance:
     - target: {fileID: 8178724233280243713, guid: ba9d55c2aec42f64594850039ea4d2de,
         type: 3}
       propertyPath: m_Text
-      value: Life points
+      value: Pontos de vida
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9d55c2aec42f64594850039ea4d2de, type: 3}

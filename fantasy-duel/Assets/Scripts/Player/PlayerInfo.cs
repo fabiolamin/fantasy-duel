@@ -14,6 +14,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
     public int WonRounds { get; private set; } = 0;
 
     public Character Character { get; set; }
+    public bool CanSacrifice { get; set; } = true;
 
     private void Awake()
     {
@@ -48,9 +49,13 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
     public void TransferSomeLifePointsToCoins()
     {
-        playerManager.PlaySoundEffect(Clip.Sacrifice);
-        ChangeLife(-3);
-        UpdateCoins(5);
+        if (playerManager.PlayerTurn.IsMyTurn && CanSacrifice)
+        {
+            playerManager.PlaySoundEffect(Clip.Sacrifice);
+            ChangeLife(-3);
+            UpdateCoins(5);
+            CanSacrifice = false;
+        }
     }
 
     [PunRPC]
