@@ -97,7 +97,6 @@ public class PlayerHUD : MonoBehaviour
     private void RotateHUDToOpponentRPC()
     {
         nickname.transform.Rotate(0, 0, 180);
-        // lifePoints.transform.Rotate(0, 0, 180);
         lifePanel.transform.Rotate(0, 0, 180);
         hitPoints.transform.Rotate(0, 0, 180);
         coins.transform.Rotate(0, 0, 180);
