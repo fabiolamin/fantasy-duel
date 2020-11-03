@@ -450,6 +450,7 @@ MonoBehaviour:
   networking: {fileID: 1881426510}
   deckCardStorage: {fileID: 1880738395}
   playerNameInput: {fileID: 1782775173}
+  minCardsToPlay: 20
 --- !u!1 &37646088
 GameObject:
   m_ObjectHideFlags: 0
@@ -6119,8 +6120,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373364440}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 4, y: 3, z: -12.6961355}
-  m_LocalScale: {x: 923.8934, y: 485.523, z: 2.2554214}
+  m_LocalPosition: {x: 3.4878, y: -25, z: -11.824}
+  m_LocalScale: {x: 784.7555, y: 412.40347, z: 1.915756}
   m_Children:
   - {fileID: 1517947320}
   m_Father: {fileID: 1858576849}
@@ -6247,7 +6248,7 @@ RectTransform:
   m_GameObject: {fileID: 375653830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2631, y: 1.2631, z: 1.2631}
   m_Children:
   - {fileID: 1371125881}
   m_Father: {fileID: 674349954}
@@ -6255,7 +6256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5103245, y: 0.8882494}
   m_AnchorMax: {x: 0.5103245, y: 0.8882494}
-  m_AnchoredPosition: {x: 0.00004673004, y: 12.497009}
+  m_AnchoredPosition: {x: 0.00004673004, y: -30}
   m_SizeDelta: {x: 394.3, y: 71.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &375653832
@@ -13764,7 +13765,7 @@ MonoBehaviour:
     m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
+    m_MinSize: 2
     m_MaxSize: 50
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -14498,8 +14499,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938039412}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 4, y: 3, z: -12.6961355}
-  m_LocalScale: {x: 923.8934, y: 485.523, z: 2.2554214}
+  m_LocalPosition: {x: 3.4878, y: -25, z: -11.824}
+  m_LocalScale: {x: 784.7555, y: 412.40347, z: 1.915756}
   m_Children:
   - {fileID: 314002529}
   m_Father: {fileID: 1685208268}
