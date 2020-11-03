@@ -8,14 +8,20 @@ public class PlayerHUD : MonoBehaviour
     private PlayerManager playerManager;
     private float notificationDurationAux;
     private float hitPointsDurationAux;
+    private float hightlightedCoinsDurationAux;
     private bool isReadyToHideNotification = false;
     private bool isReadyToShowHitPoints = false;
+    private bool isReadyToHightlightCoins = false;
+    private Vector3 defaultCoinsPos;
+    private Vector3 defaultCoinsScale;
 
     [SerializeField] private float notificationDuration = 2f;
     [SerializeField] private float hitPointsDuration = 2f;
+    [SerializeField] private float hightlightedCoinsDuration = 2f;
     [SerializeField] private Text hitPoints;
     [SerializeField] private Text lifePoints;
     [SerializeField] private Text coins;
+    [SerializeField] private Transform highlightedCoins;
     [SerializeField] private Text rounds;
     [SerializeField] private Text nickname;
     [SerializeField] private GameObject lifePanel;
@@ -46,6 +52,10 @@ public class PlayerHUD : MonoBehaviour
 
         notificationDurationAux = notificationDuration;
         hitPointsDurationAux = hitPointsDuration;
+        hightlightedCoinsDurationAux = hightlightedCoinsDuration;
+
+        defaultCoinsPos = coins.transform.position;
+        defaultCoinsScale = coins.transform.localScale;
     }
 
     private void Update()
@@ -58,6 +68,11 @@ public class PlayerHUD : MonoBehaviour
         if (isReadyToShowHitPoints)
         {
             CheckHitPoints();
+        }
+
+        if (isReadyToHightlightCoins)
+        {
+            CheckCoins();
         }
     }
 
@@ -191,6 +206,28 @@ public class PlayerHUD : MonoBehaviour
         {
             hitPoints.gameObject.SetActive(false);
             hitPointsDuration = hitPointsDurationAux;
+        }
+    }
+
+    public void HighlightCoins()
+    {
+        coins.transform.position = highlightedCoins.position;
+        coins.transform.localScale = highlightedCoins.localScale;
+        coins.color = Color.yellow;
+        isReadyToHightlightCoins = true;
+    }
+
+    private void CheckCoins()
+    {
+        hightlightedCoinsDuration -= Time.deltaTime;
+
+        if (hightlightedCoinsDuration <= 0)
+        {
+            coins.transform.position = defaultCoinsPos;
+            coins.transform.localScale = defaultCoinsScale;
+            coins.color = Color.white;
+            isReadyToHightlightCoins = false;
+            hightlightedCoinsDuration = hightlightedCoinsDurationAux;
         }
     }
 }

@@ -71,6 +71,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
         if(CanCardBePlayed())
         {
             BoardArea.SetCard();
+            playerManager.PlayerHUD.HighlightCoins();
         }
         else
         {
