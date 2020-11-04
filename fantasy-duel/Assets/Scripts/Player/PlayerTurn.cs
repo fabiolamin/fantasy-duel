@@ -101,7 +101,6 @@ public class PlayerTurn : MonoBehaviourPunCallbacks
         playerManager.PlayerHUD.ActiveButtons(true);
         playerManager.PlayerInfo.CanSacrifice = true;
         playerManager.PlayerHand.Lock(false);
-        playerManager.PlayerAction.CanPlayerDoAnAction = true;
         playerManager.PlayerAction.ShowAvailableOpponentCardsToAttack();
         playerManager.PlayerBoardArea.ShowAvailableCards();
         playerManager.PlayerParticlesControl.StopCharacterParticles();

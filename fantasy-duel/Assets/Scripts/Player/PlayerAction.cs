@@ -10,11 +10,8 @@ public class PlayerAction : MonoBehaviour
     private GameObject playerObject;
     private GameObject opponentObject;
 
-    public bool CanPlayerDoAnAction { get; set; }
-
     private void Awake()
     {
-        CanPlayerDoAnAction = false;
         playerManager = GetComponent<PlayerManager>();
     }
 
@@ -23,7 +20,7 @@ public class PlayerAction : MonoBehaviour
         GetPlayers();
         GetSelections();
 
-        if (CanPlayerDoAnAction && playerObject != null && opponentObject != null)
+        if (playerObject != null && opponentObject != null)
         {
             StartAction();
             ResetVariables();
@@ -39,7 +36,6 @@ public class PlayerAction : MonoBehaviour
 
     private void ResetVariables()
     {
-        CanPlayerDoAnAction = false;
         playerObject.GetComponent<ISelectable>().IsSelected = false;
         opponentObject.GetComponent<ISelectable>().IsSelected = false;
         playerObject = null;

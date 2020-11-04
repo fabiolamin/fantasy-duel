@@ -96,7 +96,6 @@ public class PlayerHand : MonoBehaviour
         }
 
         UpdateHand();
-        Lock(true);
     }
 
     [PunRPC]
