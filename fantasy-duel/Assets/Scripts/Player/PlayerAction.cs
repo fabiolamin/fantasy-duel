@@ -32,6 +32,7 @@ public class PlayerAction : MonoBehaviour
         UpdatePlayersObject();
         playerManager.PlayerInfo.PlayCharacterAnimation(CharacterAnimations.Attack);
         playerManager.PlayerParticlesControl.StopAllCardsParticles();
+        playerObject.GetComponent<CardInteraction>().HaveMadeAnAction = true;
     }
 
     private void ResetVariables()
@@ -39,6 +40,7 @@ public class PlayerAction : MonoBehaviour
         playerObject.GetComponent<ISelectable>().IsSelected = false;
         opponentObject.GetComponent<ISelectable>().IsSelected = false;
         playerObject = null;
+        playerManager.PlayerBoardArea.ShowAvailableCards();
     }
 
     private void GetPlayers()

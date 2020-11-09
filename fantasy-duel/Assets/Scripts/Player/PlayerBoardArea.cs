@@ -192,4 +192,9 @@ public class PlayerBoardArea : MonoBehaviourPunCallbacks
 
         ChangeLifeObject(targetTag, targetCardId, targetCardType, cardAttack);
     }
+
+    public void AllowCardsToDoAnAction()
+    {
+        Cards.ForEach(card => card.GetComponent<CardInteraction>().HaveMadeAnAction = false);
+    }
 }

@@ -19,6 +19,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
     public bool IsLocked { get; set; } = false;
     public int TurnWhenWasPlayed { get; set; }
     public bool IsSelected { get; set; }
+    public bool HaveMadeAnAction { get; set; } = false;
 
     public BoardArea BoardArea { get; set; }
 
@@ -131,19 +132,20 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     private void SelectCardInMatch()
     {
-        if (WasPlayed && CanDoAnAction() && playerManager.PlayerTurn.IsMyTurn && cardInfo.Card.Type == "Creatures")
+        if (CanBeSelected())
         {
             particlesManager.Stop(CardParticles.Available);
             playerManager.PlayerParticlesControl.PlayCardParticles(gameObject, CardParticles.MatchSelection);
+            IsSelected = true;
         }
         else if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
         {
             particlesManager.Stop(CardParticles.Target);
             playerManager.PlayerParticlesControl.PlayOpponentCardParticles(gameObject, CardParticles.OpponentSelection);
+            IsSelected = true;
         }
 
         playerManager.PlaySoundEffect(Clip.ObjectHit);
-        IsSelected = true;
     }
 
     private void EnhanceCard()
@@ -181,7 +183,7 @@ public class CardInteraction : MonoBehaviour, ISelectable
 
     public void CheckCardAvailability()
     {
-        if (CanDoAnAction() && WasPlayed && cardInfo.Card.Type == "Creatures")
+        if (CanBeSelected())
         {
             particlesManager.Play(CardParticles.Available);
         }
@@ -200,6 +202,12 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         int currentTurn = (int)PhotonNetwork.CurrentRoom.CustomProperties["TurnNumber"];
         return (TurnWhenWasPlayed + 1) <= currentTurn;
+    }
+
+    public bool CanBeSelected()
+    {
+        return WasPlayed && CanDoAnAction() && playerManager.PlayerTurn.IsMyTurn &&
+        cardInfo.Card.Type == "Creatures" && !HaveMadeAnAction;
     }
     public bool CanCardBePlayed()
     {
