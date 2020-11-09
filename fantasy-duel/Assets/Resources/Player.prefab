@@ -1520,7 +1520,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notificationDuration: 4
   hitPointsDuration: 2
-  hightlightedCoinsDuration: 2
+  hightlightedCoinsDuration: 0.5
   hitPoints: {fileID: 7469780320124609915}
   lifePoints: {fileID: 3403891542754037080}
   coins: {fileID: 3403891542355102221}
@@ -4131,14 +4131,14 @@ RectTransform:
   m_GameObject: {fileID: 4623984665750655242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -5.7}
-  m_LocalScale: {x: 2.6907349, y: 2.6907349, z: 2.6907349}
+  m_LocalScale: {x: 4.4663653, y: 4.4663653, z: 4.4663653}
   m_Children: []
   m_Father: {fileID: 3403891542514341932}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.5, y: 7.3}
+  m_AnchoredPosition: {x: -6.3, y: 4.8}
   m_SizeDelta: {x: 0, y: -0.00019979477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4064664039784805358
@@ -4483,15 +4483,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6550078293948233359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.6}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10.4}
+  m_LocalScale: {x: 1.2736865, y: 1.2736865, z: 1.2736865}
   m_Children: []
   m_Father: {fileID: 3403891542332778576}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.30277604, y: 0.36683476}
   m_AnchorMax: {x: 0.69155204, y: 0.531}
-  m_AnchoredPosition: {x: 0.16898727, y: 0.18857622}
+  m_AnchoredPosition: {x: 0.16898727, y: 0.4}
   m_SizeDelta: {x: -0.17075652, y: 0.15195987}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7939011385965996046
@@ -4515,7 +4515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.03199654, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
