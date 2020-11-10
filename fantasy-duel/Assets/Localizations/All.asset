@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87dda9bb27b2a0f4f8c6efee1af8e7d1, type: 3}
   m_Name: All
   m_EditorClassIdentifier: 
-  keyName: All
+  keyName: 0
   englishTranslation: All
   portugueseTranslation: Todas
