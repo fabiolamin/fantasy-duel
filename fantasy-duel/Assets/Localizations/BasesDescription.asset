@@ -13,8 +13,5 @@ MonoBehaviour:
   m_Name: BasesDescription
   m_EditorClassIdentifier: 
   keyName: 40
-  englishTranslation: Defensive cards that protect the player and his cards. This
-    card must be eliminated before a player and his cards can be attacked.
+  englishTranslation: Defensive cards that protect the player and his cards.
   portugueseTranslation: Cartas defensivas que protegem o jogador e suas cartas.
-    Esta carta deve ser eliminada antes para que um jogador e suas cartas possam
-    ser atacados.
