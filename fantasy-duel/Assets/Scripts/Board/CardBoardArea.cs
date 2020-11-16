@@ -28,5 +28,7 @@ public class CardBoardArea : BoardArea
         {
             cardInteraction.ReturnToInitialTransform();
         }
+
+        playerManager.PlayerHUD.HighlightCoins();
     }
 }

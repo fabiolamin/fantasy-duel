@@ -69,10 +69,9 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         IsDragging = false;
 
-        if(CanCardBePlayed())
+        if (CanCardBePlayed())
         {
             BoardArea.SetCard();
-            playerManager.PlayerHUD.HighlightCoins();
         }
         else
         {

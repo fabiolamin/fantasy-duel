@@ -55,5 +55,7 @@ public abstract class BoardArea : MonoBehaviour
         {
             cardInteraction.ReturnToInitialTransform();
         }
+
+        playerManager.PlayerHUD.HighlightCoins();
     }
 }
