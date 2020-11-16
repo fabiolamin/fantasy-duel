@@ -41,5 +41,6 @@
     TutorialIntro,
     CreaturesDescription,
     BasesDescription,
-    MagicsDescription
+    MagicsDescription,
+    SpecialThanks
 }
