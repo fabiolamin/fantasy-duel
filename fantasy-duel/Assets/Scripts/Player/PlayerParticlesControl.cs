@@ -80,7 +80,7 @@ public class PlayerParticlesControl : MonoBehaviour
     [PunRPC]
     private void StopCardParticlesRPC(int cardIndex, int particlesIndex)
     {
-        if (cardIndex >= 0)
+        if (cardIndex >= 0 && playerManager.PlayerBoardArea.Cards.Count > 0)
             playerManager.PlayerBoardArea.Cards[cardIndex].GetComponent<CardParticlesManager>().Stop((CardParticles)particlesIndex);
     }
 
