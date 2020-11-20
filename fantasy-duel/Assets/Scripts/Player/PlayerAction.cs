@@ -41,6 +41,7 @@ public class PlayerAction : MonoBehaviour
         opponentObject.GetComponent<ISelectable>().IsSelected = false;
         playerObject = null;
         playerManager.PlayerBoardArea.ShowAvailableCards();
+        Invoke(nameof(ShowAvailableOpponentCardsToAttack), 1f);
     }
 
     private void GetPlayers()
