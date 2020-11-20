@@ -13,12 +13,10 @@ public class CardBoardArea : BoardArea
     {
         if (playedCard.activeSelf)
         {
-            GameObject firstCardPlayedGameObject = playerManager.PlayerBoardArea.Cards[playedCardIndex];
-            Card firstCardPlayed = firstCardPlayedGameObject.GetComponent<CardInfo>().Card;
-            playerManager.PlayerBoardArea.ChangeLifeObject(firstCardPlayedGameObject.tag, firstCardPlayed.Id, firstCardPlayed.Type, newCard.Healing);
-            playerManager.PlayerBoardArea.FortifyCard(firstCardPlayedGameObject, newCard.Fortification);
-            playerManager.PlayerParticlesControl.StopCardParticles(firstCardPlayedGameObject, CardParticles.Available);
-            playerManager.PlayerParticlesControl.PlayCardParticles(firstCardPlayedGameObject, CardParticles.Played);
+            Card playedCardInfo = playedCard.GetComponent<CardInfo>().Card;
+            playerManager.PlayerBoardArea.ChangeLifeObject(playedCard.tag, playedCardInfo.Id, playedCardInfo.Type, newCard.Healing);
+            playerManager.PlayerBoardArea.FortifyCard(playedCard, newCard.Fortification);
+            playerManager.PlayerParticlesControl.PlayCardParticles(playedCard, CardParticles.Played);
             newCardGameObject.SetActive(false);
             playerManager.PlaySoundEffect(Clip.CardPlayed);
             playerManager.PlayerInfo.UpdateCoins(-newCard.Coins);

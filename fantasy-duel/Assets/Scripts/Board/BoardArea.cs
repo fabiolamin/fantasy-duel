@@ -7,7 +7,6 @@ public abstract class BoardArea : MonoBehaviour
     protected Card newCard;
     protected GameObject playedCard;
     protected CardInteraction cardInteraction;
-    protected int playedCardIndex;
 
     public abstract void SetCard();
     protected abstract void SetMagicCard();
@@ -46,7 +45,6 @@ public abstract class BoardArea : MonoBehaviour
             playerManager.PlayerBoardArea.Add(newCardGameObject);
             playerManager.PlayerParticlesControl.StopCardParticles(newCardGameObject, CardParticles.MatchSelection);
             playerManager.PlayerParticlesControl.PlayCardParticles(newCardGameObject, CardParticles.Played);
-            playedCardIndex = playerManager.PlayerBoardArea.Cards.FindIndex(c => c == newCardGameObject);
             playerManager.PlaySoundEffect(Clip.CardPlayed);
             playerManager.PlayerInfo.UpdateCoins(-newCard.Coins);
             playerManager.PlayerHand.RemoveCard(newCardGameObject);
