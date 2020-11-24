@@ -28,7 +28,6 @@ public class CharacterInteraction : MonoBehaviour, ISelectable, IProtectable
     {
         if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
         {
-            GetComponent<Character>().StopParticles(CharacterParticles.Target);
             playerManager.PlayerParticlesControl.PlayOpponentCharacterParticles();
         }
 

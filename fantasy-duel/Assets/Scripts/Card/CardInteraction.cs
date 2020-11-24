@@ -133,13 +133,11 @@ public class CardInteraction : MonoBehaviour, ISelectable
     {
         if (CanBeSelected())
         {
-            particlesManager.Stop(CardParticles.Available);
             playerManager.PlayerParticlesControl.PlayCardParticles(gameObject, CardParticles.MatchSelection);
             IsSelected = true;
         }
         else if (!playerManager.PlayerTurn.IsMyTurn && !playerManager.PhotonView.IsMine)
         {
-            particlesManager.Stop(CardParticles.Target);
             playerManager.PlayerParticlesControl.PlayOpponentCardParticles(gameObject, CardParticles.OpponentSelection);
             IsSelected = true;
         }
