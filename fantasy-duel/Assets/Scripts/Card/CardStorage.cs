@@ -19,7 +19,7 @@ public class CardStorage : MonoBehaviour
 
             using (StreamReader streamReader = new StreamReader(path))
             {
-                string jsonFile = streamReader.ReadToEnd();
+                string jsonFile = Crypto.Decrypt(streamReader.ReadToEnd());
                 CardArray array = JsonUtility.FromJson<CardArray>(jsonFile);
 
                 if (array != null)
@@ -41,7 +41,8 @@ public class CardStorage : MonoBehaviour
             File.WriteAllText(path, String.Empty);
             TextWriter tw = new StreamWriter(path, true);
             Card[] cards = Collection.FindAll(card => card.Type == fileName).OrderBy(c => c.Id).ToArray();
-            tw.WriteLine(Utility.GetJsonFrom(cards));
+            string encryptedFile = Crypto.Encrypt(Utility.GetJsonFrom(cards));
+            tw.WriteLine(encryptedFile);
             tw.Close();
         }
     }
