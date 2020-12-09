@@ -15,12 +15,12 @@ public class CardStorage : MonoBehaviour
     {
         foreach (string fileName in cardsDataFileNames)
         {
-            string path = Application.streamingAssetsPath + "/Data/" + folderName + "/" + fileName + ".json";
+            string path = Application.streamingAssetsPath + "/Data/" + folderName + "/" + fileName + ".txt";
 
             using (StreamReader streamReader = new StreamReader(path))
             {
-                string jsonFile = Crypto.Decrypt(streamReader.ReadToEnd());
-                CardArray array = JsonUtility.FromJson<CardArray>(jsonFile);
+                string json = Crypto.Decrypt(streamReader.ReadToEnd());
+                CardArray array = JsonUtility.FromJson<CardArray>(json);
 
                 if (array != null)
                 {
@@ -37,7 +37,7 @@ public class CardStorage : MonoBehaviour
     {
         foreach (string fileName in cardsDataFileNames)
         {
-            string path = Application.streamingAssetsPath + "/Data/" + folderName + "/" + fileName + ".json";
+            string path = Application.streamingAssetsPath + "/Data/" + folderName + "/" + fileName + ".txt";
             File.WriteAllText(path, String.Empty);
             TextWriter tw = new StreamWriter(path, true);
             Card[] cards = Collection.FindAll(card => card.Type == fileName).OrderBy(c => c.Id).ToArray();
